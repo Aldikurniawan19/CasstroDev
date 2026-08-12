@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import AboutHero from "@/components/tentang-kami/AboutHero";
-import VisionMission from "@/components/tentang-kami/VisionMission";
+import VisionMissionRedesign from "@/components/tentang-kami/VisionMissionRedesign";
+// import VisionMission from "@/components/tentang-kami/VisionMission";
 import TeamGrid from "@/components/tentang-kami/TeamGrid";
 import EngineeringCulture from "@/components/tentang-kami/EngineeringCulture";
 import CTASection from "@/components/common/CTASection";
@@ -19,7 +20,8 @@ export default function TentangKamiPage() {
     <>
       <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop w-full">
         <AboutHero />
-        <VisionMission />
+        {/* <VisionMission /> */}
+        <VisionMissionRedesign />
         <TeamGrid />
         <EngineeringCulture />
       </div>

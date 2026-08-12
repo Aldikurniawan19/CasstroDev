@@ -375,3 +375,33 @@
   font-weight: 700;
   letter-spacing: -0.02em;
 }
+
+/* ---- Vision & Mission Flow Stream Animation ---- */
+@keyframes vm-flow-stream {
+  0% {
+    stroke-dashoffset: 600;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes vm-pulse-node {
+  0%, 100% {
+    box-shadow: 0 0 12px rgba(0, 229, 255, 0.5), 0 0 24px rgba(0, 229, 255, 0.2);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 24px rgba(0, 229, 255, 0.9), 0 0 40px rgba(0, 229, 255, 0.6);
+    transform: scale(1.06);
+  }
+}
+
+.vm-flowing-line {
+  stroke-dasharray: 60 180;
+  animation: vm-flow-stream 3s linear infinite;
+}
+
+.vm-active-node {
+  animation: vm-pulse-node 3s ease-in-out infinite;
+}
