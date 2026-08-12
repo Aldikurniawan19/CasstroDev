@@ -1,0 +1,63 @@
+import { TbWorldWww } from "react-icons/tb";
+import { MdDesignServices } from "react-icons/md";
+import Reveal from "@/components/common/Reveal";
+
+const services = [
+  {
+    icon: <TbWorldWww className="text-2xl" />,
+    title: "Web Architecture",
+    description:
+      "Pengembangan sistem web berkinerja tinggi, SPA, dan PWA menggunakan stack modern seperti React, Vue, dan Node.js.",
+  },
+  {
+    icon: <MdDesignServices className="text-2xl" />,
+    title: "UI/UX Systems",
+    description:
+      "Desain antarmuka berpusat pada pengguna dan pembuatan design system yang terukur untuk konsistensi produk berskala besar.",
+  },
+];
+
+export default function CoreServices() {
+  return (
+    <section className="py-section-gap grid-layout bg-surface-off-white" id="services-summary">
+      <Reveal className="col-span-4 md:col-span-8 xl:col-span-12 mb-stack-lg flex flex-col md:flex-row justify-between items-end gap-stack-md">
+        <div className="max-w-2xl">
+          <h2 className="font-headline-xl-mobile text-headline-xl-mobile md:font-headline-xl md:text-headline-xl text-text-main mb-stack-sm">
+            Layanan Kami
+          </h2>
+          <p className="font-body-md text-body-md text-text-muted">
+            Solusi web dan design system kelas enterprise yang dibangun dengan standar kualitas kode
+            tertinggi dan metodologi modern.
+          </p>
+        </div>
+        <a
+          href="/layanan"
+          className="font-label-md text-label-md text-primary-container hover:text-primary flex items-center gap-2 group font-semibold"
+        >
+          Semua Layanan
+          <span className="material-symbols-outlined text-[16px] group-hover:translate-x-1 transition-transform">
+            arrow_forward
+          </span>
+        </a>
+      </Reveal>
+
+      {services.map((service, index) => (
+        <Reveal
+          key={service.title}
+          delay={index * 0.12}
+          className="col-span-4 md:col-span-4 xl:col-span-6 h-full"
+        >
+          <article className="bg-white p-6 border border-border-subtle rounded card-hover flex flex-col h-full">
+            <div className="w-12 h-12 bg-surface-container-low text-primary-container rounded flex items-center justify-center mb-6 border border-border-subtle">
+              {service.icon}
+            </div>
+            <h3 className="font-headline-md text-headline-md text-text-main mb-3">{service.title}</h3>
+            <p className="font-body-md text-body-md text-text-muted flex-grow leading-relaxed">
+              {service.description}
+            </p>
+          </article>
+        </Reveal>
+      ))}
+    </section>
+  );
+}
