@@ -5,11 +5,6 @@ export default function Hero() {
   return (
     <section className="pt-8 md:pt-14 pb-16 md:pb-24 grid-layout items-center" id="hero">
       <Reveal className="col-span-4 md:col-span-8 xl:col-span-7 flex flex-col gap-stack-lg">
-        <div className="inline-block px-4 py-1 border border-border-subtle rounded-full w-fit bg-white/50 backdrop-blur-sm">
-          <span className="font-label-sm text-label-sm text-secondary uppercase tracking-widest font-semibold">
-            Solusi Perangkat Lunak Enterprise
-          </span>
-        </div>
 
         <h1 className="font-display-lg-mobile text-display-lg-mobile md:font-display-lg md:text-display-lg text-text-main tracking-tight">
           Crafting High-Performance Digital Solutions

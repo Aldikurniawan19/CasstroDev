@@ -4,11 +4,6 @@ export default function AboutHero() {
   return (
     <section className="pt-8 md:pt-14 pb-16 md:pb-24 grid grid-cols-4 md:grid-cols-12 gap-gutter items-center" id="about-hero">
       <Reveal className="col-span-4 md:col-span-7 flex flex-col gap-stack-lg">
-        <div className="inline-block px-4 py-1 border border-border-subtle rounded-full w-fit bg-white/50">
-          <span className="font-label-sm text-label-sm text-primary uppercase tracking-widest font-semibold">
-            Kisah Kami
-          </span>
-        </div>
         <h1 className="font-display-lg-mobile text-display-lg-mobile md:font-display-lg md:text-display-lg text-primary leading-tight">
           Membangun Perangkat Lunak dengan <span className="text-secondary">Presisi.</span>
         </h1>
