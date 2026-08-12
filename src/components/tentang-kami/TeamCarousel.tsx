@@ -28,7 +28,7 @@ const teamMembers: TeamMember[] = [
     imageUrl: "/images/aldi.png",
   },
   {
-    name: "Shasy",
+    name: "Shasy kirana syaharani",
     title: "UI/UX",
     description:
       "Menciptakan antarmuka yang intuitif dan pengalaman pengguna yang mulus. Fokus pada desain yang berpusat pada pengguna untuk menghasilkan produk yang fungsional dan estetis.",
