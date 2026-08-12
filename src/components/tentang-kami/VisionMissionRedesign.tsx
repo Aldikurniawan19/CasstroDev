@@ -42,14 +42,14 @@ const missionItems = [
 export default function VisionMissionRedesign() {
   const containerRef = useRef<HTMLDivElement>(null);
   const pathRef = useRef<SVGPathElement>(null);
-  const mobilePathRef = useRef<SVGPathElement>(null);
+  const mobileLineRef = useRef<HTMLDivElement>(null);
 
-  // GSAP ScrollTrigger path drawing animation
+  // GSAP ScrollTrigger animation
   useGSAP(() => {
     const container = containerRef.current;
     if (!container) return;
 
-    // Desktop S-curve animation
+    // Desktop S-curve path drawing animation
     const desktopPath = pathRef.current;
     if (desktopPath) {
       const length = desktopPath.getTotalLength();
@@ -69,21 +69,16 @@ export default function VisionMissionRedesign() {
       });
     }
 
-    // Mobile vertical line animation
-    const mobilePath = mobilePathRef.current;
-    if (mobilePath) {
-      const mLength = mobilePath.getTotalLength();
-      gsap.set(mobilePath, {
-        strokeDasharray: mLength,
-        strokeDashoffset: mLength,
-      });
-      gsap.to(mobilePath, {
-        strokeDashoffset: 0,
+    // Mobile vertical line height expansion animation
+    const mobileLine = mobileLineRef.current;
+    if (mobileLine) {
+      gsap.to(mobileLine, {
+        height: "100%",
         ease: "none",
         scrollTrigger: {
           trigger: container,
           start: "top 70%",
-          end: "bottom 80%",
+          end: "bottom 85%",
           scrub: 1,
         },
       });
@@ -142,37 +137,22 @@ export default function VisionMissionRedesign() {
           </Reveal>
 
           {/* MOBILE VERTICAL FLOWING LINE (visible on mobile only) */}
-          <div className="absolute left-6 top-[120px] bottom-0 pointer-events-none z-0 md:hidden">
-            <svg className="w-4 h-full overflow-visible" viewBox="0 0 16 1000" preserveAspectRatio="none">
-              <defs>
-                <linearGradient id="mobileLineGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                  <stop offset="0%" stopColor="#f59e0b" stopOpacity="0.9" />
-                  <stop offset="25%" stopColor="#00e5ff" stopOpacity="1" />
-                  <stop offset="50%" stopColor="#0b4f9e" stopOpacity="1" />
-                  <stop offset="75%" stopColor="#f59e0b" stopOpacity="0.9" />
-                  <stop offset="100%" stopColor="#00e5ff" stopOpacity="1" />
-                </linearGradient>
-              </defs>
+          <div className="absolute left-6 top-[120px] bottom-6 pointer-events-none z-0 md:hidden w-1 -translate-x-1/2">
+            {/* Dotted Track Base */}
+            <div className="absolute inset-0 w-0.5 border-r-2 border-dashed border-slate-300 dark:border-white/20 mx-auto" />
+            
+            {/* Glowing Ambient Glow */}
+            <div className="absolute inset-0 w-3 bg-amber-500/20 blur-md rounded-full -translate-x-1/2" />
 
-              {/* Dotted base track */}
-              <path
-                d="M 8 0 L 8 1000"
-                fill="none"
-                stroke="var(--color-border-subtle)"
-                strokeWidth="2"
-                strokeDasharray="5 5"
-              />
-
-              {/* Animated flowing line */}
-              <path
-                ref={mobilePathRef}
-                d="M 8 0 L 8 1000"
-                fill="none"
-                stroke="url(#mobileLineGrad)"
-                strokeWidth="3"
-                strokeLinecap="round"
-              />
-            </svg>
+            {/* Scroll-Linked Animated Flowing Gradient Line */}
+            <div
+              ref={mobileLineRef}
+              className="absolute top-0 left-0 right-0 rounded-full overflow-hidden bg-gradient-to-b from-amber-500 via-accent-cyan to-primary shadow-[0_0_12px_rgba(0,229,255,0.8)]"
+              style={{ height: "0%" }}
+            >
+              {/* Continuous Moving Light Stream Pulsing Glow */}
+              <div className="w-full h-full animate-pulse bg-gradient-to-b from-transparent via-white/80 to-transparent" />
+            </div>
           </div>
           
           {/* DESKTOP S-CURVE RIBBON SVG PATH (hidden on mobile) */}
@@ -200,7 +180,7 @@ export default function VisionMissionRedesign() {
 
               {/* Dotted Base S-Curve Track */}
               <path
-                d="M 500 0 C 180 100, 180 250, 500 350 C 820 480, 820 600, 500 700 C 180 800, 180 950, 500 1050 C 820 1150, 820 1300, 500 1400"
+                d="M 500 0 C 180 100, 180 250, 500 350 C 820 450, 820 600, 500 700 C 180 800, 180 950, 500 1050 C 820 1150, 820 1300, 500 1400"
                 fill="none"
                 stroke="var(--color-border-subtle)"
                 strokeWidth="2.5"
@@ -215,6 +195,16 @@ export default function VisionMissionRedesign() {
                 stroke="url(#sCurveGrad)"
                 strokeWidth="4"
                 strokeLinecap="round"
+              />
+
+              {/* Continuous Light Stream Overlay */}
+              <path
+                d="M 500 0 C 180 100, 180 250, 500 350 C 820 450, 820 600, 500 700 C 180 800, 180 950, 500 1050 C 820 1150, 820 1300, 500 1400"
+                fill="none"
+                stroke="url(#sCurveGrad)"
+                strokeWidth="4"
+                strokeLinecap="round"
+                className="vm-flowing-line opacity-75"
               />
             </svg>
           </div>
