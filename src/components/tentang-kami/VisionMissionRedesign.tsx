@@ -42,29 +42,52 @@ const missionItems = [
 export default function VisionMissionRedesign() {
   const containerRef = useRef<HTMLDivElement>(null);
   const pathRef = useRef<SVGPathElement>(null);
+  const mobilePathRef = useRef<SVGPathElement>(null);
 
-  // GSAP ScrollTrigger path drawing animation along the S-curve
+  // GSAP ScrollTrigger path drawing animation
   useGSAP(() => {
-    const path = pathRef.current;
     const container = containerRef.current;
-    if (!path || !container) return;
+    if (!container) return;
 
-    const length = path.getTotalLength();
-    gsap.set(path, {
-      strokeDasharray: length,
-      strokeDashoffset: length,
-    });
+    // Desktop S-curve animation
+    const desktopPath = pathRef.current;
+    if (desktopPath) {
+      const length = desktopPath.getTotalLength();
+      gsap.set(desktopPath, {
+        strokeDasharray: length,
+        strokeDashoffset: length,
+      });
+      gsap.to(desktopPath, {
+        strokeDashoffset: 0,
+        ease: "none",
+        scrollTrigger: {
+          trigger: container,
+          start: "top 70%",
+          end: "bottom 80%",
+          scrub: 1,
+        },
+      });
+    }
 
-    gsap.to(path, {
-      strokeDashoffset: 0,
-      ease: "none",
-      scrollTrigger: {
-        trigger: container,
-        start: "top 70%",
-        end: "bottom 80%",
-        scrub: 1,
-      },
-    });
+    // Mobile vertical line animation
+    const mobilePath = mobilePathRef.current;
+    if (mobilePath) {
+      const mLength = mobilePath.getTotalLength();
+      gsap.set(mobilePath, {
+        strokeDasharray: mLength,
+        strokeDashoffset: mLength,
+      });
+      gsap.to(mobilePath, {
+        strokeDashoffset: 0,
+        ease: "none",
+        scrollTrigger: {
+          trigger: container,
+          start: "top 70%",
+          end: "bottom 80%",
+          scrub: 1,
+        },
+      });
+    }
   }, { scope: containerRef });
 
   return (
@@ -113,12 +136,46 @@ export default function VisionMissionRedesign() {
               <span className="text-[11px] font-mono font-bold tracking-wider text-amber-500 uppercase bg-amber-500/10 border border-amber-500/30 px-3 py-1 rounded-full inline-block mb-3">
                 MISI KAMI
               </span>
-              {/* Vertical connector line from title to S-curve */}
+              {/* Vertical connector line from title to cards */}
               <div className="w-px h-12 md:h-16 bg-gradient-to-b from-amber-500/60 to-transparent mx-auto mt-4" />
             </div>
           </Reveal>
+
+          {/* MOBILE VERTICAL FLOWING LINE (visible on mobile only) */}
+          <div className="absolute left-6 top-[120px] bottom-0 pointer-events-none z-0 md:hidden">
+            <svg className="w-4 h-full overflow-visible" viewBox="0 0 16 1000" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="mobileLineGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stopColor="#f59e0b" stopOpacity="0.9" />
+                  <stop offset="25%" stopColor="#00e5ff" stopOpacity="1" />
+                  <stop offset="50%" stopColor="#0b4f9e" stopOpacity="1" />
+                  <stop offset="75%" stopColor="#f59e0b" stopOpacity="0.9" />
+                  <stop offset="100%" stopColor="#00e5ff" stopOpacity="1" />
+                </linearGradient>
+              </defs>
+
+              {/* Dotted base track */}
+              <path
+                d="M 8 0 L 8 1000"
+                fill="none"
+                stroke="var(--color-border-subtle)"
+                strokeWidth="2"
+                strokeDasharray="5 5"
+              />
+
+              {/* Animated flowing line */}
+              <path
+                ref={mobilePathRef}
+                d="M 8 0 L 8 1000"
+                fill="none"
+                stroke="url(#mobileLineGrad)"
+                strokeWidth="3"
+                strokeLinecap="round"
+              />
+            </svg>
+          </div>
           
-          {/* SMOOTH CONTINUOUS S-CURVE RIBBON SVG PATH */}
+          {/* DESKTOP S-CURVE RIBBON SVG PATH (hidden on mobile) */}
           <div className="absolute inset-0 pointer-events-none z-0 hidden md:block" style={{ top: '140px' }}>
             <svg className="w-full h-full overflow-visible" viewBox="0 0 1000 1400" preserveAspectRatio="none">
               <defs>
@@ -174,20 +231,20 @@ export default function VisionMissionRedesign() {
                 >
                   {/* MISI CARD ALIGNED LEFT OR RIGHT */}
                   <div
-                    className={`w-full md:w-[calc(50%-2.5rem)] ${
+                    className={`w-full pl-12 md:pl-0 md:w-[calc(50%-2.5rem)] ${
                       isEven ? "md:mr-auto" : "md:ml-auto"
                     }`}
                   >
                     <Reveal y={50}>
                       {/* CARD STYLING MATCHING REFERENCE IMAGE */}
-                      <div className="bg-white dark:bg-[#07162c] border border-slate-200/90 dark:border-white/10 rounded-2xl md:rounded-3xl p-6 md:p-8 shadow-lg shadow-slate-200/50 dark:shadow-none hover:shadow-2xl hover:border-amber-500/40 transition-all duration-300 group">
+                      <div className="bg-white dark:bg-[#07162c] border border-slate-200/90 dark:border-white/10 rounded-2xl md:rounded-3xl p-5 md:p-8 shadow-lg shadow-slate-200/50 dark:shadow-none hover:shadow-2xl hover:border-amber-500/40 transition-all duration-300 group">
                         
                         {/* Header: Number Circle + Text */}
                         <div className="flex items-start gap-3 md:gap-4">
                           <div className="w-8 h-8 md:w-9 md:h-9 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm md:text-base shrink-0 shadow-md">
                             {item.number}
                           </div>
-                          <h3 className="font-headline-md text-base sm:text-lg md:text-xl font-bold text-primary dark:text-white leading-snug pt-0.5 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">
+                          <h3 className="font-headline-md text-sm sm:text-lg md:text-xl font-bold text-primary dark:text-white leading-snug pt-0.5 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">
                             {item.text}
                           </h3>
                         </div>
