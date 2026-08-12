@@ -26,7 +26,7 @@ export default function Hero() {
             href="/tentang-kami#contact"
             className="bg-primary-container text-on-primary px-8 py-3.5 rounded font-label-md text-label-md hover:bg-primary transition-all text-center shadow-md hover:shadow-lg"
           >
-            Get a Consultation
+            Hubungi Kami
           </a>
           <a
             href="/portofolio"

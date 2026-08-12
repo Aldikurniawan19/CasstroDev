@@ -70,7 +70,7 @@ export default function Navbar() {
             href="/tentang-kami#contact"
             className="bg-primary-container text-on-primary px-6 py-2.5 rounded font-label-md text-label-md hover:bg-primary transition-colors inline-block text-center shadow-sm"
           >
-            Contact Us
+            Hubungi Kami
           </a>
         </div>
 

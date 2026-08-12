@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import PortfolioHero from "@/components/portofolio/PortfolioHero";
 import PortfolioGrid from "@/components/portofolio/PortfolioGrid";
 import CTASection from "@/components/common/CTASection";
 
@@ -15,7 +14,6 @@ export const metadata: Metadata = {
 export default function PortofolioPage() {
   return (
     <>
-      <PortfolioHero />
       <PortfolioGrid />
       <CTASection
         title="Punya Proyek Yang Ingin Direalisasikan?"
