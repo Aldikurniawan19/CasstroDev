@@ -27,6 +27,13 @@ const teamMembers: TeamMember[] = [
       "Merancang dan membangun arsitektur end-to-end, dari basis data hingga antarmuka. Menulis kode yang tangguh, teruji, dan siap diskalakan untuk kebutuhan bisnis modern.",
     imageUrl: "/images/aldi.png",
   },
+  {
+    name: "Shasy",
+    title: "UI/UX",
+    description:
+      "Menciptakan antarmuka yang intuitif dan pengalaman pengguna yang mulus. Fokus pada desain yang berpusat pada pengguna untuk menghasilkan produk yang fungsional dan estetis.",
+    imageUrl: "/images/shasy.png",
+  },
 ];
 
 const rotations = [-4, 3, -3, 5, -2];
