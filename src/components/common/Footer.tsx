@@ -101,7 +101,6 @@ export default function Footer() {
         {/* Copyright */}
         <div className="col-span-12 mt-12 pt-8 border-t border-white/10 text-slate-400 font-body-md text-sm flex flex-col sm:flex-row justify-between items-center gap-4">
           <p>© {currentYear} CasstroDev. All rights reserved.</p>
-          <p className="font-label-sm text-xs text-slate-400">Built with Next.js & Precision Engineering</p>
         </div>
       </Reveal>
     </footer>
