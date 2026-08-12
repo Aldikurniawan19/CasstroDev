@@ -5,7 +5,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Reveal from "@/components/common/Reveal";
-import { Sparkles, Target } from "lucide-react";
+import { Sparkles } from "lucide-react";
 import VisionMissionFlow from "./VisionMissionFlow";
 
 if (typeof window !== "undefined") {
@@ -91,19 +91,14 @@ export default function VisionMissionRedesign() {
               {/* Subtle Ambient Glow */}
               <div className="absolute top-0 right-0 w-48 h-48 bg-accent-cyan/10 rounded-full blur-2xl pointer-events-none" />
 
-              {/* Header: Icon + Title */}
-              <div className="flex items-start gap-3 md:gap-4 relative z-10">
-                <div className="w-9 h-9 md:w-10 md:h-10 rounded-full bg-primary text-white flex items-center justify-center font-bold text-xs md:text-sm shrink-0 shadow-md">
-                  <Target className="w-5 h-5 text-accent-cyan" />
-                </div>
-                <div>
-                  <span className="text-[11px] font-mono font-bold tracking-wider text-accent-cyan uppercase bg-accent-cyan/10 border border-accent-cyan/30 px-2.5 py-0.5 rounded-full inline-block mb-2">
-                    VISI UTAMA
-                  </span>
-                  <h3 className="font-headline-md text-lg sm:text-xl md:text-2xl font-extrabold text-primary dark:text-white leading-snug group-hover:text-secondary transition-colors">
-                    {visiData.title}
-                  </h3>
-                </div>
+              {/* Header: Badge + Title (centered, no icon) */}
+              <div className="text-center relative z-10">
+                <span className="text-[11px] font-mono font-bold tracking-wider text-accent-cyan uppercase bg-accent-cyan/10 border border-accent-cyan/30 px-2.5 py-0.5 rounded-full inline-block mb-3">
+                  VISI UTAMA
+                </span>
+                <h3 className="font-headline-md text-lg sm:text-xl md:text-2xl font-extrabold text-primary dark:text-white leading-snug group-hover:text-secondary transition-colors">
+                  {visiData.title}
+                </h3>
               </div>
             </div>
           </Reveal>
@@ -111,9 +106,20 @@ export default function VisionMissionRedesign() {
 
         {/* ALTERNATING MISI TIMELINE SECTION */}
         <div ref={containerRef} className="relative max-w-5xl mx-auto">
+
+          {/* MISI TITLE - Connected to the flowing line */}
+          <Reveal y={30}>
+            <div className="text-center mb-20 md:mb-28 relative z-10">
+              <span className="text-[11px] font-mono font-bold tracking-wider text-amber-500 uppercase bg-amber-500/10 border border-amber-500/30 px-3 py-1 rounded-full inline-block mb-3">
+                MISI KAMI
+              </span>
+              {/* Vertical connector line from title to S-curve */}
+              <div className="w-px h-12 md:h-16 bg-gradient-to-b from-amber-500/60 to-transparent mx-auto mt-4" />
+            </div>
+          </Reveal>
           
           {/* SMOOTH CONTINUOUS S-CURVE RIBBON SVG PATH */}
-          <div className="absolute inset-0 pointer-events-none z-0 hidden md:block">
+          <div className="absolute inset-0 pointer-events-none z-0 hidden md:block" style={{ top: '140px' }}>
             <svg className="w-full h-full overflow-visible" viewBox="0 0 1000 1400" preserveAspectRatio="none">
               <defs>
                 <linearGradient id="sCurveGrad" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -178,7 +184,7 @@ export default function VisionMissionRedesign() {
                         
                         {/* Header: Number Circle + Text */}
                         <div className="flex items-start gap-3 md:gap-4">
-                          <div className="w-8 h-8 md:w-9 md:h-9 rounded-full bg-[#873a00] text-white flex items-center justify-center font-bold text-sm md:text-base shrink-0 shadow-md">
+                          <div className="w-8 h-8 md:w-9 md:h-9 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm md:text-base shrink-0 shadow-md">
                             {item.number}
                           </div>
                           <h3 className="font-headline-md text-base sm:text-lg md:text-xl font-bold text-primary dark:text-white leading-snug pt-0.5 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">
