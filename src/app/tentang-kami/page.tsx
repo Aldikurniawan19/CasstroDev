@@ -3,6 +3,7 @@ import AboutHero from "@/components/tentang-kami/AboutHero";
 import VisionMissionRedesign from "@/components/tentang-kami/VisionMissionRedesign";
 // import VisionMission from "@/components/tentang-kami/VisionMission";
 import TeamGrid from "@/components/tentang-kami/TeamGrid";
+import TeamExperienceSection from "@/components/tentang-kami/TeamExperienceSection";
 import EngineeringCulture from "@/components/tentang-kami/EngineeringCulture";
 import CTASection from "@/components/common/CTASection";
 
@@ -23,6 +24,7 @@ export default function TentangKamiPage() {
         {/* <VisionMission /> */}
         <VisionMissionRedesign />
         <TeamGrid />
+        <TeamExperienceSection />
         <EngineeringCulture />
       </div>
       <CTASection

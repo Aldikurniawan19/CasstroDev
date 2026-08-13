@@ -17,28 +17,28 @@ const teamMembers: TeamMember[] = [
     name: "Nanda Indra Saputra",
     title: "Project Manager",
     description:
-      "Mengorkestrasi setiap proyek dengan disiplin manajemen yang presisi. Memastikan tenggat, ruang lingkup, dan kualitas pengiriman selalu selaras dengan standar rekayasa perusahaan.",
+      "Mengelola proyek dari perencanaan hingga penyelesaian melalui koordinasi tim, komunikasi dengan client, serta pengawasan terhadap waktu, ruang lingkup, dan kualitas proyek.",
     imageUrl: "/images/indra.png",
-  },
-  {
-    name: "Aldi Kurniawan",
-    title: "FrontEnd Developer",
-    description:
-      "Merancang dan membangun antarmuka pengguna yang responsif dan interaktif. Fokus pada pengalaman pengguna yang mulus dan estetika visual yang modern.",
-    imageUrl: "/images/aldi.png",
   },
   {
     name: "Shasy kirana syaharani",
     title: "UI/UX",
     description:
-      "Menciptakan antarmuka yang intuitif dan pengalaman pengguna yang mulus. Fokus pada desain yang berpusat pada pengguna untuk menghasilkan produk yang fungsional dan estetis.",
+    "Menerjemahkan kebutuhan pengguna menjadi rancangan antarmuka dan pengalaman yang intuitif. Berkolaborasi dengan tim untuk memastikan setiap desain dapat diwujudkan menjadi produk digital yang fungsional.",
     imageUrl: "/images/shasy.png",
+  },
+  {
+    name: "Aldi Kurniawan",
+    title: "FrontEnd Developer",
+    description:
+      "Mengubah rancangan UI/UX menjadi antarmuka web yang responsif dan interaktif. Berkolaborasi dengan UI/UX dan Backend untuk memastikan tampilan berjalan optimal sesuai kebutuhan pengguna.",
+    imageUrl: "/images/aldi.png",
   },
   {
     name: "Bayu Dwi Aditya Saputra",
     title: "BackEnd Developer",
     description:
-      "Menguasai logika server, basis data, dan integrasi sistem. Merancang fondasi teknis yang kuat, aman, dan efisien untuk memastikan aplikasi berjalan lancar.",
+      "Membangun sistem di balik produk digital melalui pengelolaan logika, database, dan integrasi API. Memastikan sistem berjalan aman, stabil, dan terhubung dengan baik dengan sisi frontend.",
     imageUrl: "/images/bayu.png",
   },
 ];
