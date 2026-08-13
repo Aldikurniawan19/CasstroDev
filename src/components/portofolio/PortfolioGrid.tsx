@@ -1,9 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useCallback } from "react";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Reveal from "@/components/common/Reveal";
 import { SquareArrowOutUpRight } from "lucide-react";
 import ProjectDetailModal, { type ProjectItem } from "./ProjectDetailModal";
+
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(useGSAP, ScrollTrigger);
+}
+
+const PORTFOLIO_TITLE = "Projek yang Pernah Kami Kerjakan";
+const PORTFOLIO_WORDS = PORTFOLIO_TITLE.split(" ");
 
 type FilterType = "Semua" | "Web Development" | "Sistem Informasi" | "UI/UX Design" | "Lainnya";
 
@@ -208,6 +218,122 @@ export default function PortfolioGrid() {
   const [activeFilter, setActiveFilter] = useState<FilterType>("Semua");
   const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
 
+  const titleContainerRef = useRef<HTMLSpanElement>(null);
+  const lettersRef = useRef<(HTMLSpanElement | null)[]>([]);
+  const tlShimmer = useRef<gsap.core.Timeline | null>(null);
+
+  const setLetterRef = useCallback((el: HTMLSpanElement | null, i: number) => {
+    lettersRef.current[i] = el;
+  }, []);
+
+  useGSAP(() => {
+    const letters = lettersRef.current.filter(Boolean) as HTMLSpanElement[];
+    if (letters.length === 0) return;
+
+    /* ── Animasi 3D Letter Pop-In & Shimmer berulang secara kontinu ── */
+    const tl = gsap.timeline({ repeat: -1, delay: 0.2, repeatDelay: 1.0 });
+
+    // 1. Entrance: 3D letter pop-in (rotateX: -90, scale: 0.6, back.out)
+    tl.fromTo(
+      letters,
+      {
+        y: 30,
+        opacity: 0,
+        rotateX: -90,
+        scale: 0.6,
+      },
+      {
+        y: 0,
+        opacity: 1,
+        rotateX: 0,
+        scale: 1,
+        duration: 0.65,
+        stagger: 0.03,
+        ease: "back.out(1.7)",
+      }
+    );
+
+    // 2. Continuous Shimmer Glow
+    tl.to(letters, {
+      color: "#00e5ff",
+      textShadow: "0 0 18px rgba(0,229,255,0.7), 0 0 35px rgba(0,229,255,0.4)",
+      duration: 0.35,
+      stagger: { each: 0.04, from: "start" },
+      ease: "power2.inOut",
+    });
+
+    tl.to(
+      letters,
+      {
+        color: "var(--color-secondary)",
+        textShadow: "0 0 0px transparent",
+        duration: 0.4,
+        stagger: { each: 0.04, from: "start" },
+        ease: "power2.inOut",
+      },
+      "+=0.15"
+    );
+
+    // 3. Pause & smooth reset for repeating loop
+    tl.to({}, { duration: 2.5 });
+
+    tl.to(letters, {
+      y: -20,
+      opacity: 0,
+      rotateX: 45,
+      scale: 0.8,
+      duration: 0.45,
+      stagger: 0.015,
+      ease: "power2.in",
+    });
+
+    tlShimmer.current = tl;
+  }, []);
+
+  const handleMouseEnter = useCallback(() => {
+    const letters = lettersRef.current.filter(Boolean) as HTMLSpanElement[];
+    if (letters.length === 0) return;
+
+    tlShimmer.current?.pause();
+
+    letters.forEach((letter, i) => {
+      const xOffset = (Math.random() - 0.5) * 24;
+      const yOffset = (Math.random() - 0.5) * 16;
+      const rot = (Math.random() - 0.5) * 20;
+      gsap.to(letter, {
+        x: xOffset,
+        y: yOffset,
+        rotation: rot,
+        scale: 1.2,
+        color: "#00e5ff",
+        textShadow: "0 0 14px rgba(0,229,255,0.6)",
+        duration: 0.35,
+        delay: i * 0.012,
+        ease: "power3.out",
+      });
+    });
+  }, []);
+
+  const handleMouseLeave = useCallback(() => {
+    const letters = lettersRef.current.filter(Boolean) as HTMLSpanElement[];
+    if (letters.length === 0) return;
+
+    gsap.to(letters, {
+      x: 0,
+      y: 0,
+      rotation: 0,
+      scale: 1,
+      color: "var(--color-secondary)",
+      textShadow: "0 0 0px transparent",
+      duration: 0.5,
+      stagger: 0.02,
+      ease: "elastic.out(1, 0.4)",
+      onComplete: () => {
+        tlShimmer.current?.resume();
+      },
+    });
+  }, []);
+
   const filteredProjects = projectsData.filter(
     (project) => activeFilter === "Semua" || project.category === activeFilter
   );
@@ -216,11 +342,38 @@ export default function PortfolioGrid() {
     <section className="w-full bg-slate-50/70 dark:bg-[#040d1a] py-16 md:py-24" id="projek-section">
       <div className="max-w-container-max mx-auto px-4 md:px-8">
         
-        {}
+        {/* Section Header */}
         <div className="mb-10 md:mb-12">
-          <Reveal y={24} className="max-w-2xl">
-            <h2 className="font-headline-xl-mobile text-headline-xl-mobile md:font-headline-xl md:text-headline-xl text-primary dark:text-white tracking-tight mb-3">
-              Projek yang Pernah Kami Kerjakan
+          <Reveal y={24} className="max-w-full md:max-w-4xl">
+            <h2 className="font-headline-xl-mobile text-headline-xl-mobile md:font-headline-xl md:text-headline-xl text-black dark:text-white tracking-tight mb-3">
+              <span
+                ref={titleContainerRef}
+                className="inline-flex flex-wrap cursor-pointer max-w-full"
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+                style={{ perspective: "600px" }}
+              >
+                {PORTFOLIO_WORDS.map((word, wIdx) => {
+                  const charOffset = PORTFOLIO_WORDS.slice(0, wIdx).join(" ").length + (wIdx > 0 ? 1 : 0);
+                  return (
+                    <span key={wIdx} className="inline-block whitespace-nowrap mr-[0.28em] last:mr-0">
+                      {word.split("").map((char, cIdx) => {
+                        const globalIndex = charOffset + cIdx;
+                        return (
+                          <span
+                            key={cIdx}
+                            ref={(el) => setLetterRef(el, globalIndex)}
+                            className="inline-block text-secondary transition-none"
+                            style={{ willChange: "transform, opacity, color" }}
+                          >
+                            {char}
+                          </span>
+                        );
+                      })}
+                    </span>
+                  );
+                })}
+              </span>
             </h2>
             <p className="font-body-md text-body-md text-text-muted max-w-2xl leading-relaxed">
               Berbagai projek yang telah kami kerjakan, mulai dari pengembangan website, sistem informasi, hingga solusi digital enterprise. Klik kartu untuk melihat detail lengkap.

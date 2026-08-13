@@ -44,7 +44,7 @@ export default function Navbar() {
           className="font-headline-md text-headline-md font-bold text-primary dark:text-primary-container flex items-center hover:opacity-90 transition-opacity"
         >
           <img src="/images/Logo.png" alt="CasstroDev Logo" className="h-11 w-auto -mr-1" />
-          asstroDev
+          CasstroDev
         </Link>
         <nav className="hidden md:flex gap-8 items-center" aria-label="Main Navigation">
           {navItems.map((item) => {

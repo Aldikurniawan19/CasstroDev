@@ -5,9 +5,24 @@ const currentYear = new Date().getFullYear();
 
 export default function Footer() {
   return (
-    <footer className="bg-gradient-to-b from-[#002B5B] to-[#001D3D] text-white font-body-md text-body-md full-width border-t border-blue-900/50 relative overflow-hidden">
-      {/* Subtle ambient glow in background */}
-      <div className="absolute top-0 right-1/4 w-96 h-96 bg-accent-cyan/5 rounded-full filter blur-3xl pointer-events-none"></div>
+    <footer className="w-full text-white font-body-md text-body-md full-width relative">
+      {/* Top Wavy Shape Divider connecting page content & footer */}
+      <div className="w-full overflow-hidden leading-none pointer-events-none select-none -mb-1 relative z-20">
+        <svg
+          viewBox="0 0 1200 120"
+          preserveAspectRatio="none"
+          className="w-full h-10 sm:h-14 md:h-20 block text-[#002B5B]"
+        >
+          <path
+            d="M0,0 C150,90 350,-40 500,45 C650,130 900,10 1200,50 L1200,120 L0,120 Z"
+            fill="currentColor"
+          />
+        </svg>
+      </div>
+
+      <div className="bg-gradient-to-b from-[#002B5B] to-[#001D3D] relative overflow-hidden">
+        {/* Subtle ambient glow in background */}
+        <div className="absolute top-0 right-1/4 w-96 h-96 bg-accent-cyan/5 rounded-full filter blur-3xl pointer-events-none"></div>
 
       <Reveal y={30} className="grid grid-cols-12 gap-gutter px-margin-mobile md:px-margin-desktop py-16 max-w-container-max mx-auto relative z-10">
         {/* Brand Info */}
@@ -17,7 +32,7 @@ export default function Footer() {
             className="font-headline-sm text-headline-sm font-bold text-white text-[22px] leading-[1.4] flex items-center group"
           >
             <img src="/images/Logo.png" alt="CasstroDev Logo" className="h-11 w-auto -mr-1" />
-            asstroDev
+            CasstroDev
           </Link>
           <p className="text-slate-300 font-body-md max-w-sm leading-relaxed text-sm">
             Rekayasa perangkat lunak presisi untuk skala enterprise. Membangun sistem digital
@@ -103,6 +118,7 @@ export default function Footer() {
           <p>© {currentYear} CasstroDev. All rights reserved.</p>
         </div>
       </Reveal>
+      </div>
     </footer>
   );
 }

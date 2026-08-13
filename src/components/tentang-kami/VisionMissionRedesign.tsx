@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useCallback } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -42,6 +42,12 @@ export default function VisionMissionRedesign() {
   const containerRef = useRef<HTMLDivElement>(null);
   const pathRef = useRef<SVGPathElement>(null);
   const mobileLineRef = useRef<HTMLDivElement>(null);
+  const visiCardRef = useRef<HTMLDivElement>(null);
+  const missionCardsRef = useRef<(HTMLDivElement | null)[]>([]);
+
+  const setMissionCardRef = useCallback((el: HTMLDivElement | null, i: number) => {
+    missionCardsRef.current[i] = el;
+  }, []);
 
   useGSAP(() => {
     const container = containerRef.current;
@@ -79,79 +85,111 @@ export default function VisionMissionRedesign() {
         },
       });
     }
-  }, { scope: containerRef });
+
+    if (visiCardRef.current) {
+      gsap.fromTo(
+        visiCardRef.current,
+        {
+          autoAlpha: 0,
+          y: 50,
+          scale: 0.92,
+          filter: "blur(6px)",
+        },
+        {
+          autoAlpha: 1,
+          y: 0,
+          scale: 1,
+          filter: "blur(0px)",
+          duration: 0.6,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: visiCardRef.current,
+            start: "top 88%",
+            end: "bottom 12%",
+            toggleActions: "play reverse play reverse",
+          },
+        }
+      );
+    }
+
+    const cards = missionCardsRef.current.filter(Boolean) as HTMLDivElement[];
+    cards.forEach((card) => {
+      gsap.fromTo(
+        card,
+        {
+          autoAlpha: 0,
+          y: 50,
+          scale: 0.92,
+          filter: "blur(6px)",
+        },
+        {
+          autoAlpha: 1,
+          y: 0,
+          scale: 1,
+          filter: "blur(0px)",
+          duration: 0.6,
+          ease: "power2.out",
+            scrollTrigger: {
+              trigger: card,
+              start: "top 88%",
+              end: "bottom 12%",
+              toggleActions: "play reverse play reverse",
+            },
+          }
+        );
+    });
+  }, []);
 
   return (
     <section className="relative overflow-hidden py-16 md:py-24" id="visi-misi">
-      {}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-blue-500/5 dark:bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-container-max mx-auto px-4 md:px-8 relative z-10">
-        {}
         <Reveal y={24} className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-accent-cyan/10 border border-accent-cyan/30 text-accent-cyan font-mono text-xs tracking-widest uppercase font-semibold mb-3">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>Arah & Tujuan</span>
-          </div>
           <h2 className="font-headline-xl-mobile md:font-headline-xl text-primary text-3xl md:text-5xl font-extrabold tracking-tight mb-4">
             Visi <span className="text-secondary font-light">&</span> Misi Kami
           </h2>
         </Reveal>
 
-        {}
         <div className="max-w-2xl mx-auto mb-12 md:mb-16 relative z-20">
-          <Reveal y={30}>
-            <div className="bg-white dark:bg-[#07162c] border-2 border-accent-cyan/40 dark:border-accent-cyan/30 rounded-2xl md:rounded-3xl p-6 md:p-8 shadow-xl shadow-cyan-500/5 hover:border-accent-cyan hover:shadow-2xl transition-all duration-300 group relative overflow-hidden">
-              {}
-              <div className="absolute top-0 right-0 w-48 h-48 bg-accent-cyan/10 rounded-full blur-2xl pointer-events-none" />
-
-              {}
-              <div className="text-center relative z-10">
-                <span className="text-[11px] font-mono font-bold tracking-wider text-accent-cyan uppercase bg-accent-cyan/10 border border-accent-cyan/30 px-2.5 py-0.5 rounded-full inline-block mb-3">
-                  VISI UTAMA
-                </span>
-                <h3 className="font-headline-md text-lg sm:text-xl md:text-2xl font-extrabold text-primary dark:text-white leading-snug group-hover:text-secondary transition-colors">
-                  {visiData.title}
-                </h3>
-              </div>
+          <div
+            ref={visiCardRef}
+            className="bg-white dark:bg-[#07162c] border-2 border-accent-cyan/40 dark:border-accent-cyan/30 rounded-2xl md:rounded-3xl p-6 md:p-8 shadow-xl shadow-cyan-500/5 hover:border-accent-cyan hover:shadow-2xl transition-all duration-300 group relative overflow-hidden"
+          >
+            <div className="absolute top-0 right-0 w-48 h-48 bg-accent-cyan/10 rounded-full blur-2xl pointer-events-none" />
+            <div className="text-center relative z-10">
+              <span className="text-[11px] font-mono font-bold tracking-wider text-accent-cyan uppercase bg-accent-cyan/10 border border-accent-cyan/30 px-2.5 py-0.5 rounded-full inline-block mb-3">
+                VISI UTAMA
+              </span>
+              <h3 className="font-headline-md text-lg sm:text-xl md:text-2xl font-extrabold text-primary dark:text-white leading-snug group-hover:text-secondary transition-colors">
+                {visiData.title}
+              </h3>
             </div>
-          </Reveal>
+          </div>
         </div>
 
-        {} 
         <div ref={containerRef} className="relative max-w-5xl mx-auto">
-
-          {}
           <Reveal y={30}>
             <div className="text-center mb-20 md:mb-28 relative z-10">
               <span className="text-[11px] font-mono font-bold tracking-wider text-amber-500 uppercase bg-amber-500/10 border border-amber-500/30 px-3 py-1 rounded-full inline-block mb-3">
                 MISI KAMI
               </span>
-              {}
               <div className="w-px h-12 md:h-16 bg-gradient-to-b from-amber-500/60 to-transparent mx-auto mt-4" />
             </div>
           </Reveal>
 
-          {}
           <div className="absolute left-6 top-[120px] bottom-6 pointer-events-none z-0 md:hidden w-1 -translate-x-1/2">
-            {}
             <div className="absolute inset-0 w-0.5 border-r-2 border-dashed border-slate-300 dark:border-white/20 mx-auto" />
-            
-            {}
             <div className="absolute inset-0 w-3 bg-amber-500/20 blur-md rounded-full -translate-x-1/2" />
-
-            {}
             <div
               ref={mobileLineRef}
               className="absolute top-0 left-0 right-0 rounded-full overflow-hidden bg-gradient-to-b from-amber-500 via-accent-cyan to-primary shadow-[0_0_12px_rgba(0,229,255,0.8)]"
               style={{ height: "0%" }}
             >
-              {}
               <div className="w-full h-full animate-pulse bg-gradient-to-b from-transparent via-white/80 to-transparent" />
             </div>
           </div>
           
-          {}
           <div className="absolute inset-0 pointer-events-none z-0 hidden md:block" style={{ top: '140px' }}>
             <svg className="w-full h-full overflow-visible" viewBox="0 0 1000 1400" preserveAspectRatio="none">
               <defs>
@@ -164,7 +202,6 @@ export default function VisionMissionRedesign() {
                 </linearGradient>
               </defs>
 
-              {}
               <path
                 d="M 500 0 C 180 100, 180 250, 500 350 C 820 450, 820 600, 500 700 C 180 800, 180 950, 500 1050 C 820 1150, 820 1300, 500 1400"
                 fill="none"
@@ -174,7 +211,6 @@ export default function VisionMissionRedesign() {
                 className="blur-md"
               />
 
-              {}
               <path
                 d="M 500 0 C 180 100, 180 250, 500 350 C 820 450, 820 600, 500 700 C 180 800, 180 950, 500 1050 C 820 1150, 820 1300, 500 1400"
                 fill="none"
@@ -183,7 +219,6 @@ export default function VisionMissionRedesign() {
                 strokeDasharray="6 6"
               />
 
-              {}
               <path
                 ref={pathRef}
                 d="M 500 0 C 180 100, 180 250, 500 350 C 820 450, 820 600, 500 700 C 180 800, 180 950, 500 1050 C 820 1150, 820 1300, 500 1400"
@@ -193,7 +228,6 @@ export default function VisionMissionRedesign() {
                 strokeLinecap="round"
               />
 
-              {}
               <path
                 d="M 500 0 C 180 100, 180 250, 500 350 C 820 450, 820 600, 500 700 C 180 800, 180 950, 500 1050 C 820 1150, 820 1300, 500 1400"
                 fill="none"
@@ -205,7 +239,6 @@ export default function VisionMissionRedesign() {
             </svg>
           </div>
 
-          {}
           <div className="space-y-28 md:space-y-40 relative z-10">
             {missionItems.map((item, index) => {
               const isEven = index % 2 === 0;
@@ -215,27 +248,24 @@ export default function VisionMissionRedesign() {
                   key={item.number}
                   className="relative flex flex-col md:flex-row items-center w-full"
                 >
-                  {}
                   <div
                     className={`w-full pl-12 md:pl-0 md:w-[calc(50%-2.5rem)] ${
                       isEven ? "md:mr-auto" : "md:ml-auto"
                     }`}
                   >
-                    <Reveal y={50}>
-                      {}
-                      <div className="bg-white dark:bg-[#07162c] border border-slate-200/90 dark:border-white/10 rounded-2xl md:rounded-3xl p-5 md:p-8 shadow-lg shadow-slate-200/50 dark:shadow-none hover:shadow-2xl hover:border-amber-500/40 transition-all duration-300 group">
-                        
-                        {}
-                        <div className="flex items-start gap-3 md:gap-4">
-                          <div className="w-8 h-8 md:w-9 md:h-9 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm md:text-base shrink-0 shadow-md">
-                            {item.number}
-                          </div>
-                          <h3 className="font-headline-md text-sm sm:text-lg md:text-xl font-bold text-primary dark:text-white leading-snug pt-0.5 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">
-                            {item.text}
-                          </h3>
+                    <div
+                      ref={(el) => setMissionCardRef(el, index)}
+                      className="bg-white dark:bg-[#07162c] border border-slate-200/90 dark:border-white/10 rounded-2xl md:rounded-3xl p-5 md:p-8 shadow-lg shadow-slate-200/50 dark:shadow-none hover:shadow-2xl hover:border-amber-500/40 transition-all duration-300 group"
+                    >
+                      <div className="flex items-start gap-3 md:gap-4">
+                        <div className="w-8 h-8 md:w-9 md:h-9 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm md:text-base shrink-0 shadow-md">
+                          {item.number}
                         </div>
+                        <h3 className="font-headline-md text-sm sm:text-lg md:text-xl font-bold text-primary dark:text-white leading-snug pt-0.5 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">
+                          {item.text}
+                        </h3>
                       </div>
-                    </Reveal>
+                    </div>
                   </div>
                 </div>
               );

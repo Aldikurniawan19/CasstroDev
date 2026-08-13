@@ -29,8 +29,11 @@ export default function Hero() {
     const letters = lettersRef.current.filter(Boolean) as HTMLSpanElement[];
     if (letters.length === 0) return;
 
-    /* ── 1. Staggered entrance ── */
-    gsap.fromTo(
+    /* ── Animasi 3D Letter Pop-In & Shimmer berulang secara kontinu ── */
+    const tl = gsap.timeline({ repeat: -1, delay: 0.2, repeatDelay: 1.0 });
+
+    // 1. Entrance: 3D letter pop-in (rotateX: -90, scale: 0.6, back.out)
+    tl.fromTo(
       letters,
       {
         y: 30,
@@ -46,24 +49,19 @@ export default function Hero() {
         duration: 0.7,
         stagger: 0.045,
         ease: "back.out(1.7)",
-        scrollTrigger: {
-          trigger: perfRef.current,
-          start: "top 85%",
-          once: true,
-        },
       }
     );
 
-    /* ── 2. Continuous shimmer glow ── */
-    tlShimmer.current = gsap.timeline({ repeat: -1, delay: 1.2 });
-    tlShimmer.current.to(letters, {
+    // 2. Continuous shimmer glow
+    tl.to(letters, {
       color: "#00e5ff",
       textShadow: "0 0 18px rgba(0,229,255,0.7), 0 0 40px rgba(0,229,255,0.3)",
       duration: 0.35,
       stagger: { each: 0.06, from: "start" },
       ease: "power2.inOut",
     });
-    tlShimmer.current.to(
+
+    tl.to(
       letters,
       {
         color: "var(--color-secondary)",
@@ -74,7 +72,21 @@ export default function Hero() {
       },
       "+=0.15"
     );
-    tlShimmer.current.to({}, { duration: 2.5 }); // pause between loops
+
+    // 3. Pause & smooth exit transition for repeating loop
+    tl.to({}, { duration: 2.5 });
+
+    tl.to(letters, {
+      y: -20,
+      opacity: 0,
+      rotateX: 45,
+      scale: 0.8,
+      duration: 0.45,
+      stagger: 0.025,
+      ease: "power2.in",
+    });
+
+    tlShimmer.current = tl;
   }, []);
 
   /* ── 3. Hover: magnetic scatter & regroup ── */
@@ -129,7 +141,7 @@ export default function Hero() {
     <section className="pt-8 md:pt-14 pb-16 md:pb-24 grid-layout items-center" id="hero">
       <Reveal className="col-span-4 md:col-span-8 xl:col-span-7 flex flex-col gap-stack-lg">
 
-        <h1 className="font-display-lg-mobile text-display-lg-mobile md:font-display-lg md:text-display-lg text-text-main tracking-tight">
+        <h1 className="font-display-lg-mobile text-display-lg-mobile md:font-display-lg md:text-display-lg text-black dark:text-white tracking-tight">
           Crafting High-
           <span
             ref={perfRef}

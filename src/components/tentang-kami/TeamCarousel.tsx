@@ -22,9 +22,9 @@ const teamMembers: TeamMember[] = [
   },
   {
     name: "Aldi Kurniawan",
-    title: "FullStack Developer",
+    title: "FrontEnd Developer",
     description:
-      "Merancang dan membangun arsitektur end-to-end, dari basis data hingga antarmuka. Menulis kode yang tangguh, teruji, dan siap diskalakan untuk kebutuhan bisnis modern.",
+      "Merancang dan membangun antarmuka pengguna yang responsif dan interaktif. Fokus pada pengalaman pengguna yang mulus dan estetika visual yang modern.",
     imageUrl: "/images/aldi.png",
   },
   {
