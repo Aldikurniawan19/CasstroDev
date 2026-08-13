@@ -41,7 +41,6 @@ const missionItems = [
 export default function VisionMissionRedesign() {
   const containerRef = useRef<HTMLDivElement>(null);
   const pathRef = useRef<SVGPathElement>(null);
-  const mobileLineRef = useRef<HTMLDivElement>(null);
   const visiCardRef = useRef<HTMLDivElement>(null);
   const missionCardsRef = useRef<(HTMLDivElement | null)[]>([]);
 
@@ -53,34 +52,20 @@ export default function VisionMissionRedesign() {
     const container = containerRef.current;
     if (!container) return;
 
-    const desktopPath = pathRef.current;
-    if (desktopPath) {
-      const length = desktopPath.getTotalLength();
-      gsap.set(desktopPath, {
+    const path = pathRef.current;
+    if (path) {
+      const length = path.getTotalLength();
+      gsap.set(path, {
         strokeDasharray: length,
         strokeDashoffset: length,
       });
-      gsap.to(desktopPath, {
+      gsap.to(path, {
         strokeDashoffset: 0,
         ease: "none",
         scrollTrigger: {
           trigger: container,
           start: "top 70%",
           end: "bottom 80%",
-          scrub: 1,
-        },
-      });
-    }
-
-    const mobileLine = mobileLineRef.current;
-    if (mobileLine) {
-      gsap.to(mobileLine, {
-        height: "100%",
-        ease: "none",
-        scrollTrigger: {
-          trigger: container,
-          start: "top 70%",
-          end: "bottom 85%",
           scrub: 1,
         },
       });
@@ -178,19 +163,7 @@ export default function VisionMissionRedesign() {
             </div>
           </Reveal>
 
-          <div className="absolute left-6 top-[120px] bottom-6 pointer-events-none z-0 md:hidden w-1 -translate-x-1/2">
-            <div className="absolute inset-0 w-0.5 border-r-2 border-dashed border-slate-300 dark:border-white/20 mx-auto" />
-            <div className="absolute inset-0 w-3 bg-amber-500/20 blur-md rounded-full -translate-x-1/2" />
-            <div
-              ref={mobileLineRef}
-              className="absolute top-0 left-0 right-0 rounded-full overflow-hidden bg-gradient-to-b from-amber-500 via-accent-cyan to-primary shadow-[0_0_12px_rgba(0,229,255,0.8)]"
-              style={{ height: "0%" }}
-            >
-              <div className="w-full h-full animate-pulse bg-gradient-to-b from-transparent via-white/80 to-transparent" />
-            </div>
-          </div>
-          
-          <div className="absolute inset-0 pointer-events-none z-0 hidden md:block" style={{ top: '140px' }}>
+          <div className="absolute inset-0 pointer-events-none z-0" style={{ top: '140px' }}>
             <svg className="w-full h-full overflow-visible" viewBox="0 0 1000 1400" preserveAspectRatio="none">
               <defs>
                 <linearGradient id="sCurveGrad" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -249,7 +222,7 @@ export default function VisionMissionRedesign() {
                   className="relative flex flex-col md:flex-row items-center w-full"
                 >
                   <div
-                    className={`w-full pl-12 md:pl-0 md:w-[calc(50%-2.5rem)] ${
+                    className={`w-full md:w-[calc(50%-2.5rem)] ${
                       isEven ? "md:mr-auto" : "md:ml-auto"
                     }`}
                   >

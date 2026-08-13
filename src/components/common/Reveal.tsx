@@ -13,16 +13,20 @@ type RevealProps = {
   children: ReactNode;
   className?: string;
   y?: number;
+  x?: number;
   delay?: number;
   duration?: number;
+  once?: boolean;
 };
 
 export default function Reveal({
   children,
   className,
   y = 40,
+  x = 0,
   delay = 0,
   duration = 0.8,
+  once = true,
 }: RevealProps) {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -32,21 +36,30 @@ export default function Reveal({
 
     gsap.fromTo(
       el,
-      { autoAlpha: 0, y },
+      { autoAlpha: 0, y, x },
       {
         autoAlpha: 1,
         y: 0,
+        x: 0,
         duration,
         delay,
         ease: "power3.out",
-        scrollTrigger: {
-          trigger: el,
-          start: "top 88%",
-          once: true,
-        },
+        scrollTrigger: once
+          ? {
+              trigger: el,
+              start: "top 88%",
+              once: true,
+            }
+          : {
+              trigger: el,
+              start: "top 88%",
+              end: "bottom 12%",
+              toggleActions: "play reverse play reverse",
+              once: false,
+            },
       }
     );
-  }, [y, delay, duration]);
+  }, [y, x, delay, duration, once]);
 
   return (
     <div ref={ref} className={className} style={{ visibility: "hidden" }}>

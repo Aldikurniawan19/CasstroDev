@@ -37,9 +37,9 @@ export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section className="py-section-gap bg-surface-off-white border-t border-border-subtle" id="faq">
-      <Reveal y={24} className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
-        <div className="mb-stack-lg flex flex-col md:flex-row md:items-end md:justify-between gap-stack-md">
+    <section className="py-section-gap bg-surface-off-white border-t border-border-subtle overflow-hidden" id="faq">
+      <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop mb-stack-lg flex flex-col md:flex-row md:items-end md:justify-between gap-stack-md">
+        <Reveal y={0} x={-50} once={false}>
           <div>
             <span className="font-label-sm text-label-sm text-secondary uppercase tracking-widest font-semibold">
               Pertanyaan Umum
@@ -49,6 +49,8 @@ export default function FAQ() {
             </h2>
             <div className="h-1 w-16 bg-accent-cyan rounded-full"></div>
           </div>
+        </Reveal>
+        <Reveal y={0} x={50} once={false}>
           <a
             href="/kontak"
             className="font-label-md text-label-md text-primary-container hover:text-primary flex items-center gap-2 group font-semibold"
@@ -58,14 +60,21 @@ export default function FAQ() {
               <ChevronDown className="h-4 w-4 -rotate-90" />
             </span>
           </a>
-        </div>
-      </Reveal>
+        </Reveal>
+      </div>
 
       <div className="max-w-3xl mx-auto px-margin-mobile md:px-margin-desktop flex flex-col gap-stack-sm">
         {faqs.map((faq, index) => {
           const isOpen = openIndex === index;
+          const isEven = index % 2 === 0;
           return (
-            <Reveal key={faq.question} delay={index * 0.06}>
+            <Reveal
+              key={faq.question}
+              y={0}
+              x={isEven ? -60 : 60}
+              delay={index * 0.08}
+              once={false}
+            >
               <div className="bg-white dark:bg-[#07162c] border border-border-subtle dark:border-white/10 rounded-xl overflow-hidden shadow-sm">
                 <button
                   type="button"
