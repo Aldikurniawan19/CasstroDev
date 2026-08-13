@@ -23,7 +23,7 @@ export default function TentangKamiPage() {
         <AboutHero />
         {/* <VisionMission /> */}
         <VisionMissionRedesign />
-        {/* <TeamGrid /> */}
+        <TeamGrid />
         <TeamExperienceSection />
         <EngineeringCulture />
       </div>

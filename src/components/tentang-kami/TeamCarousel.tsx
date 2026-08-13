@@ -121,13 +121,13 @@ export default function TeamCarousel() {
               className="flex flex-col justify-between"
             >
               <div>
-                <h3 className="font-headline-lg text-headline-lg text-primary font-bold">
+                <h3 className="font-headline-lg text-headline-lg text-primary dark:text-white font-bold">
                   {teamMembers[active].name}
                 </h3>
-                <p className="font-label-md text-label-md text-text-muted uppercase tracking-widest font-semibold mt-1">
+                <p className="font-label-md text-label-md text-text-muted dark:text-slate-400 uppercase tracking-widest font-semibold mt-1">
                   {teamMembers[active].title}
                 </p>
-                <motion.p className="font-body-lg text-body-lg text-text-main leading-relaxed mt-8">
+                <motion.p className="font-body-lg text-body-lg text-text-main dark:text-slate-200 leading-relaxed mt-8">
                   &ldquo;{teamMembers[active].description}&rdquo;
                 </motion.p>
               </div>
