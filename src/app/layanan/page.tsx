@@ -21,7 +21,7 @@ export default function LayananPage() {
         title="Siap Membangun Produk Digital Anda?"
         description="Jadwalkan konsultasi teknis dengan insinyur senior kami untuk membahas arsitektur dan persyaratan proyek Anda."
         buttonText="Konsultasi Teknis Gratis"
-        buttonHref="/tentang-kami#contact"
+        buttonHref="/kontak"
       />
     </>
   );

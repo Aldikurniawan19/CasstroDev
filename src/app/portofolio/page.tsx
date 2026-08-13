@@ -19,7 +19,7 @@ export default function PortofolioPage() {
         title="Punya Proyek Yang Ingin Direalisasikan?"
         description="Mari wujudkan solusi digital kelas enterprise dengan standar rekayasa tertinggi."
         buttonText="Mulai Diskusi Proyek"
-        buttonHref="/tentang-kami#contact"
+        buttonHref="/kontak"
       />
     </>
   );

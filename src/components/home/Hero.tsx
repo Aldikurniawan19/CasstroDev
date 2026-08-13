@@ -160,7 +160,7 @@ export default function Hero() {
 
         <div className="flex flex-col sm:flex-row gap-stack-md pt-stack-sm">
           <a
-            href="/tentang-kami#contact"
+            href="/kontak"
             className="bg-primary-container text-on-primary px-8 py-3.5 rounded font-label-md text-label-md hover:bg-primary transition-all text-center shadow-md hover:shadow-lg"
           >
             Hubungi Kami

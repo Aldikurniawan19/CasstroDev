@@ -29,7 +29,7 @@ export default function TentangKamiPage() {
         title="Tertarik Bekerjasama dengan Tim Kami?"
         description="Mari diskusikan arsitektur sistem digital yang ingin Anda bangun bersama tim ahli kami."
         buttonText="Hubungi Kami Sekarang"
-        buttonHref="#contact"
+        buttonHref="/kontak"
       />
     </>
   );

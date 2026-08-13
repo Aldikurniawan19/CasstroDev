@@ -27,7 +27,7 @@ export default function Home() {
         title="Ready to scale your business?"
         description="Mari diskusikan bagaimana pendekatan rekayasa perangkat lunak presisi kami dapat mempercepat transformasi digital perusahaan Anda."
         buttonText="Mulai Konsultasi Gratis"
-        buttonHref="/tentang-kami#contact"
+        buttonHref="/kontak"
       />
     </>
   );

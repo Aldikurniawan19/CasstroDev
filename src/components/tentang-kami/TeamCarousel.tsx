@@ -34,6 +34,13 @@ const teamMembers: TeamMember[] = [
       "Menciptakan antarmuka yang intuitif dan pengalaman pengguna yang mulus. Fokus pada desain yang berpusat pada pengguna untuk menghasilkan produk yang fungsional dan estetis.",
     imageUrl: "/images/shasy.png",
   },
+  {
+    name: "Bayu Dwi Aditya Saputra",
+    title: "BackEnd Developer",
+    description:
+      "Menguasai logika server, basis data, dan integrasi sistem. Merancang fondasi teknis yang kuat, aman, dan efisien untuk memastikan aplikasi berjalan lancar.",
+    imageUrl: "/images/bayu.png",
+  },
 ];
 
 const rotations = [-4, 3, -3, 5, -2];
@@ -59,7 +66,7 @@ export default function TeamCarousel() {
   return (
     <div className="mx-auto max-w-sm px-4 antialiased md:max-w-4xl md:px-8 lg:px-12">
       <div className="relative grid grid-cols-1 gap-y-12 md:grid-cols-2 md:gap-x-20">
-        {/* Image Section */}
+        {}
         <div className="flex items-center justify-center">
           <div className="relative h-80 w-full max-w-xs">
             <AnimatePresence>
@@ -95,7 +102,7 @@ export default function TeamCarousel() {
           </div>
         </div>
 
-        {/* Text and Controls Section */}
+        {}
         <div className="flex flex-col justify-center py-4">
           <AnimatePresence mode="wait">
             <motion.div

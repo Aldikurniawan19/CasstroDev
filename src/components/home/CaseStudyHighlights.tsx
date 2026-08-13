@@ -37,7 +37,7 @@ export default function CaseStudyHighlights() {
           </p>
         </div>
         <a
-          href="/tentang-kami#contact"
+          href="/kontak"
           className="font-label-md text-label-md text-primary-container hover:text-primary flex items-center gap-2 group font-semibold"
         >
           Mulai Konsultasi

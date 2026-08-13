@@ -15,6 +15,7 @@ const navItems = [
   { name: "Layanan", href: "/layanan", id: "layanan" },
   { name: "Portofolio", href: "/portofolio", id: "portofolio" },
   { name: "Tentang Kami", href: "/tentang-kami", id: "tentang-kami" },
+  { name: "Kontak", href: "/kontak", id: "kontak" },
 ];
 
 export default function Navbar() {
@@ -66,12 +67,12 @@ export default function Navbar() {
 
         {/* Trailing Action */}
         <div className="hidden md:flex items-center gap-4">
-          <a
-            href="/tentang-kami#contact"
+          <Link
+            href="/kontak"
             className="bg-primary-container text-on-primary px-6 py-2.5 rounded font-label-md text-label-md hover:bg-primary transition-colors inline-block text-center shadow-sm"
           >
             Hubungi Kami
-          </a>
+          </Link>
         </div>
 
         {/* Mobile Menu Toggle Button */}
@@ -109,13 +110,13 @@ export default function Navbar() {
               </Link>
             );
           })}
-          <a
-            href="/tentang-kami#contact"
+          <Link
+            href="/kontak"
             onClick={() => setOpen(false)}
             className="mt-2 bg-primary-container text-on-primary px-6 py-3 rounded font-label-md text-label-md text-center block w-full hover:bg-primary transition-colors"
           >
-            Contact Us
-          </a>
+            Hubungi Kami
+          </Link>
         </nav>
       </div>
     </header>

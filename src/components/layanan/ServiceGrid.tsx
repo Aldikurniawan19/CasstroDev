@@ -172,7 +172,7 @@ export default function ServiceGrid() {
                 {/* Footer Action Button */}
                 <div className="pt-4 border-t border-border-subtle mt-auto flex items-center justify-between">
                   <a
-                    href="/tentang-kami#contact"
+                    href="/kontak"
                     className="inline-flex items-center gap-2 font-label-md text-label-md font-semibold text-primary hover:text-secondary transition-all group/link"
                   >
                     <span>Konsultasi Layanan Ini</span>

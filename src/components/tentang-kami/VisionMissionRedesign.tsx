@@ -6,7 +6,6 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Reveal from "@/components/common/Reveal";
 import { Sparkles } from "lucide-react";
-import VisionMissionFlow from "./VisionMissionFlow";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(useGSAP, ScrollTrigger);
@@ -44,12 +43,10 @@ export default function VisionMissionRedesign() {
   const pathRef = useRef<SVGPathElement>(null);
   const mobileLineRef = useRef<HTMLDivElement>(null);
 
-  // GSAP ScrollTrigger animation
   useGSAP(() => {
     const container = containerRef.current;
     if (!container) return;
 
-    // Desktop S-curve path drawing animation
     const desktopPath = pathRef.current;
     if (desktopPath) {
       const length = desktopPath.getTotalLength();
@@ -69,7 +66,6 @@ export default function VisionMissionRedesign() {
       });
     }
 
-    // Mobile vertical line height expansion animation
     const mobileLine = mobileLineRef.current;
     if (mobileLine) {
       gsap.to(mobileLine, {
@@ -87,11 +83,11 @@ export default function VisionMissionRedesign() {
 
   return (
     <section className="relative overflow-hidden py-16 md:py-24" id="visi-misi">
-      {/* Background ambient lighting */}
-      <VisionMissionFlow />
+      {}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-blue-500/5 dark:bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-container-max mx-auto px-4 md:px-8 relative z-10">
-        {/* SECTION HEADER */}
+        {}
         <Reveal y={24} className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-accent-cyan/10 border border-accent-cyan/30 text-accent-cyan font-mono text-xs tracking-widest uppercase font-semibold mb-3">
             <Sparkles className="w-3.5 h-3.5" />
@@ -102,14 +98,14 @@ export default function VisionMissionRedesign() {
           </h2>
         </Reveal>
 
-        {/* TOP CENTERED VISI CARD */}
+        {}
         <div className="max-w-2xl mx-auto mb-12 md:mb-16 relative z-20">
           <Reveal y={30}>
             <div className="bg-white dark:bg-[#07162c] border-2 border-accent-cyan/40 dark:border-accent-cyan/30 rounded-2xl md:rounded-3xl p-6 md:p-8 shadow-xl shadow-cyan-500/5 hover:border-accent-cyan hover:shadow-2xl transition-all duration-300 group relative overflow-hidden">
-              {/* Subtle Ambient Glow */}
+              {}
               <div className="absolute top-0 right-0 w-48 h-48 bg-accent-cyan/10 rounded-full blur-2xl pointer-events-none" />
 
-              {/* Header: Badge + Title (centered, no icon) */}
+              {}
               <div className="text-center relative z-10">
                 <span className="text-[11px] font-mono font-bold tracking-wider text-accent-cyan uppercase bg-accent-cyan/10 border border-accent-cyan/30 px-2.5 py-0.5 rounded-full inline-block mb-3">
                   VISI UTAMA
@@ -122,40 +118,40 @@ export default function VisionMissionRedesign() {
           </Reveal>
         </div>
 
-        {/* ALTERNATING MISI TIMELINE SECTION */}
+        {} 
         <div ref={containerRef} className="relative max-w-5xl mx-auto">
 
-          {/* MISI TITLE - Connected to the flowing line */}
+          {}
           <Reveal y={30}>
             <div className="text-center mb-20 md:mb-28 relative z-10">
               <span className="text-[11px] font-mono font-bold tracking-wider text-amber-500 uppercase bg-amber-500/10 border border-amber-500/30 px-3 py-1 rounded-full inline-block mb-3">
                 MISI KAMI
               </span>
-              {/* Vertical connector line from title to cards */}
+              {}
               <div className="w-px h-12 md:h-16 bg-gradient-to-b from-amber-500/60 to-transparent mx-auto mt-4" />
             </div>
           </Reveal>
 
-          {/* MOBILE VERTICAL FLOWING LINE (visible on mobile only) */}
+          {}
           <div className="absolute left-6 top-[120px] bottom-6 pointer-events-none z-0 md:hidden w-1 -translate-x-1/2">
-            {/* Dotted Track Base */}
+            {}
             <div className="absolute inset-0 w-0.5 border-r-2 border-dashed border-slate-300 dark:border-white/20 mx-auto" />
             
-            {/* Glowing Ambient Glow */}
+            {}
             <div className="absolute inset-0 w-3 bg-amber-500/20 blur-md rounded-full -translate-x-1/2" />
 
-            {/* Scroll-Linked Animated Flowing Gradient Line */}
+            {}
             <div
               ref={mobileLineRef}
               className="absolute top-0 left-0 right-0 rounded-full overflow-hidden bg-gradient-to-b from-amber-500 via-accent-cyan to-primary shadow-[0_0_12px_rgba(0,229,255,0.8)]"
               style={{ height: "0%" }}
             >
-              {/* Continuous Moving Light Stream Pulsing Glow */}
+              {}
               <div className="w-full h-full animate-pulse bg-gradient-to-b from-transparent via-white/80 to-transparent" />
             </div>
           </div>
           
-          {/* DESKTOP S-CURVE RIBBON SVG PATH (hidden on mobile) */}
+          {}
           <div className="absolute inset-0 pointer-events-none z-0 hidden md:block" style={{ top: '140px' }}>
             <svg className="w-full h-full overflow-visible" viewBox="0 0 1000 1400" preserveAspectRatio="none">
               <defs>
@@ -168,7 +164,7 @@ export default function VisionMissionRedesign() {
                 </linearGradient>
               </defs>
 
-              {/* Ambient Glow Ribbon Trace */}
+              {}
               <path
                 d="M 500 0 C 180 100, 180 250, 500 350 C 820 450, 820 600, 500 700 C 180 800, 180 950, 500 1050 C 820 1150, 820 1300, 500 1400"
                 fill="none"
@@ -178,7 +174,7 @@ export default function VisionMissionRedesign() {
                 className="blur-md"
               />
 
-              {/* Dotted Base S-Curve Track */}
+              {}
               <path
                 d="M 500 0 C 180 100, 180 250, 500 350 C 820 450, 820 600, 500 700 C 180 800, 180 950, 500 1050 C 820 1150, 820 1300, 500 1400"
                 fill="none"
@@ -187,7 +183,7 @@ export default function VisionMissionRedesign() {
                 strokeDasharray="6 6"
               />
 
-              {/* Scroll-Linked Animated Flowing S-Curve Ribbon */}
+              {}
               <path
                 ref={pathRef}
                 d="M 500 0 C 180 100, 180 250, 500 350 C 820 450, 820 600, 500 700 C 180 800, 180 950, 500 1050 C 820 1150, 820 1300, 500 1400"
@@ -197,7 +193,7 @@ export default function VisionMissionRedesign() {
                 strokeLinecap="round"
               />
 
-              {/* Continuous Light Stream Overlay */}
+              {}
               <path
                 d="M 500 0 C 180 100, 180 250, 500 350 C 820 450, 820 600, 500 700 C 180 800, 180 950, 500 1050 C 820 1150, 820 1300, 500 1400"
                 fill="none"
@@ -209,7 +205,7 @@ export default function VisionMissionRedesign() {
             </svg>
           </div>
 
-          {/* ALTERNATING MISI CARDS LIST */}
+          {}
           <div className="space-y-28 md:space-y-40 relative z-10">
             {missionItems.map((item, index) => {
               const isEven = index % 2 === 0;
@@ -219,17 +215,17 @@ export default function VisionMissionRedesign() {
                   key={item.number}
                   className="relative flex flex-col md:flex-row items-center w-full"
                 >
-                  {/* MISI CARD ALIGNED LEFT OR RIGHT */}
+                  {}
                   <div
                     className={`w-full pl-12 md:pl-0 md:w-[calc(50%-2.5rem)] ${
                       isEven ? "md:mr-auto" : "md:ml-auto"
                     }`}
                   >
                     <Reveal y={50}>
-                      {/* CARD STYLING MATCHING REFERENCE IMAGE */}
+                      {}
                       <div className="bg-white dark:bg-[#07162c] border border-slate-200/90 dark:border-white/10 rounded-2xl md:rounded-3xl p-5 md:p-8 shadow-lg shadow-slate-200/50 dark:shadow-none hover:shadow-2xl hover:border-amber-500/40 transition-all duration-300 group">
                         
-                        {/* Header: Number Circle + Text */}
+                        {}
                         <div className="flex items-start gap-3 md:gap-4">
                           <div className="w-8 h-8 md:w-9 md:h-9 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm md:text-base shrink-0 shadow-md">
                             {item.number}
