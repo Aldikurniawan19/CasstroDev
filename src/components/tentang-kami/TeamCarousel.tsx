@@ -47,28 +47,34 @@ const rotations = [-4, 3, -3, 5, -2];
 
 export default function TeamCarousel() {
   const [active, setActive] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
 
   const handleNext = useCallback(() => {
     setActive((prev) => (prev + 1) % teamMembers.length);
   }, []);
 
-  const handlePrev = () => {
+  const handlePrev = useCallback(() => {
     setActive((prev) => (prev - 1 + teamMembers.length) % teamMembers.length);
-  };
+  }, []);
 
   useEffect(() => {
+    if (isHovered) return;
     const interval = setInterval(handleNext, 5000);
     return () => clearInterval(interval);
-  }, [handleNext]);
+  }, [handleNext, isHovered]);
 
   const isActive = (index: number) => index === active;
 
   return (
-    <div className="mx-auto max-w-sm px-4 antialiased md:max-w-4xl md:px-8 lg:px-12">
+    <div
+      className="mx-auto max-w-sm px-4 antialiased md:max-w-4xl md:px-8 lg:px-12"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       <div className="relative grid grid-cols-1 gap-y-12 md:grid-cols-2 md:gap-x-20">
-        {}
+        {/* Card Stack Image Container */}
         <div className="flex items-center justify-center">
-          <div className="relative h-80 w-full max-w-xs">
+          <div className="relative h-80 w-full max-w-xs cursor-pointer">
             <AnimatePresence>
               {teamMembers.map((member, index) => (
                 <motion.div
@@ -87,6 +93,7 @@ export default function TeamCarousel() {
                   transition={{ duration: 0.5, ease: "easeInOut" }}
                   className="absolute inset-0 origin-bottom"
                   style={{ perspective: "1000px" }}
+                  onClick={() => setActive(index)}
                 >
                   <Image
                     src={member.imageUrl}
@@ -94,7 +101,7 @@ export default function TeamCarousel() {
                     width={500}
                     height={500}
                     draggable={false}
-                    className="h-full w-full rounded-3xl object-cover shadow-2xl"
+                    className="h-full w-full rounded-3xl object-cover shadow-2xl transition-all duration-300 hover:scale-[1.02]"
                   />
                 </motion.div>
               ))}
@@ -102,7 +109,7 @@ export default function TeamCarousel() {
           </div>
         </div>
 
-        {}
+        {/* Content Info Container */}
         <div className="flex flex-col justify-center py-4">
           <AnimatePresence mode="wait">
             <motion.div
@@ -127,21 +134,40 @@ export default function TeamCarousel() {
             </motion.div>
           </AnimatePresence>
 
-          <div className="flex gap-4 pt-12">
-            <button
-              onClick={handlePrev}
-              aria-label="Previous team member"
-              className="btn-animated group flex h-11 w-11 items-center justify-center rounded-full bg-surface-container-low border border-border-subtle hover:bg-surface-container focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 cursor-pointer"
-            >
-              <ArrowLeft className="h-5 w-5 text-primary transition-transform duration-300 group-hover:-translate-x-1" />
-            </button>
-            <button
-              onClick={handleNext}
-              aria-label="Next team member"
-              className="btn-animated group flex h-11 w-11 items-center justify-center rounded-full bg-surface-container-low border border-border-subtle hover:bg-surface-container focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 cursor-pointer"
-            >
-              <ArrowRight className="h-5 w-5 text-primary transition-transform duration-300 group-hover:translate-x-1" />
-            </button>
+          {/* Navigation Controls & Indicators */}
+          <div className="flex items-center justify-between pt-12">
+            <div className="flex gap-4">
+              <button
+                onClick={handlePrev}
+                aria-label="Previous team member"
+                className="btn-animated group flex h-11 w-11 items-center justify-center rounded-full bg-surface-container-low border border-border-subtle hover:bg-surface-container focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 cursor-pointer"
+              >
+                <ArrowLeft className="h-5 w-5 text-primary transition-transform duration-300 group-hover:-translate-x-1" />
+              </button>
+              <button
+                onClick={handleNext}
+                aria-label="Next team member"
+                className="btn-animated group flex h-11 w-11 items-center justify-center rounded-full bg-surface-container-low border border-border-subtle hover:bg-surface-container focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 cursor-pointer"
+              >
+                <ArrowRight className="h-5 w-5 text-primary transition-transform duration-300 group-hover:translate-x-1" />
+              </button>
+            </div>
+
+            {/* Clickable Card Indicator Dots */}
+            <div className="flex items-center gap-2">
+              {teamMembers.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setActive(idx)}
+                  aria-label={`Pilih anggota tim ${idx + 1}`}
+                  className={`h-2.5 rounded-full transition-all duration-300 cursor-pointer ${
+                    active === idx
+                      ? "w-8 bg-accent-cyan shadow-sm"
+                      : "w-2.5 bg-slate-300 dark:bg-slate-700 hover:bg-slate-400"
+                  }`}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </div>
