@@ -8,10 +8,6 @@ import {
   ShieldCheck,
   FileCode2,
   Zap,
-  CheckCircle2,
-  GitPullRequest,
-  Cpu,
-  Terminal,
 } from "lucide-react";
 
 const culturePillars = [
@@ -59,33 +55,6 @@ const culturePillars = [
   },
 ];
 
-const engineeringStats = [
-  {
-    value: "100%",
-    label: "Peer Code Review",
-    desc: "Setiap PR ditinjau oleh tim senior",
-    icon: GitPullRequest,
-  },
-  {
-    value: "Automated",
-    label: "CI/CD Pipeline",
-    desc: "Pengujian & deployment otomatis",
-    icon: Cpu,
-  },
-  {
-    value: "Zero-Debt",
-    label: "Clean Code Policy",
-    desc: "Refactoring & optimasi berkala",
-    icon: Terminal,
-  },
-  {
-    value: "High",
-    label: "Test Coverage",
-    desc: "Unit & Integration test terstandar",
-    icon: CheckCircle2,
-  },
-];
-
 export default function EngineeringCulture() {
   return (
     <section
@@ -109,7 +78,7 @@ export default function EngineeringCulture() {
       </div>
 
       {/* Grid Kartu Pilar Budaya Rekayasa */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-16">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
         {culturePillars.map((pillar, index) => {
           const IconComponent = pillar.icon;
           const isEven = index % 2 === 0;
@@ -143,34 +112,6 @@ export default function EngineeringCulture() {
           );
         })}
       </div>
-
-      {/* Engineering Banner / Key Highlights */}
-      <Reveal y={30} once={false}>
-        <div className="bg-primary dark:bg-[#07162c] text-white rounded-3xl p-8 md:p-12 border border-slate-800 dark:border-white/10 shadow-xl relative overflow-hidden">
-          <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {engineeringStats.map((stat, i) => {
-              const StatIcon = stat.icon;
-              return (
-                <div
-                  key={i}
-                  className="flex flex-col gap-2 p-5 rounded-2xl bg-slate-800/80 dark:bg-slate-900/90 border border-slate-700/60 dark:border-white/10 hover:border-secondary/60 transition-colors"
-                >
-                  <div className="flex items-center gap-3 mb-1">
-                    <StatIcon className="w-5 h-5 text-accent-cyan" />
-                    <span className="text-sm font-semibold tracking-wide text-slate-300">
-                      {stat.label}
-                    </span>
-                  </div>
-                  <div className="text-2xl md:text-3xl font-extrabold text-white tracking-tight font-mono">
-                    {stat.value}
-                  </div>
-                  <p className="text-xs text-slate-400 leading-snug">{stat.desc}</p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </Reveal>
     </section>
   );
 }
