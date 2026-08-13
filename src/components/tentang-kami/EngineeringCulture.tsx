@@ -146,18 +146,20 @@ export default function EngineeringCulture() {
 
       {/* Engineering Banner / Key Highlights */}
       <Reveal y={30} once={false}>
-        <div className="bg-gradient-to-br from-primary via-slate-900 to-slate-950 text-white rounded-3xl p-8 md:p-12 border border-slate-800 shadow-xl relative overflow-hidden">
-          {/* Subtle Accent Glow */}
-          <div className="absolute top-0 right-0 w-96 h-96 bg-accent-cyan/10 rounded-full blur-3xl pointer-events-none"></div>
-
-          <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="bg-primary dark:bg-[#07162c] text-white rounded-3xl p-8 md:p-12 border border-slate-800 dark:border-white/10 shadow-xl relative overflow-hidden">
+          <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {engineeringStats.map((stat, i) => {
               const StatIcon = stat.icon;
               return (
-                <div key={i} className="flex flex-col gap-2 p-4 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-colors">
+                <div
+                  key={i}
+                  className="flex flex-col gap-2 p-5 rounded-2xl bg-slate-800/80 dark:bg-slate-900/90 border border-slate-700/60 dark:border-white/10 hover:border-secondary/60 transition-colors"
+                >
                   <div className="flex items-center gap-3 mb-1">
                     <StatIcon className="w-5 h-5 text-accent-cyan" />
-                    <span className="text-sm font-semibold tracking-wide text-slate-300">{stat.label}</span>
+                    <span className="text-sm font-semibold tracking-wide text-slate-300">
+                      {stat.label}
+                    </span>
                   </div>
                   <div className="text-2xl md:text-3xl font-extrabold text-white tracking-tight font-mono">
                     {stat.value}

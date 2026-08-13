@@ -53,8 +53,7 @@ export default function Reveal({
           : {
               trigger: el,
               start: "top 88%",
-              end: "bottom 12%",
-              toggleActions: "play reverse play reverse",
+              toggleActions: "play none none reverse",
               once: false,
             },
       }

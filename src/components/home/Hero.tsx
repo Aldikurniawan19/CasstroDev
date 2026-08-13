@@ -11,7 +11,8 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(useGSAP, ScrollTrigger);
 }
 
-const PERF_LETTERS = "Performance".split("");
+const TARGET_TEXT = "Solusi Digital";
+const WORDS = TARGET_TEXT.split(" ");
 
 export default function Hero() {
   const perfRef = useRef<HTMLSpanElement>(null);
@@ -142,32 +143,40 @@ export default function Hero() {
       <Reveal className="col-span-4 md:col-span-8 xl:col-span-7 flex flex-col gap-stack-lg">
 
         <h1 className="font-display-lg-mobile text-display-lg-mobile md:font-display-lg md:text-display-lg text-black dark:text-white tracking-tight">
-          Crafting High-
+          Membangun{" "}
           <span
             ref={perfRef}
-            className="inline-block cursor-pointer"
+            className="inline-flex flex-wrap cursor-pointer"
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
             style={{ perspective: "600px" }}
           >
-            {PERF_LETTERS.map((char, i) => (
-              <span
-                key={i}
-                ref={(el) => setLetterRef(el, i)}
-                className="inline-block text-secondary transition-none"
-                style={{ willChange: "transform, opacity, color" }}
-              >
-                {char}
-              </span>
-            ))}
+            {WORDS.map((word, wIdx) => {
+              const charOffset = WORDS.slice(0, wIdx).join(" ").length + (wIdx > 0 ? 1 : 0);
+              return (
+                <span key={wIdx} className="inline-block whitespace-nowrap mr-[0.28em] last:mr-0">
+                  {word.split("").map((char, cIdx) => {
+                    const globalIndex = charOffset + cIdx;
+                    return (
+                      <span
+                        key={cIdx}
+                        ref={(el) => setLetterRef(el, globalIndex)}
+                        className="inline-block text-secondary transition-none"
+                        style={{ willChange: "transform, opacity, color" }}
+                      >
+                        {char}
+                      </span>
+                    );
+                  })}
+                </span>
+              );
+            })}
           </span>{" "}
-          Digital Solutions
+          untuk Bisnis Anda.
         </h1>
 
         <p className="font-body-lg text-body-lg text-text-muted max-w-2xl leading-relaxed">
-          Kami membangun arsitektur perangkat lunak yang tangguh dan skalabel untuk bisnis modern.
-          Pendekatan berbasis rekayasa presisi untuk memastikan keandalan, keamanan, dan performa
-          optimal di setiap baris kode.
+          Kami membantu mengubah ide dan kebutuhan bisnis menjadi solusi digital yang fungsional, modern, dan memberikan dampak nyata.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-stack-md pt-stack-sm">

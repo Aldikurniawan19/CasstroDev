@@ -41,6 +41,7 @@ const missionItems = [
 export default function VisionMissionRedesign() {
   const containerRef = useRef<HTMLDivElement>(null);
   const pathRef = useRef<SVGPathElement>(null);
+  const flowPathRef = useRef<SVGPathElement>(null);
   const visiCardRef = useRef<HTMLDivElement>(null);
   const missionCardsRef = useRef<(HTMLDivElement | null)[]>([]);
 
@@ -53,22 +54,46 @@ export default function VisionMissionRedesign() {
     if (!container) return;
 
     const path = pathRef.current;
+    const flowPath = flowPathRef.current;
+
     if (path) {
       const length = path.getTotalLength();
+
+      // Main S-curve path stroke reveal synced to scroll
       gsap.set(path, {
         strokeDasharray: length,
         strokeDashoffset: length,
       });
+
       gsap.to(path, {
         strokeDashoffset: 0,
         ease: "none",
         scrollTrigger: {
           trigger: container,
-          start: "top 70%",
-          end: "bottom 80%",
-          scrub: 1,
+          start: "top 75%",
+          end: "bottom 85%",
+          scrub: 0.5,
         },
       });
+
+      // Flowing stream pulse segment synced directly to scroll movement
+      if (flowPath) {
+        gsap.set(flowPath, {
+          strokeDasharray: `100 ${length}`,
+          strokeDashoffset: length,
+        });
+
+        gsap.to(flowPath, {
+          strokeDashoffset: 0,
+          ease: "none",
+          scrollTrigger: {
+            trigger: container,
+            start: "top 75%",
+            end: "bottom 85%",
+            scrub: 0.5,
+          },
+        });
+      }
     }
 
     if (visiCardRef.current) {
@@ -90,8 +115,7 @@ export default function VisionMissionRedesign() {
           scrollTrigger: {
             trigger: visiCardRef.current,
             start: "top 88%",
-            end: "bottom 12%",
-            toggleActions: "play reverse play reverse",
+            toggleActions: "play none none reverse",
           },
         }
       );
@@ -114,14 +138,13 @@ export default function VisionMissionRedesign() {
           filter: "blur(0px)",
           duration: 0.6,
           ease: "power2.out",
-            scrollTrigger: {
-              trigger: card,
-              start: "top 88%",
-              end: "bottom 12%",
-              toggleActions: "play reverse play reverse",
-            },
-          }
-        );
+          scrollTrigger: {
+            trigger: card,
+            start: "top 88%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
     });
   }, []);
 
@@ -202,12 +225,14 @@ export default function VisionMissionRedesign() {
               />
 
               <path
+                ref={flowPathRef}
                 d="M 500 0 C 180 100, 180 250, 500 350 C 820 450, 820 600, 500 700 C 180 800, 180 950, 500 1050 C 820 1150, 820 1300, 500 1400"
                 fill="none"
-                stroke="url(#sCurveGrad)"
-                strokeWidth="4"
+                stroke="#00e5ff"
+                strokeWidth="6"
                 strokeLinecap="round"
-                className="vm-flowing-line opacity-75"
+                opacity="0.9"
+                className="filter drop-shadow-[0_0_8px_rgba(0,229,255,0.8)]"
               />
             </svg>
           </div>
