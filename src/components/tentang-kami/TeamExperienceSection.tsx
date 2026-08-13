@@ -142,70 +142,69 @@ export default function TeamExperienceSection() {
   const trackRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
 
-  useGSAP(() => {
-    const section = sectionRef.current;
-    const track = trackRef.current;
-    if (!section || !track) return;
+  useGSAP(
+    () => {
+      const section = sectionRef.current;
+      const track = trackRef.current;
+      if (!section || !track) return;
 
-    const getScrollAmount = () => {
-      const trackWidth = track.scrollWidth;
-      const viewportWidth = window.innerWidth;
-      return -(trackWidth - viewportWidth);
-    };
+      const getScrollAmount = () => {
+        const trackWidth = track.scrollWidth;
+        const viewportWidth = window.innerWidth;
+        return -(trackWidth - viewportWidth);
+      };
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: section,
-        pin: true,
-        scrub: 1,
-        start: "top top",
-        end: () => `+=${Math.max(2600, track.scrollWidth * 1.9)}`,
-        invalidateOnRefresh: true,
-        onUpdate: (self) => {
-          const p = self.progress;
-          if (p <= 0.167) {
-            setActiveIndex(0);
-          } else if (p >= 0.833) {
-            setActiveIndex(teamDetails.length - 1);
-          } else {
-            const horizProgress = (p - 0.167) / (0.833 - 0.167);
-            const idx = Math.min(
-              teamDetails.length - 1,
-              Math.floor(horizProgress * teamDetails.length)
-            );
-            setActiveIndex(idx);
-          }
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          pin: true,
+          scrub: 1,
+          start: "top top",
+          end: () => `+=${Math.max(2600, track.scrollWidth * 1.9)}`,
+          invalidateOnRefresh: true,
+          onUpdate: (self) => {
+            const p = self.progress;
+            if (p <= 0.167) {
+              setActiveIndex(0);
+            } else if (p >= 0.833) {
+              setActiveIndex(teamDetails.length - 1);
+            } else {
+              const horizProgress = (p - 0.167) / (0.833 - 0.167);
+              const idx = Math.min(
+                teamDetails.length - 1,
+                Math.floor(horizProgress * teamDetails.length)
+              );
+              setActiveIndex(idx);
+            }
+          },
         },
-      },
-    });
+      });
 
-    // Stage 1: Entrance Zoom-In Reveal (Duration 0.25)
-    tl.fromTo(
-      track,
-      { scale: 0.78, opacity: 0, y: 70 },
-      { scale: 1, opacity: 1, y: 0, duration: 0.25, ease: "power2.out" }
-    );
+      // Stage 1: Entrance Zoom-In Reveal (Duration 0.25)
+      tl.fromTo(
+        track,
+        { scale: 0.78, opacity: 0, y: 70 },
+        { scale: 1, opacity: 1, y: 0, duration: 0.25, ease: "power2.out" }
+      );
 
-    // Stage 2: Horizontal Card-by-Card Scroll Animation (Duration 1.0)
-    tl.to(track, {
-      x: getScrollAmount,
-      duration: 1.0,
-      ease: "none",
-    });
+      // Stage 2: Horizontal Card-by-Card Scroll Animation (Duration 1.0)
+      tl.to(track, {
+        x: getScrollAmount,
+        duration: 1.0,
+        ease: "none",
+      });
 
-    // Stage 3: Exit Zoom-Out Unreveal Symmetrical to Entrance (Duration 0.25)
-    tl.to(track, {
-      scale: 0.78,
-      opacity: 0,
-      y: -70,
-      duration: 0.25,
-      ease: "power2.in",
-    });
-
-    return () => {
-      tl.kill();
-    };
-  }, []);
+      // Stage 3: Exit Zoom-Out Unreveal Symmetrical to Entrance (Duration 0.25)
+      tl.to(track, {
+        scale: 0.78,
+        opacity: 0,
+        y: -70,
+        duration: 0.25,
+        ease: "power2.in",
+      });
+    },
+    { scope: sectionRef }
+  );
 
   return (
     <section
