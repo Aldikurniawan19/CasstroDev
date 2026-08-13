@@ -82,7 +82,7 @@ export default function ContactFormSection() {
           {/* Sidebar Contact Info & Guarantees */}
           <div className="lg:col-span-5 space-y-6">
             <Reveal y={30}>
-              <div className="bg-white dark:bg-[#07162c] border border-slate-200/90 dark:border-white/10 rounded-none p-6 sm:p-8 shadow-lg shadow-slate-200/40 dark:shadow-none space-y-6">
+              <div className="bg-white dark:bg-[#07162c] border border-slate-200/90 dark:border-white/10 rounded-2xl p-6 sm:p-8 shadow-lg shadow-slate-200/40 dark:shadow-none space-y-6">
                 <h3 className="font-headline-md text-headline-md text-primary dark:text-white font-bold pb-3 border-b border-slate-200 dark:border-white/10">
                   Informasi Kontak Resmi
                 </h3>
@@ -91,9 +91,9 @@ export default function ContactFormSection() {
                   {/* Email Direct */}
                   <a
                     href="mailto:adityakachef15@gmail.com"
-                    className="flex items-start gap-4 p-3 rounded-none hover:bg-slate-50 dark:hover:bg-slate-900/60 transition-colors group"
+                    className="flex items-start gap-4 p-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-900/60 transition-colors group"
                   >
-                    <div className="w-10 h-10 rounded-none bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0 border border-blue-500/20 group-hover:scale-105 transition-transform">
+                    <div className="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0 border border-blue-500/20 group-hover:scale-105 transition-transform">
                       <Mail className="w-5 h-5" />
                     </div>
                     <div>
@@ -111,9 +111,9 @@ export default function ContactFormSection() {
                     href="https://wa.me/6283873688118"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-start gap-4 p-3 rounded-none hover:bg-slate-50 dark:hover:bg-slate-900/60 transition-colors group"
+                    className="flex items-start gap-4 p-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-900/60 transition-colors group"
                   >
-                    <div className="w-10 h-10 rounded-none bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0 border border-emerald-500/20 group-hover:scale-105 transition-transform">
+                    <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0 border border-emerald-500/20 group-hover:scale-105 transition-transform">
                       <Phone className="w-5 h-5" />
                     </div>
                     <div>
@@ -127,8 +127,8 @@ export default function ContactFormSection() {
                   </a>
 
                   {/* Working Hours */}
-                  <div className="flex items-start gap-4 p-3 rounded-none">
-                    <div className="w-10 h-10 rounded-none bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center shrink-0 border border-indigo-500/20">
+                  <div className="flex items-start gap-4 p-3 rounded-xl">
+                    <div className="w-10 h-10 rounded-xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center shrink-0 border border-indigo-500/20">
                       <Clock className="w-5 h-5" />
                     </div>
                     <div>
@@ -160,7 +160,7 @@ export default function ContactFormSection() {
           {/* Interactive Form Card */}
           <div className="lg:col-span-7">
             <Reveal y={35}>
-              <div className="bg-white dark:bg-[#07162c] border border-slate-200/90 dark:border-white/10 rounded-none p-6 sm:p-8 md:p-10 shadow-xl shadow-slate-200/50 dark:shadow-none relative overflow-hidden">
+              <div className="bg-white dark:bg-[#07162c] border border-slate-200/90 dark:border-white/10 rounded-2xl p-6 sm:p-8 md:p-10 shadow-xl shadow-slate-200/50 dark:shadow-none relative overflow-hidden">
                 {submitted ? (
                   <div className="py-12 px-4 text-center space-y-5">
                     <div className="w-16 h-16 rounded-full bg-emerald-500/10 text-emerald-500 border border-emerald-500/30 flex items-center justify-center mx-auto shadow-inner">
@@ -179,7 +179,7 @@ export default function ContactFormSection() {
                         href="https://wa.me/6283873688118"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="px-6 py-3 rounded-none bg-emerald-600 hover:bg-emerald-700 text-white font-label-md text-label-md font-semibold inline-flex items-center gap-2 shadow-lg shadow-emerald-600/25 transition-all hover:scale-[1.02] cursor-pointer"
+                        className="px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-label-md text-label-md font-semibold inline-flex items-center gap-2 shadow-lg shadow-emerald-600/25 transition-all hover:scale-[1.02] cursor-pointer"
                       >
                         <Phone className="w-4 h-4" />
                         <span>Diskusi via WhatsApp</span>
@@ -197,7 +197,7 @@ export default function ContactFormSection() {
                             message: "",
                           });
                         }}
-                        className="px-6 py-3 rounded-none bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-label-md text-label-md font-semibold transition-all cursor-pointer inline-block"
+                        className="px-6 py-3 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-label-md text-label-md font-semibold transition-all cursor-pointer inline-block"
                       >
                         Isi Ulang Form
                       </button>
@@ -228,7 +228,7 @@ export default function ContactFormSection() {
                           placeholder="Masukkan nama lengkap Anda"
                           value={formData.name}
                           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                          className="w-full px-4 py-3 rounded-none bg-slate-50 dark:bg-[#040d1a] border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary transition-all"
+                          className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-[#040d1a] border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary transition-all"
                         />
                       </div>
 
@@ -246,7 +246,7 @@ export default function ContactFormSection() {
                           placeholder="contoh@perusahaan.com"
                           value={formData.email}
                           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                          className="w-full px-4 py-3 rounded-none bg-slate-50 dark:bg-[#040d1a] border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary transition-all"
+                          className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-[#040d1a] border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary transition-all"
                         />
                       </div>
                     </div>
@@ -267,7 +267,7 @@ export default function ContactFormSection() {
                           placeholder="081234567890"
                           value={formData.whatsapp}
                           onChange={(e) => setFormData({ ...formData, whatsapp: e.target.value })}
-                          className="w-full px-4 py-3 rounded-none bg-slate-50 dark:bg-[#040d1a] border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary transition-all"
+                          className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-[#040d1a] border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary transition-all"
                         />
                       </div>
 
@@ -282,7 +282,7 @@ export default function ContactFormSection() {
                           id="service"
                           value={formData.service}
                           onChange={(e) => setFormData({ ...formData, service: e.target.value })}
-                          className="w-full px-4 py-3 rounded-none bg-slate-50 dark:bg-[#040d1a] border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary transition-all cursor-pointer"
+                          className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-[#040d1a] border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary transition-all cursor-pointer"
                         >
                           <option value="Web Development">Web Development / Portal SaaS</option>
                           <option value="Sistem Informasi">Sistem Informasi & ERP Gudang</option>
@@ -304,7 +304,7 @@ export default function ContactFormSection() {
                         id="budget"
                         value={formData.budget}
                         onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
-                        className="w-full px-4 py-3 rounded-none bg-slate-50 dark:bg-[#040d1a] border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary transition-all cursor-pointer"
+                        className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-[#040d1a] border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary transition-all cursor-pointer"
                       >
                         <option value="< Rp 15 Juta">&lt; Rp 15 Juta</option>
                         <option value="Rp 15 Juta - Rp 50 Juta">Rp 15 Juta – Rp 50 Juta</option>
@@ -328,7 +328,7 @@ export default function ContactFormSection() {
                         placeholder="Jelaskan gambaran singkat aplikasi, tujuan bisnis, atau tantangan yang ingin Anda selesaikan..."
                         value={formData.message}
                         onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                        className="w-full px-4 py-3 rounded-none bg-slate-50 dark:bg-[#040d1a] border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary transition-all resize-none"
+                        className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-[#040d1a] border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary transition-all resize-none"
                       />
                     </div>
 
@@ -336,7 +336,7 @@ export default function ContactFormSection() {
                     <button
                       type="submit"
                       disabled={loading}
-                      className="w-full py-3.5 px-6 rounded-none bg-primary-container hover:bg-primary disabled:bg-slate-400 text-on-primary font-label-md text-label-md font-semibold flex items-center justify-center gap-2 shadow-md hover:shadow-lg transition-all duration-200 hover:-translate-y-0.5 cursor-pointer"
+                      className="btn-animated w-full py-3.5 px-6 rounded-xl bg-primary-container hover:bg-primary disabled:bg-slate-400 text-on-primary font-label-md text-label-md font-semibold flex items-center justify-center gap-2 shadow-md hover:shadow-lg cursor-pointer"
                     >
                       {loading ? (
                         <span>Mengirim Pesan...</span>

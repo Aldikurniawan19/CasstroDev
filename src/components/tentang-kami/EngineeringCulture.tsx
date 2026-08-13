@@ -4,7 +4,7 @@ export default function EngineeringCulture() {
   return (
     <section className="py-section-gap grid grid-cols-4 md:grid-cols-12 gap-gutter items-center border-t border-border-subtle" id="culture">
       <Reveal className="col-span-4 md:col-span-6 h-[400px] md:h-[500px] md:order-2">
-        <div className="w-full h-full bg-surface-container-low rounded-lg border border-border-subtle overflow-hidden shadow-inner group">
+        <div className="w-full h-full bg-surface-container-low rounded-2xl border border-border-subtle overflow-hidden shadow-inner group">
           <img
             className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 transform group-hover:scale-105"
             src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHLQCHhptyopEfIk6AmSz1ZdyR_RR6C8h7nCBQMPjnekTJWysmx_Q6oCKDwM-Etgp2lNMQZD2ByYVyvE7M8ixbCHhGOhbQV_S8WYFNBkluKt4hgfR41n6Mj9XqOq3v4z2D6ZsanOL7v6nAOC44X5dEqhbxdKE55f3V0X_VJ3hpXgT9ZyfaMJP-I3gxjuFsqp2Bqg6CCvW38SrdvDwN-QmMGRGoF-w2ZDBVGm-wjvp_lONdsrRr-k4U"

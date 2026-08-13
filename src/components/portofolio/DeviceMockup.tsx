@@ -12,7 +12,7 @@ export default function DeviceMockup({
   title = "casstrodev.com/project-preview",
 }: DeviceMockupProps) {
   return (
-    <div className="w-full rounded-2xl overflow-hidden bg-slate-900 border border-slate-700/80 shadow-2xl transition-all duration-300 hover:border-blue-500/40">
+    <div className="w-full rounded-xl overflow-hidden bg-slate-900 border border-slate-700/80 shadow-2xl transition-all duration-300 hover:border-blue-500/40">
       {/* Mockup Window Header Bar */}
       <div className="bg-slate-950/90 px-4 py-3 border-b border-slate-800 flex items-center justify-between gap-4">
         {/* Window Controls (Red, Yellow, Green dots) */}
@@ -23,7 +23,7 @@ export default function DeviceMockup({
         </div>
 
         {/* Address Bar */}
-        <div className="flex-1 max-w-sm mx-auto bg-slate-900/90 border border-slate-800 rounded-lg px-3 py-1 text-center truncate">
+        <div className="flex-1 max-w-sm mx-auto bg-slate-900/90 border border-slate-800 rounded-md px-3 py-1 text-center truncate">
           <span className="text-xs font-mono text-slate-400 select-none">
             https://{title.replace(/^https?:\/\//, "")}
           </span>

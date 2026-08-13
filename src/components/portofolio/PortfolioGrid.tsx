@@ -391,7 +391,7 @@ export default function PortfolioGrid() {
                   key={category}
                   type="button"
                   onClick={() => setActiveFilter(category)}
-                  className={`px-4 sm:px-5 py-2.5 rounded font-label-md text-label-md transition-all duration-200 cursor-pointer ${
+                  className={`btn-animated px-4 sm:px-5 py-2.5 rounded-lg font-label-md text-label-md transition-all duration-200 cursor-pointer ${
                     isActive
                       ? "bg-primary-container text-on-primary shadow-md hover:bg-primary"
                       : "bg-white dark:bg-surface text-primary-container border border-primary-container/60 hover:bg-primary-container/10 hover:border-primary-container"
@@ -445,7 +445,7 @@ export default function PortfolioGrid() {
                         {project.tags.map((tag) => (
                           <span
                             key={tag}
-                            className="bg-surface-container-low text-secondary border border-border-subtle px-2.5 py-0.5 rounded text-label-sm font-label-sm font-mono"
+                            className="bg-surface-container-low text-secondary border border-border-subtle px-2.5 py-0.5 rounded-md text-label-sm font-label-sm font-mono"
                           >
                             {tag}
                           </span>
@@ -458,7 +458,7 @@ export default function PortfolioGrid() {
                           e.stopPropagation();
                           setSelectedProject(project);
                         }}
-                        className="w-8 h-8 rounded-xl border border-slate-200/90 dark:border-white/10 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-950/40 flex items-center justify-center transition-all shrink-0 cursor-pointer"
+                        className="w-8 h-8 rounded-lg border border-slate-200/90 dark:border-white/10 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-950/40 flex items-center justify-center transition-all shrink-0 cursor-pointer"
                         title="Lihat Detail Proyek"
                       >
                         <SquareArrowOutUpRight className="w-4 h-4" />

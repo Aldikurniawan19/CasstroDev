@@ -69,7 +69,7 @@ export default function Navbar() {
         <div className="hidden md:flex items-center gap-4">
           <Link
             href="/kontak"
-            className="bg-primary-container text-on-primary px-6 py-2.5 rounded font-label-md text-label-md hover:bg-primary transition-colors inline-block text-center shadow-sm"
+            className="btn-animated bg-primary-container text-on-primary px-6 py-2.5 rounded-xl font-label-md text-label-md hover:bg-primary inline-block text-center shadow-sm font-semibold"
           >
             Hubungi Kami
           </Link>
@@ -77,7 +77,7 @@ export default function Navbar() {
 
         {/* Mobile Menu Toggle Button */}
         <button
-          className="md:hidden text-primary p-2 focus:outline-none focus:ring-2 focus:ring-primary rounded"
+          className="btn-animated md:hidden text-primary p-2 focus:outline-none focus:ring-2 focus:ring-primary rounded-lg"
           aria-label="Toggle Mobile Menu"
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
@@ -113,7 +113,7 @@ export default function Navbar() {
           <Link
             href="/kontak"
             onClick={() => setOpen(false)}
-            className="mt-2 bg-primary-container text-on-primary px-6 py-3 rounded font-label-md text-label-md text-center block w-full hover:bg-primary transition-colors"
+            className="btn-animated mt-2 bg-primary-container text-on-primary px-6 py-3 rounded-xl font-label-md text-label-md text-center block w-full hover:bg-primary font-semibold"
           >
             Hubungi Kami
           </Link>

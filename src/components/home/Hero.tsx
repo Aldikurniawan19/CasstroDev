@@ -173,13 +173,13 @@ export default function Hero() {
         <div className="flex flex-col sm:flex-row gap-stack-md pt-stack-sm">
           <a
             href="/kontak"
-            className="bg-primary-container text-on-primary px-8 py-3.5 rounded font-label-md text-label-md hover:bg-primary transition-all text-center shadow-md hover:shadow-lg"
+            className="btn-animated bg-primary-container text-on-primary px-8 py-3.5 rounded-xl font-label-md text-label-md hover:bg-primary text-center shadow-md hover:shadow-lg font-semibold"
           >
             Hubungi Kami
           </a>
           <a
             href="/portofolio"
-            className="bg-white text-primary-container border border-primary-container px-8 py-3.5 rounded font-label-md text-label-md hover:bg-surface-container-low transition-colors text-center"
+            className="btn-animated bg-white dark:bg-surface text-primary-container dark:text-white border border-primary-container/60 dark:border-white/20 px-8 py-3.5 rounded-xl font-label-md text-label-md hover:bg-surface-container-low text-center font-semibold"
           >
             Lihat Portofolio
           </a>

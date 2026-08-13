@@ -512,7 +512,7 @@ export default function WhatsAppFloatingButton() {
                               key={opt.actionId}
                               type="button"
                               onClick={() => handleSelectOption(opt.actionId, opt.label)}
-                              className="px-3 py-1.5 rounded-xl bg-white dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-blue-950/60 text-slate-700 dark:text-blue-300 hover:text-blue-600 dark:hover:text-blue-200 border border-slate-200 dark:border-slate-700 text-xs font-medium transition-all shadow-sm cursor-pointer hover:scale-[1.02]"
+                              className="btn-animated px-3 py-1.5 rounded-xl bg-white dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-blue-950/60 text-slate-700 dark:text-blue-300 hover:text-blue-600 dark:hover:text-blue-200 border border-slate-200 dark:border-slate-700 text-xs font-medium shadow-sm cursor-pointer"
                             >
                               {opt.label}
                             </button>
@@ -552,7 +552,7 @@ export default function WhatsAppFloatingButton() {
                       type="submit"
                       disabled={!inputText.trim()}
                       aria-label="Kirim pertanyaan"
-                      className="w-9 h-9 rounded-xl bg-blue-600 hover:bg-blue-700 disabled:bg-slate-300 dark:disabled:bg-slate-800 text-white flex items-center justify-center shrink-0 transition-colors cursor-pointer"
+                      className="btn-animated w-9 h-9 rounded-xl bg-blue-600 hover:bg-blue-700 disabled:bg-slate-300 dark:disabled:bg-slate-800 text-white flex items-center justify-center shrink-0 cursor-pointer"
                     >
                       <Send className="w-4 h-4" />
                     </button>
@@ -615,7 +615,7 @@ export default function WhatsAppFloatingButton() {
                   href={waUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/25 transition-all duration-200 cursor-pointer"
+                  className="btn-animated w-full py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/25 cursor-pointer"
                 >
                   <span>Buka Chat WhatsApp</span>
                   <Send className="w-4 h-4" />

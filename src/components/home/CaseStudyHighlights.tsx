@@ -56,10 +56,10 @@ export default function CaseStudyHighlights() {
                 delay={index * 0.1}
                 className="col-span-4 md:col-span-4 h-full"
               >
-                <article className="bg-primary-container text-on-primary border border-border-subtle p-stack-lg rounded card-hover flex flex-col justify-between relative overflow-hidden h-full">
+                <article className="bg-primary-container text-on-primary border border-border-subtle p-stack-lg rounded-2xl card-hover flex flex-col justify-between relative overflow-hidden h-full">
                   <div className="absolute top-0 right-0 w-40 h-40 border border-on-primary/10 rounded-full -translate-y-1/2 translate-x-1/4 pointer-events-none"></div>
                   <div className="relative z-10">
-                    <div className="w-12 h-12 bg-white/10 text-on-primary rounded flex items-center justify-center mb-stack-md border border-on-primary/20">
+                    <div className="w-12 h-12 bg-white/10 text-on-primary rounded-xl flex items-center justify-center mb-stack-md border border-on-primary/20">
                       <span className="material-symbols-outlined text-2xl">{item.icon}</span>
                     </div>
                     <h3 className="font-headline-md text-headline-md mb-stack-sm font-semibold">
@@ -77,9 +77,9 @@ export default function CaseStudyHighlights() {
                 delay={index * 0.1}
                 className="col-span-4 md:col-span-4 h-full"
               >
-                <article className="bg-surface-container-lowest border border-border-subtle p-stack-lg rounded card-hover flex flex-col justify-between h-full">
+                <article className="bg-surface-container-lowest dark:bg-[#07162c] border border-border-subtle dark:border-white/10 p-stack-lg rounded-2xl card-hover flex flex-col justify-between h-full">
                   <div>
-                    <div className="w-12 h-12 bg-surface-container-low text-primary-container rounded flex items-center justify-center mb-stack-md border border-border-subtle">
+                    <div className="w-12 h-12 bg-surface-container-low dark:bg-slate-800 text-primary-container dark:text-cyan-400 rounded-xl flex items-center justify-center mb-stack-md border border-border-subtle dark:border-white/10">
                       <span className="material-symbols-outlined text-2xl">{item.icon}</span>
                     </div>
                     <h3 className="font-headline-md text-headline-md text-text-main mb-stack-sm font-semibold">

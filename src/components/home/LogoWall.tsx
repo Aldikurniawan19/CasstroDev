@@ -45,18 +45,25 @@ export default function LogoWall() {
       </Reveal>
 
       {/* Marquee Slider */}
-      <div className="marquee-wrapper">
+      <div className="marquee-wrapper py-2">
         <div className="marquee-track">
           {marqueeList.map((tech, index) => (
             <div
-              className="tech-badge flex items-center gap-3 text-[#9ca3af] select-none px-8 group hover:text-[var(--brand)] transition-colors duration-300"
-              style={{ "--brand": tech.color } as React.CSSProperties}
               key={`${tech.name}-${index}`}
+              className="tech-badge flex items-center gap-3.5 px-8 select-none"
             >
-              <span className="tech-icon transition-transform duration-300 group-hover:scale-110">
+              <span
+                className="tech-icon text-slate-900 dark:text-white flex items-center justify-center"
+                style={tech.color !== "#000000" ? { color: tech.color } : {}}
+              >
                 {tech.icon}
               </span>
-              <span className="text-base font-medium tracking-wide whitespace-nowrap">{tech.name}</span>
+              <span
+                className="text-base font-semibold tracking-wide whitespace-nowrap text-slate-900 dark:text-white"
+                style={tech.color !== "#000000" ? { color: tech.color } : {}}
+              >
+                {tech.name}
+              </span>
             </div>
           ))}
         </div>

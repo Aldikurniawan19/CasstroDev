@@ -66,12 +66,12 @@ export default function FAQ() {
           const isOpen = openIndex === index;
           return (
             <Reveal key={faq.question} delay={index * 0.06}>
-              <div className="bg-white border border-border-subtle rounded-lg overflow-hidden">
+              <div className="bg-white dark:bg-[#07162c] border border-border-subtle dark:border-white/10 rounded-xl overflow-hidden shadow-sm">
                 <button
                   type="button"
                   onClick={() => setOpenIndex(isOpen ? null : index)}
                   aria-expanded={isOpen}
-                  className="w-full flex items-center justify-between gap-4 p-5 text-left hover:bg-surface-container-lowest transition-colors"
+                  className="w-full flex items-center justify-between gap-4 p-5 text-left hover:bg-surface-container-lowest dark:hover:bg-slate-900/60 transition-colors"
                 >
                   <h3 className="font-headline-md text-headline-md text-primary font-semibold">
                     {faq.question}

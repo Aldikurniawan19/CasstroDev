@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { SiInstagram, SiTiktok } from "react-icons/si";
 import Reveal from "@/components/common/Reveal";
 
 const currentYear = new Date().getFullYear();
@@ -38,6 +39,28 @@ export default function Footer() {
             Rekayasa perangkat lunak presisi untuk skala enterprise. Membangun sistem digital
             berkinerja tinggi, aman, dan terukur.
           </p>
+
+          {/* Social Media Links */}
+          <div className="flex items-center gap-3 pt-2">
+            <a
+              href="https://instagram.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram CasstroDev"
+              className="btn-animated w-10 h-10 rounded-xl bg-white/10 hover:bg-gradient-to-tr hover:from-amber-500 hover:via-rose-500 hover:to-purple-600 text-white flex items-center justify-center transition-all duration-300 border border-white/10 hover:border-transparent shadow-sm"
+            >
+              <SiInstagram className="w-5 h-5" />
+            </a>
+            <a
+              href="https://tiktok.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="TikTok CasstroDev"
+              className="btn-animated w-10 h-10 rounded-xl bg-white/10 hover:bg-black text-white hover:text-accent-cyan flex items-center justify-center transition-all duration-300 border border-white/10 hover:border-transparent shadow-sm"
+            >
+              <SiTiktok className="w-4 h-4" />
+            </a>
+          </div>
         </div>
 
         {/* Navigation & Links */}
@@ -116,6 +139,26 @@ export default function Footer() {
         {/* Copyright */}
         <div className="col-span-12 mt-12 pt-8 border-t border-white/10 text-slate-400 font-body-md text-sm flex flex-col sm:flex-row justify-between items-center gap-4">
           <p>© {currentYear} CasstroDev. All rights reserved.</p>
+          <div className="flex items-center gap-6 text-xs text-slate-300">
+            <a
+              href="https://instagram.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 hover:text-accent-cyan transition-colors"
+            >
+              <SiInstagram className="w-4 h-4" />
+              <span>Instagram</span>
+            </a>
+            <a
+              href="https://tiktok.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 hover:text-accent-cyan transition-colors"
+            >
+              <SiTiktok className="w-3.5 h-3.5" />
+              <span>TikTok</span>
+            </a>
+          </div>
         </div>
       </Reveal>
       </div>

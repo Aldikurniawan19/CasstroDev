@@ -131,14 +131,14 @@ export default function TeamCarousel() {
             <button
               onClick={handlePrev}
               aria-label="Previous team member"
-              className="group flex h-11 w-11 items-center justify-center rounded-full bg-surface-container-low border border-border-subtle transition-colors hover:bg-surface-container focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+              className="btn-animated group flex h-11 w-11 items-center justify-center rounded-full bg-surface-container-low border border-border-subtle hover:bg-surface-container focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 cursor-pointer"
             >
               <ArrowLeft className="h-5 w-5 text-primary transition-transform duration-300 group-hover:-translate-x-1" />
             </button>
             <button
               onClick={handleNext}
               aria-label="Next team member"
-              className="group flex h-11 w-11 items-center justify-center rounded-full bg-surface-container-low border border-border-subtle transition-colors hover:bg-surface-container focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+              className="btn-animated group flex h-11 w-11 items-center justify-center rounded-full bg-surface-container-low border border-border-subtle hover:bg-surface-container focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 cursor-pointer"
             >
               <ArrowRight className="h-5 w-5 text-primary transition-transform duration-300 group-hover:translate-x-1" />
             </button>

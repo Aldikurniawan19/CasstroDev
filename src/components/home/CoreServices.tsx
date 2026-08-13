@@ -47,8 +47,8 @@ export default function CoreServices() {
           delay={index * 0.12}
           className="col-span-4 md:col-span-4 xl:col-span-6 h-full"
         >
-          <article className="bg-white p-6 border border-border-subtle rounded card-hover flex flex-col h-full">
-            <div className="w-12 h-12 bg-surface-container-low text-primary-container rounded flex items-center justify-center mb-6 border border-border-subtle">
+          <article className="bg-white dark:bg-[#07162c] p-6 border border-border-subtle dark:border-white/10 rounded-2xl card-hover flex flex-col h-full shadow-sm">
+            <div className="w-12 h-12 bg-surface-container-low dark:bg-slate-800 text-primary-container dark:text-cyan-400 rounded-xl flex items-center justify-center mb-6 border border-border-subtle dark:border-white/10">
               {service.icon}
             </div>
             <h3 className="font-headline-md text-headline-md text-text-main mb-3">{service.title}</h3>

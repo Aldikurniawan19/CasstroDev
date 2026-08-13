@@ -26,7 +26,7 @@ export default function CTASection({
         <div className="mt-4">
           <a
             href={buttonHref}
-            className="bg-primary-container text-on-primary px-10 py-4 rounded font-label-md text-label-md hover:bg-primary transition-all inline-block text-center text-lg shadow-md hover:shadow-lg hover:-translate-y-0.5"
+            className="btn-animated bg-primary-container text-on-primary px-10 py-4 rounded-xl font-label-md text-label-md hover:bg-primary inline-block text-center text-lg shadow-md hover:shadow-lg font-semibold"
           >
             {buttonText}
           </a>
