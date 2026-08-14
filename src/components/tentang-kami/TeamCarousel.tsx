@@ -87,10 +87,10 @@ export default function TeamCarousel() {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="relative grid grid-cols-1 gap-y-10 md:grid-cols-2 md:gap-x-16 lg:gap-x-20 items-center min-h-[440px] md:min-h-[460px]">
+      <div className="relative grid grid-cols-1 gap-y-6 md:grid-cols-2 md:gap-x-16 lg:gap-x-20 items-center">
         {/* Card Stack Image Container with Drag Gestures (Fixed Height) */}
-        <div className="flex flex-col items-center justify-center h-full">
-          <div className="relative h-80 sm:h-88 md:h-96 w-full max-w-xs sm:max-w-sm">
+        <div className="flex flex-col items-center justify-center">
+          <div className="relative h-76 sm:h-88 md:h-96 w-full max-w-xs sm:max-w-sm">
             {teamMembers.map((member, index) => {
               const offset = (index - active + teamMembers.length) % teamMembers.length;
               const isActive = offset === 0;
@@ -155,18 +155,18 @@ export default function TeamCarousel() {
           </div>
         </div>
 
-        {/* Content Info Container with Fixed Stable Dimensions (No Layout Shifting) */}
-        <div className="flex flex-col justify-between py-2 min-h-[290px] sm:min-h-[270px] md:min-h-[320px]">
-          {/* Text Area with reserved height */}
-          <div className="min-h-[190px] sm:min-h-[170px] md:min-h-[210px] flex flex-col justify-start">
+        {/* Content Info Container with Absolute Stacking (Guaranteed ZERO Layout Shift on Mobile & Desktop) */}
+        <div className="flex flex-col justify-between py-1">
+          {/* Static Height Container holding the crossfading text */}
+          <div className="relative h-[230px] sm:h-[190px] md:h-[220px] w-full">
             <AnimatePresence mode="wait">
               <motion.div
                 key={active}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.2, ease: "easeInOut" }}
-                className="w-full"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.18, ease: "easeInOut" }}
+                className="absolute inset-0 flex flex-col justify-start"
               >
                 <h3 className="font-headline-lg text-headline-lg text-primary dark:text-white font-bold">
                   {teamMembers[active].name}
@@ -174,29 +174,29 @@ export default function TeamCarousel() {
                 <p className="font-label-md text-label-md text-secondary dark:text-accent-cyan uppercase tracking-widest font-bold mt-1">
                   {teamMembers[active].title}
                 </p>
-                <p className="font-body-lg text-body-lg text-slate-700 dark:text-slate-200 leading-relaxed mt-4 sm:mt-5">
+                <p className="font-body-lg text-body-lg text-slate-700 dark:text-slate-200 leading-relaxed mt-3 sm:mt-4">
                   &ldquo;{teamMembers[active].description}&rdquo;
                 </p>
               </motion.div>
             </AnimatePresence>
           </div>
 
-          {/* Navigation Controls & Indicators (Anchored at fixed bottom) */}
-          <div className="flex items-center justify-between pt-6 border-t border-slate-200/60 dark:border-white/10 mt-2">
+          {/* Navigation Controls & Indicators (Locked in position) */}
+          <div className="flex items-center justify-between pt-4 border-t border-slate-200/60 dark:border-white/10 mt-1">
             <div className="flex gap-4">
               <button
                 onClick={handlePrev}
                 aria-label="Previous team member"
-                className="btn-animated group flex h-11 w-11 items-center justify-center rounded-full bg-surface-container-low border border-border-subtle hover:bg-surface-container focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 cursor-pointer"
+                className="btn-animated group flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-full bg-surface-container-low border border-border-subtle hover:bg-surface-container focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 cursor-pointer"
               >
-                <ArrowLeft className="h-5 w-5 text-primary transition-transform duration-300 group-hover:-translate-x-1" />
+                <ArrowLeft className="h-4 w-4 sm:h-5 sm:w-5 text-primary transition-transform duration-300 group-hover:-translate-x-1" />
               </button>
               <button
                 onClick={handleNext}
                 aria-label="Next team member"
-                className="btn-animated group flex h-11 w-11 items-center justify-center rounded-full bg-surface-container-low border border-border-subtle hover:bg-surface-container focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 cursor-pointer"
+                className="btn-animated group flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-full bg-surface-container-low border border-border-subtle hover:bg-surface-container focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 cursor-pointer"
               >
-                <ArrowRight className="h-5 w-5 text-primary transition-transform duration-300 group-hover:translate-x-1" />
+                <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 text-primary transition-transform duration-300 group-hover:translate-x-1" />
               </button>
             </div>
 
