@@ -136,7 +136,7 @@ export default function ServicesHero() {
 
   return (
     <section
-      className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pt-8 md:pt-14 pb-stack-lg"
+      className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pt-8 md:pt-12 pb-2 md:pb-4"
       id="services-hero"
     >
       <div className="grid grid-cols-4 md:grid-cols-12 gap-gutter">
@@ -172,9 +172,7 @@ export default function ServicesHero() {
             </span>
           </h1>
           <p className="font-body-lg text-body-lg text-text-muted max-w-2xl mx-auto leading-relaxed">
-            Kami merancang, membangun, dan memelihara sistem digital berkinerja tinggi. Pendekatan
-            rekayasa kami memastikan skalabilitas, keamanan, dan keunggulan teknis di setiap lapisan
-            tumpukan teknologi Anda.
+            Kami merancang dan membangun solusi digital modern yang sesuai dengan kebutuhan Anda, mulai dari UI/UX Design hingga pengembangan website yang responsif, cepat, dan fungsional.
           </p>
         </Reveal>
       </div>

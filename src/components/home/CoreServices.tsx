@@ -7,13 +7,13 @@ const services = [
     icon: <TbWorldWww className="text-2xl" />,
     title: "Web Architecture",
     description:
-      "Pengembangan sistem web berkinerja tinggi, SPA, dan PWA menggunakan stack modern seperti React, Vue, dan Node.js.",
+      "Jasa pembuatan website profesional untuk bisnis, company profile, sistem informasi, hingga aplikasi web dengan teknologi modern.",
   },
   {
     icon: <MdDesignServices className="text-2xl" />,
     title: "UI/UX Systems",
     description:
-      "Desain antarmuka berpusat pada pengguna dan pembuatan design system yang terukur untuk konsistensi produk berskala besar.",
+      "Jasa desain UI/UX untuk website dan aplikasi dengan tampilan modern, responsif, dan berorientasi pada kebutuhan pengguna.",
   },
 ];
 
@@ -26,8 +26,8 @@ export default function CoreServices() {
             Layanan Kami
           </h2>
           <p className="font-body-md text-body-md text-text-muted">
-            Solusi web dan design system kelas enterprise yang dibangun dengan standar kualitas kode
-            tertinggi dan metodologi modern.
+            Solusi web dan desain digital profesional untuk membantu bisnis
+            membangun website yang modern, cepat, responsif, dan mudah digunakan.
           </p>
         </div>
         <a

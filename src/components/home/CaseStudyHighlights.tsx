@@ -5,21 +5,21 @@ const advantages = [
     icon: "timer",
     title: "Cepat & Tepat Waktu",
     description:
-      "Waktu pengerjaan cepat dan tepat waktu. Manajemen proyek yang disiplin memastikan tenggat selalu terpenuhi tanpa menurunkan standar kualitas.",
+      "Proses pengerjaan terstruktur dengan target yang jelas, sehingga proyek selesai tepat waktu tanpa mengorbankan kualitas.",
     featured: true,
   },
   {
     icon: "devices",
     title: "Responsif di Semua Perangkat",
     description:
-      "Desain responsif di semua perangkat. Tampilan menyesuaikan secara mulus dari mobile, tablet, hingga desktop dengan konsistensi visual penuh.",
+      "Website dirancang responsif dan nyaman digunakan di berbagai perangkat, mulai dari smartphone, tablet, hingga desktop.",
     featured: false,
   },
   {
     icon: "speed",
     title: "Optimasi Kecepatan & SEO",
     description:
-      "Optimasi kecepatan dan SEO dasar. Halaman dimuat dengan cepat dan dioptimalkan untuk mesin pencari demi visibilitas digital yang lebih baik.",
+      "Website dioptimalkan agar memiliki performa cepat, struktur yang baik, dan lebih siap ditemukan melalui mesin pencari.",
     featured: false,
   },
 ];
@@ -30,10 +30,11 @@ export default function CaseStudyHighlights() {
       <Reveal className="col-span-4 md:col-span-8 xl:col-span-12 mb-stack-lg flex flex-col md:flex-row justify-between items-end gap-stack-md">
         <div>
           <h2 className="font-headline-xl-mobile text-headline-xl-mobile md:font-headline-xl md:text-headline-xl text-text-main mb-stack-sm">
-            Keunggulan Kompetitif
+            Mengapa Memilih Kami?
           </h2>
           <p className="font-body-md text-body-md text-text-muted max-w-2xl">
-            Mengapa Memilih Kami?
+            Menghadirkan solusi digital yang cepat, responsif, dan berkualitas 
+            dengan mengutamakan kebutuhan bisnis serta pengalaman pengguna.
           </p>
         </div>
         <a

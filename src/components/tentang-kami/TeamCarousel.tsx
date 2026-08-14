@@ -2,8 +2,8 @@
 
 import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { motion, AnimatePresence, type PanInfo } from "framer-motion";
+import { ArrowLeft, ArrowRight, Sparkles } from "lucide-react";
 
 interface TeamMember {
   name: string;
@@ -24,7 +24,7 @@ const teamMembers: TeamMember[] = [
     name: "Shasy kirana syaharani",
     title: "UI/UX",
     description:
-    "Menerjemahkan kebutuhan pengguna menjadi rancangan antarmuka dan pengalaman yang intuitif. Berkolaborasi dengan tim untuk memastikan setiap desain dapat diwujudkan menjadi produk digital yang fungsional.",
+      "Menerjemahkan kebutuhan pengguna menjadi rancangan antarmuka dan pengalaman yang intuitif. Berkolaborasi dengan tim untuk memastikan setiap desain dapat diwujudkan menjadi produk digital yang fungsional.",
     imageUrl: "/images/shasy.png",
   },
   {
@@ -43,7 +43,13 @@ const teamMembers: TeamMember[] = [
   },
 ];
 
-const rotations = [-4, 3, -3, 5, -2];
+// Stacking visual configurations for cards behind the active card
+const stackStyles = [
+  { scale: 1.0, y: 0, x: 0, rotate: 0, opacity: 1 },
+  { scale: 0.93, y: 16, x: 22, rotate: 7, opacity: 0.9 },
+  { scale: 0.86, y: 30, x: -20, rotate: -6, opacity: 0.78 },
+  { scale: 0.8, y: 42, x: 28, rotate: 5, opacity: 0.65 },
+];
 
 export default function TeamCarousel() {
   const [active, setActive] = useState(0);
@@ -63,7 +69,17 @@ export default function TeamCarousel() {
     return () => clearInterval(interval);
   }, [handleNext, isHovered]);
 
-  const isActive = (index: number) => index === active;
+  // Swipe / Drag gesture handler
+  const handleDragEnd = (_: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
+    const swipeThreshold = 50;
+    const swipeVelocity = 300;
+
+    if (info.offset.x < -swipeThreshold || info.velocity.x < -swipeVelocity) {
+      handleNext();
+    } else if (info.offset.x > swipeThreshold || info.velocity.x > swipeVelocity) {
+      handlePrev();
+    }
+  };
 
   return (
     <div
@@ -71,41 +87,71 @@ export default function TeamCarousel() {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="relative grid grid-cols-1 gap-y-12 md:grid-cols-2 md:gap-x-20">
-        {/* Card Stack Image Container */}
-        <div className="flex items-center justify-center">
-          <div className="relative h-80 w-full max-w-xs cursor-pointer">
-            <AnimatePresence>
-              {teamMembers.map((member, index) => (
+      <div className="relative grid grid-cols-1 gap-y-12 md:grid-cols-2 md:gap-x-20 items-center">
+        {/* Card Stack Image Container with Drag Gestures */}
+        <div className="flex flex-col items-center justify-center">
+          <div className="relative h-84 sm:h-92 w-full max-w-xs sm:max-w-sm">
+            {teamMembers.map((member, index) => {
+              const offset = (index - active + teamMembers.length) % teamMembers.length;
+              const isActive = offset === 0;
+              const style = stackStyles[offset] || stackStyles[stackStyles.length - 1];
+
+              return (
                 <motion.div
                   key={member.imageUrl}
-                  initial={{ opacity: 0, scale: 0.9, y: 50, rotate: `${rotations[index]}deg` }}
-                  animate={{
-                    opacity: isActive(index) ? 1 : 0.5,
-                    scale: isActive(index) ? 1 : 0.9,
-                    y: isActive(index) ? 0 : 20,
-                    zIndex: isActive(index)
-                      ? teamMembers.length
-                      : teamMembers.length - Math.abs(index - active),
-                    rotate: isActive(index) ? "0deg" : `${rotations[index]}deg`,
-                  }}
-                  exit={{ opacity: 0, scale: 0.9, y: -50 }}
-                  transition={{ duration: 0.5, ease: "easeInOut" }}
-                  className="absolute inset-0 origin-bottom"
+                  drag={isActive ? "x" : false}
+                  dragConstraints={{ left: 0, right: 0 }}
+                  dragElastic={0.4}
+                  onDragEnd={isActive ? handleDragEnd : undefined}
+                  whileDrag={{ scale: 1.04, cursor: "grabbing" }}
+                  className={`absolute inset-0 origin-bottom select-none touch-pan-y ${
+                    isActive
+                      ? "cursor-grab active:cursor-grabbing"
+                      : "cursor-pointer hover:opacity-100"
+                  }`}
                   style={{ perspective: "1000px" }}
-                  onClick={() => setActive(index)}
+                  onClick={() => {
+                    if (!isActive) setActive(index);
+                  }}
+                  animate={{
+                    scale: style.scale,
+                    y: style.y,
+                    x: style.x,
+                    rotate: `${style.rotate}deg`,
+                    opacity: style.opacity,
+                    zIndex: teamMembers.length - offset,
+                  }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 280,
+                    damping: 24,
+                  }}
                 >
-                  <Image
-                    src={member.imageUrl}
-                    alt={member.name}
-                    width={500}
-                    height={500}
-                    draggable={false}
-                    className="h-full w-full rounded-3xl object-cover shadow-2xl transition-all duration-300 hover:scale-[1.02]"
-                  />
+                  <div className="relative h-full w-full rounded-3xl overflow-hidden shadow-2xl border-2 border-white dark:border-white/20 bg-slate-900">
+                    <Image
+                      src={member.imageUrl}
+                      alt={member.name}
+                      width={500}
+                      height={500}
+                      draggable={false}
+                      className="h-full w-full object-cover pointer-events-none transition-transform duration-300"
+                    />
+
+                    {/* Active Card Glow Overlay */}
+                    {isActive && (
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-transparent pointer-events-none" />
+                    )}
+
+                    {/* Stack Indicator Badge for background cards */}
+                    {!isActive && (
+                      <div className="absolute bottom-3 left-3 px-2 py-0.5 rounded-full bg-slate-950/70 backdrop-blur-sm text-white text-[10px] font-mono">
+                        {member.name.split(" ")[0]}
+                      </div>
+                    )}
+                  </div>
                 </motion.div>
-              ))}
-            </AnimatePresence>
+              );
+            })}
           </div>
         </div>
 
@@ -114,20 +160,20 @@ export default function TeamCarousel() {
           <AnimatePresence mode="wait">
             <motion.div
               key={active}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
+              exit={{ opacity: 0, y: -15 }}
+              transition={{ duration: 0.25, ease: "easeInOut" }}
               className="flex flex-col justify-between"
             >
               <div>
                 <h3 className="font-headline-lg text-headline-lg text-primary dark:text-white font-bold">
                   {teamMembers[active].name}
                 </h3>
-                <p className="font-label-md text-label-md text-text-muted dark:text-slate-400 uppercase tracking-widest font-semibold mt-1">
+                <p className="font-label-md text-label-md text-secondary dark:text-accent-cyan uppercase tracking-widest font-bold mt-1">
                   {teamMembers[active].title}
                 </p>
-                <motion.p className="font-body-lg text-body-lg text-text-main dark:text-slate-200 leading-relaxed mt-8">
+                <motion.p className="font-body-lg text-body-lg text-slate-700 dark:text-slate-200 leading-relaxed mt-6">
                   &ldquo;{teamMembers[active].description}&rdquo;
                 </motion.p>
               </div>
@@ -135,7 +181,7 @@ export default function TeamCarousel() {
           </AnimatePresence>
 
           {/* Navigation Controls & Indicators */}
-          <div className="flex items-center justify-between pt-12">
+          <div className="flex items-center justify-between pt-10">
             <div className="flex gap-4">
               <button
                 onClick={handlePrev}

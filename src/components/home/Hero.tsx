@@ -186,7 +186,7 @@ export default function Hero() {
         </h1>
 
         <p className="font-body-lg text-body-lg text-slate-700 dark:text-slate-200 max-w-2xl leading-relaxed font-medium">
-          Kami membantu mengubah ide dan kebutuhan bisnis menjadi solusi digital yang fungsional, modern, dan memberikan dampak nyata.
+          Kami membantu bisnis membangun website dan solusi digital yang modern, responsif, dan profesional, mulai dari web development hingga UI/UX design.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-stack-md pt-stack-sm">
@@ -211,4 +211,4 @@ export default function Hero() {
       </Reveal>
     </section>
   );
-}
+}

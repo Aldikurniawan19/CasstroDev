@@ -8,8 +8,8 @@ interface CTASectionProps {
 }
 
 export default function CTASection({
-  title = "Ready to scale your business?",
-  description = "Mari diskusikan bagaimana pendekatan rekayasa perangkat lunak presisi kami dapat mempercepat transformasi digital perusahaan Anda.",
+  title = "Siap Mengembangkan Bisnis Anda?",
+  description = "Mari diskusikan kebutuhan bisnis Anda dan temukan solusi digital yang tepat untuk mendukung pertumbuhan bisnis Anda.",
   buttonText = "Mulai Konsultasi Gratis",
   buttonHref = "/kontak",
 }: CTASectionProps) {

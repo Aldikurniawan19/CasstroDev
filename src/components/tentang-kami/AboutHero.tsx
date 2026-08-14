@@ -157,10 +157,7 @@ export default function AboutHero() {
           dengan Presisi.
         </h1>
         <p className="font-body-lg text-body-lg text-text-muted max-w-2xl leading-relaxed">
-          Kami adalah firma rekayasa perangkat lunak yang berdedikasi pada standar keunggulan teknis
-          tertinggi. Visi kami bukan sekadar menulis kode, melainkan merancang arsitektur digital
-          yang stabil, terukur, dan presisi. Misi kami adalah menjadi mitra teknologi jangka panjang
-          bagi perusahaan yang mengutamakan kualitas substansial di atas tren sesaat.
+          Kami adalah tim pengembang yang membantu bisnis membangun website dan solusi digital yang modern, responsif, dan profesional. Kami menyediakan layanan web development dan UI/UX design dengan mengutamakan kualitas, performa, pengalaman pengguna, serta kebutuhan setiap bisnis.
         </p>
       </Reveal>
       <Reveal delay={0.15} className="col-span-4 md:col-span-5 flex items-center justify-center">
