@@ -15,6 +15,8 @@ import {
   ShieldCheck,
   Building2,
   MessageSquare,
+  ChevronDown,
+  ArrowRight,
 } from "lucide-react";
 
 if (typeof window !== "undefined") {
@@ -27,6 +29,7 @@ const WORDS = TARGET_TEXT.split(" ");
 export default function ContactFormSection() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [copied, setCopied] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -46,6 +49,12 @@ export default function ContactFormSection() {
     },
     []
   );
+
+  const copyToClipboard = (text: string, type: string) => {
+    navigator.clipboard.writeText(text);
+    setCopied(type);
+    setTimeout(() => setCopied(null), 2000);
+  };
 
   useGSAP(() => {
     const letters = lettersRef.current.filter(Boolean) as HTMLSpanElement[];
@@ -193,12 +202,20 @@ export default function ContactFormSection() {
   };
 
   return (
-    <section className="py-16 md:py-24 bg-surface-off-white dark:bg-[#040d1a] w-full min-h-[85vh] flex items-center">
-      <div className="max-w-container-max mx-auto px-4 md:px-8 w-full">
+    <section className="relative py-16 md:py-24 bg-surface-off-white dark:bg-[#040d1a] w-full min-h-[85vh] flex items-center overflow-hidden">
+      {/* Decorative Subtle Ambient Glow */}
+      <div className="absolute top-12 left-1/2 -translate-x-1/2 w-[600px] h-[350px] bg-accent-cyan/10 dark:bg-accent-cyan/5 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-10 right-10 w-[400px] h-[300px] bg-primary/10 dark:bg-blue-500/10 rounded-full blur-[100px] pointer-events-none" />
+
+      <div className="max-w-container-max mx-auto px-4 md:px-8 w-full relative z-10">
         {/* Header Section */}
         <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
-          <Reveal y={24}>
-            <h1 className="font-headline-xl-mobile text-headline-xl-mobile md:font-headline-xl md:text-headline-xl text-black dark:text-white font-extrabold tracking-tight mb-4">
+          <Reveal y={20}>
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-accent-cyan/10 text-accent-cyan border border-accent-cyan/30 text-xs font-mono font-bold uppercase tracking-wider mb-4">
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>Konsultasi Proyek Gratis</span>
+            </div>
+            <h1 className="font-headline-xl-mobile text-headline-xl-mobile md:font-headline-xl md:text-headline-xl text-slate-900 dark:text-white font-extrabold tracking-tight mb-4">
               Mari Wujudkan{" "}
               <span
                 ref={containerRef}
@@ -230,69 +247,79 @@ export default function ContactFormSection() {
               </span>{" "}
               Perusahaan Anda
             </h1>
-            <p className="font-body-lg text-body-lg text-text-muted leading-relaxed">
-              Diskusikan kebutuhan rekayasa perangkat lunak Anda bersama tim ahli kami. Kami siap membantu merancang arsitektur sistem yang tepat, presisi, dan siap diskalakan.
+            <p className="font-body-lg text-body-lg text-text-muted dark:text-slate-300 leading-relaxed max-w-2xl mx-auto">
+              Diskusikan kebutuhan perangkat lunak Anda langsung bersama tim ahli. Kami siap membantu merancang arsitektur sistem yang presisi, aman, dan siap diskalakan.
             </p>
           </Reveal>
         </div>
 
         {/* Content Layout Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-stretch">
           {/* Sidebar Contact Info & Guarantees */}
-          <div className="lg:col-span-5 space-y-6">
-            <Reveal y={30}>
-              <div className="bg-white dark:bg-[#07162c] border border-slate-200/90 dark:border-white/10 rounded-2xl p-6 sm:p-8 shadow-lg shadow-slate-200/40 dark:shadow-none space-y-6">
-                <h3 className="font-headline-md text-headline-md text-primary dark:text-white font-bold pb-3 border-b border-slate-200 dark:border-white/10">
-                  Informasi Kontak Resmi
-                </h3>
+          <div className="lg:col-span-5 flex flex-col justify-between space-y-6">
+            <Reveal y={24}>
+              <div className="bg-white/80 dark:bg-[#07162c]/80 backdrop-blur-xl border border-slate-200/90 dark:border-white/10 rounded-2xl p-6 sm:p-8 shadow-xl shadow-slate-200/50 dark:shadow-none space-y-6">
+                <div className="flex items-center justify-between pb-4 border-b border-slate-200/90 dark:border-white/10">
+                  <h3 className="font-headline-md text-headline-md text-primary dark:text-white font-bold">
+                    Kontak Resmi
+                  </h3>
+                </div>
 
                 <div className="space-y-4 text-text-muted dark:text-slate-300 text-body-md font-body-md">
                   {/* Email Direct */}
-                  <a
-                    href="mailto:adityakachef15@gmail.com"
-                    className="flex items-start gap-4 p-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-900/60 transition-colors group"
+                  <div
+                    onClick={() => copyToClipboard("adityakachef15@gmail.com", "email")}
+                    className="flex items-center justify-between p-3.5 rounded-xl bg-slate-50/80 dark:bg-slate-900/60 border border-slate-200/70 dark:border-slate-800 hover:border-blue-500/50 transition-all cursor-pointer group"
                   >
-                    <div className="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0 border border-blue-500/20 group-hover:scale-105 transition-transform">
-                      <Mail className="w-5 h-5" />
+                    <div className="flex items-center gap-3.5">
+                      <div className="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0 border border-blue-500/20 group-hover:scale-105 transition-transform">
+                        <Mail className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <span className="font-label-sm text-xs font-bold uppercase tracking-wider text-slate-400 block mb-0.5">
+                          Email Resmi
+                        </span>
+                        <span className="font-body-md text-body-md font-semibold text-slate-900 dark:text-white group-hover:text-blue-500 transition-colors">
+                          adityakachef15@gmail.com
+                        </span>
+                      </div>
                     </div>
-                    <div>
-                      <span className="font-label-sm text-label-sm uppercase font-bold tracking-wider text-slate-400 block mb-0.5">
-                        Email Resmi
-                      </span>
-                      <span className="font-body-md text-body-md font-medium text-slate-900 dark:text-white group-hover:text-blue-500 transition-colors">
-                        adityakachef15@gmail.com
-                      </span>
-                    </div>
-                  </a>
+                    <span className="text-xs font-mono text-blue-500 opacity-0 group-hover:opacity-100 transition-opacity">
+                      {copied === "email" ? "Tersalin!" : "Salin"}
+                    </span>
+                  </div>
 
                   {/* Direct WhatsApp */}
                   <a
                     href="https://wa.me/6283873688118"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-start gap-4 p-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-900/60 transition-colors group"
+                    className="flex items-center justify-between p-3.5 rounded-xl bg-slate-50/80 dark:bg-slate-900/60 border border-slate-200/70 dark:border-slate-800 hover:border-emerald-500/50 transition-all group"
                   >
-                    <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0 border border-emerald-500/20 group-hover:scale-105 transition-transform">
-                      <Phone className="w-5 h-5" />
+                    <div className="flex items-center gap-3.5">
+                      <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0 border border-emerald-500/20 group-hover:scale-105 transition-transform">
+                        <Phone className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <span className="font-label-sm text-xs font-bold uppercase tracking-wider text-slate-400 block mb-0.5">
+                          WhatsApp Quick Chat
+                        </span>
+                        <span className="font-body-md text-body-md font-semibold text-slate-900 dark:text-white group-hover:text-emerald-500 transition-colors">
+                          +62 838-7368-8118
+                        </span>
+                      </div>
                     </div>
-                    <div>
-                      <span className="font-label-sm text-label-sm uppercase font-bold tracking-wider text-slate-400 block mb-0.5">
-                        WhatsApp Fast Response
-                      </span>
-                      <span className="font-body-md text-body-md font-medium text-slate-900 dark:text-white group-hover:text-emerald-500 transition-colors">
-                        +62 838-7368-8118
-                      </span>
-                    </div>
+                    <ArrowRight className="w-4 h-4 text-emerald-500 group-hover:translate-x-1 transition-transform" />
                   </a>
 
                   {/* Working Hours */}
-                  <div className="flex items-start gap-4 p-3 rounded-xl">
+                  <div className="flex items-center gap-3.5 p-3.5 rounded-xl bg-slate-50/80 dark:bg-slate-900/60 border border-slate-200/70 dark:border-slate-800">
                     <div className="w-10 h-10 rounded-xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center shrink-0 border border-indigo-500/20">
                       <Clock className="w-5 h-5" />
                     </div>
                     <div>
-                      <span className="font-label-sm text-label-sm uppercase font-bold tracking-wider text-slate-400 block mb-0.5">
-                        Jam Kerja Operasional
+                      <span className="font-label-sm text-xs font-bold uppercase tracking-wider text-slate-400 block mb-0.5">
+                        Jam Operasional Tim
                       </span>
                       <span className="font-body-md text-body-md font-medium text-slate-900 dark:text-white block">
                         Senin – Jumat: 08:00 – 17:00 WIB
@@ -302,12 +329,12 @@ export default function ContactFormSection() {
                 </div>
 
                 {/* Trust Guarantees */}
-                <div className="pt-4 border-t border-slate-200 dark:border-white/10 space-y-3">
-                  <div className="flex items-center gap-2.5 font-label-sm text-label-sm text-text-muted dark:text-slate-400">
+                <div className="pt-4 border-t border-slate-200/90 dark:border-white/10 space-y-2.5">
+                  <div className="flex items-center gap-2.5 text-xs font-medium text-slate-600 dark:text-slate-400">
                     <ShieldCheck className="w-4 h-4 text-blue-500 shrink-0" />
-                    <span>Jaminan privasi data & NDA perencana bisnis</span>
+                    <span>Jaminan Kerahasiaan Data & Perjanjian NDA</span>
                   </div>
-                  <div className="flex items-center gap-2.5 font-label-sm text-label-sm text-text-muted dark:text-slate-400">
+                  <div className="flex items-center gap-2.5 text-xs font-medium text-slate-600 dark:text-slate-400">
                     <Building2 className="w-4 h-4 text-emerald-500 shrink-0" />
                     <span>Respon awal balasan estimasi dalam &lt; 24 Jam Kerja</span>
                   </div>
@@ -318,15 +345,15 @@ export default function ContactFormSection() {
 
           {/* Interactive Form Card */}
           <div className="lg:col-span-7">
-            <Reveal y={35}>
-              <div className="bg-white dark:bg-[#07162c] border border-slate-200/90 dark:border-white/10 rounded-2xl p-6 sm:p-8 md:p-10 shadow-xl shadow-slate-200/50 dark:shadow-none relative overflow-hidden">
+            <Reveal y={30}>
+              <div className="bg-white/90 dark:bg-[#07162c]/90 backdrop-blur-xl border border-slate-200/90 dark:border-white/10 rounded-2xl p-6 sm:p-8 md:p-9 shadow-xl shadow-slate-200/50 dark:shadow-none relative overflow-hidden h-full flex flex-col justify-between">
                 {submitted ? (
-                  <div className="py-12 px-4 text-center space-y-5">
+                  <div className="py-14 px-4 text-center space-y-6 my-auto">
                     <div className="w-16 h-16 rounded-full bg-emerald-500/10 text-emerald-500 border border-emerald-500/30 flex items-center justify-center mx-auto shadow-inner">
                       <CheckCircle2 className="w-8 h-8" />
                     </div>
                     <div className="space-y-2">
-                      <h3 className="font-headline-md text-headline-md text-primary dark:text-white font-bold">
+                      <h3 className="font-headline-md text-headline-md text-slate-900 dark:text-white font-bold">
                         Pesan Anda Berhasil Terkirim!
                       </h3>
                       <p className="font-body-md text-body-md text-text-muted dark:text-slate-300 max-w-md mx-auto leading-relaxed">
@@ -364,11 +391,13 @@ export default function ContactFormSection() {
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-5">
-                    <div className="flex items-center gap-2 mb-2">
-                      <MessageSquare className="w-5 h-5 text-secondary" />
-                      <h3 className="font-headline-md text-lg sm:text-headline-md font-bold text-primary dark:text-white">
-                        Formulir Konsultasi Proyek
-                      </h3>
+                    <div className="flex items-center justify-between mb-1 pb-3 border-b border-slate-100 dark:border-white/5">
+                      <div className="flex items-center gap-2">
+                        <MessageSquare className="w-5 h-5 text-secondary" />
+                        <h3 className="font-headline-md text-lg sm:text-headline-md font-bold text-slate-900 dark:text-white">
+                          Formulir Konsultasi Proyek
+                        </h3>
+                      </div>
                     </div>
 
                     {/* Name & Email Row */}
@@ -376,7 +405,7 @@ export default function ContactFormSection() {
                       <div>
                         <label
                           htmlFor="name"
-                          className="block font-label-sm text-label-sm font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5"
+                          className="block font-label-sm text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5"
                         >
                           Nama Lengkap <span className="text-rose-500">*</span>
                         </label>
@@ -387,14 +416,14 @@ export default function ContactFormSection() {
                           placeholder="Masukkan nama lengkap Anda"
                           value={formData.name}
                           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                          className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-[#040d1a] border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary transition-all"
+                          className="w-full px-4 py-3 rounded-xl bg-slate-50/90 dark:bg-[#040d1a] border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary transition-all"
                         />
                       </div>
 
                       <div>
                         <label
                           htmlFor="email"
-                          className="block font-label-sm text-label-sm font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5"
+                          className="block font-label-sm text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5"
                         >
                           Email Bisnis <span className="text-rose-500">*</span>
                         </label>
@@ -405,7 +434,7 @@ export default function ContactFormSection() {
                           placeholder="contoh@perusahaan.com"
                           value={formData.email}
                           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                          className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-[#040d1a] border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary transition-all"
+                          className="w-full px-4 py-3 rounded-xl bg-slate-50/90 dark:bg-[#040d1a] border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary transition-all"
                         />
                       </div>
                     </div>
@@ -415,7 +444,7 @@ export default function ContactFormSection() {
                       <div>
                         <label
                           htmlFor="whatsapp"
-                          className="block font-label-sm text-label-sm font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5"
+                          className="block font-label-sm text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5"
                         >
                           Nomor WhatsApp <span className="text-rose-500">*</span>
                         </label>
@@ -426,57 +455,63 @@ export default function ContactFormSection() {
                           placeholder="081234567890"
                           value={formData.whatsapp}
                           onChange={(e) => setFormData({ ...formData, whatsapp: e.target.value })}
-                          className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-[#040d1a] border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary transition-all"
+                          className="w-full px-4 py-3 rounded-xl bg-slate-50/90 dark:bg-[#040d1a] border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary transition-all"
                         />
                       </div>
 
                       <div>
                         <label
                           htmlFor="service"
-                          className="block font-label-sm text-label-sm font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5"
+                          className="block font-label-sm text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5"
                         >
                           Kategori Layanan
                         </label>
-                        <select
-                          id="service"
-                          value={formData.service}
-                          onChange={(e) => setFormData({ ...formData, service: e.target.value })}
-                          className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-[#040d1a] border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary transition-all cursor-pointer"
-                        >
-                          <option value="Web Development">Web Development / Portal SaaS</option>
-                          <option value="Sistem Informasi">Sistem Informasi & ERP Gudang</option>
-                          <option value="UI/UX Design">UI/UX Design & Branding</option>
-                          <option value="Enterprise Solution">Solusi Digital Enterprise Custom</option>
-                        </select>
+                        <div className="relative">
+                          <select
+                            id="service"
+                            value={formData.service}
+                            onChange={(e) => setFormData({ ...formData, service: e.target.value })}
+                            className="w-full px-4 py-3 pr-10 rounded-xl bg-slate-50/90 dark:bg-[#040d1a] border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary transition-all cursor-pointer appearance-none"
+                          >
+                            <option value="Web Development">Web Development / Portal SaaS</option>
+                            <option value="Sistem Informasi">Sistem Informasi & ERP Gudang</option>
+                            <option value="UI/UX Design">UI/UX Design & Branding</option>
+                            <option value="Enterprise Solution">Solusi Digital Enterprise Custom</option>
+                          </select>
+                          <ChevronDown className="absolute right-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 dark:text-slate-500 pointer-events-none" />
+                        </div>
                       </div>
                     </div>
 
-                    {/* Budget Range */}
+                    {/* Budget Select */}
                     <div>
                       <label
                         htmlFor="budget"
-                        className="block font-label-sm text-label-sm font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5"
+                        className="block font-label-sm text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5"
                       >
                         Estimasi Budget Proyek
                       </label>
-                      <select
-                        id="budget"
-                        value={formData.budget}
-                        onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-[#040d1a] border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary transition-all cursor-pointer"
-                      >
-                        <option value="< Rp 15 Juta">&lt; Rp 15 Juta</option>
-                        <option value="Rp 15 Juta - Rp 50 Juta">Rp 15 Juta – Rp 50 Juta</option>
-                        <option value="Rp 50 Juta - Rp 100 Juta">Rp 50 Juta – Rp 100 Juta</option>
-                        <option value="> Rp 100 Juta">&gt; Rp 100 Juta (Enterprise Scale)</option>
-                      </select>
+                      <div className="relative">
+                        <select
+                          id="budget"
+                          value={formData.budget}
+                          onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
+                          className="w-full px-4 py-3 pr-10 rounded-xl bg-slate-50/90 dark:bg-[#040d1a] border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary transition-all cursor-pointer appearance-none"
+                        >
+                          <option value="< Rp 15 Juta">&lt; Rp 15 Juta</option>
+                          <option value="Rp 15 Juta - Rp 50 Juta">Rp 15 Juta – Rp 50 Juta</option>
+                          <option value="Rp 50 Juta - Rp 100 Juta">Rp 50 Juta – Rp 100 Juta</option>
+                          <option value="> Rp 100 Juta">&gt; Rp 100 Juta (Enterprise Scale)</option>
+                        </select>
+                        <ChevronDown className="absolute right-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 dark:text-slate-500 pointer-events-none" />
+                      </div>
                     </div>
 
                     {/* Project Description */}
                     <div>
                       <label
                         htmlFor="message"
-                        className="block font-label-sm text-label-sm font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5"
+                        className="block font-label-sm text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5"
                       >
                         Deskripsi Singkat Kebutuhan Proyek <span className="text-rose-500">*</span>
                       </label>
@@ -487,7 +522,7 @@ export default function ContactFormSection() {
                         placeholder="Jelaskan gambaran singkat aplikasi, tujuan bisnis, atau tantangan yang ingin Anda selesaikan..."
                         value={formData.message}
                         onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-[#040d1a] border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary transition-all resize-none"
+                        className="w-full px-4 py-3 rounded-xl bg-slate-50/90 dark:bg-[#040d1a] border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary transition-all resize-none"
                       />
                     </div>
 
@@ -495,14 +530,14 @@ export default function ContactFormSection() {
                     <button
                       type="submit"
                       disabled={loading}
-                      className="btn-animated w-full py-3.5 px-6 rounded-xl bg-primary-container hover:bg-primary disabled:bg-slate-400 text-on-primary font-label-md text-label-md font-semibold flex items-center justify-center gap-2 shadow-md hover:shadow-lg cursor-pointer"
+                      className="btn-animated w-full py-4 px-6 rounded-xl bg-gradient-to-r from-primary-container to-secondary hover:from-primary hover:to-primary-container disabled:bg-slate-400 text-on-primary font-label-md text-label-md font-semibold flex items-center justify-center gap-2 shadow-lg shadow-primary-container/20 hover:shadow-xl transition-all cursor-pointer group"
                     >
                       {loading ? (
                         <span>Mengirim Pesan...</span>
                       ) : (
                         <>
                           <span>Kirim Permintaan Konsultasi</span>
-                          <Send className="w-4 h-4" />
+                          <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                         </>
                       )}
                     </button>

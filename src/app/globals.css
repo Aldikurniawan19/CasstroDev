@@ -413,6 +413,46 @@
   letter-spacing: -0.02em;
 }
 
+/* ---- Hero Mobile Background Graphic (Transparent Blueprint) ---- */
+.hero-bg-graphic .chip-outer {
+  fill: rgba(37, 99, 235, 0.06) !important;
+  stroke: rgba(37, 99, 235, 0.25) !important;
+  filter: none !important;
+}
+.hero-bg-graphic .chip-inner {
+  fill: rgba(37, 99, 235, 0.03) !important;
+  stroke: none !important;
+}
+.hero-bg-graphic .pin-stub {
+  fill: rgba(37, 99, 235, 0.2) !important;
+}
+.hero-bg-graphic .inner-dash {
+  stroke: rgba(37, 99, 235, 0.2) !important;
+}
+.hero-bg-graphic .inner-detail {
+  fill: rgba(37, 99, 235, 0.2) !important;
+}
+.hero-bg-graphic .chip-text {
+  fill: rgba(37, 99, 235, 0.3) !important;
+}
+.hero-bg-graphic .trace {
+  stroke: rgba(148, 163, 184, 0.35) !important;
+}
+.hero-bg-graphic .trace-dim {
+  stroke: rgba(203, 213, 225, 0.25) !important;
+}
+
+.dark .hero-bg-graphic .chip-outer {
+  fill: rgba(0, 229, 255, 0.05) !important;
+  stroke: rgba(0, 229, 255, 0.2) !important;
+}
+.dark .hero-bg-graphic .chip-inner {
+  fill: rgba(0, 229, 255, 0.02) !important;
+}
+.dark .hero-bg-graphic .chip-text {
+  fill: rgba(0, 229, 255, 0.3) !important;
+}
+
 /* ---- Vision & Mission Flow Stream Animation ---- */
 @keyframes vm-flow-stream {
   0% {

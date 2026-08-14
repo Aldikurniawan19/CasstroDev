@@ -139,9 +139,19 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="pt-8 md:pt-14 pb-16 md:pb-24 grid-layout items-center" id="hero">
-      <Reveal className="col-span-4 md:col-span-8 xl:col-span-7 flex flex-col gap-stack-lg">
+    <section className="relative pt-10 sm:pt-14 md:pt-16 pb-16 md:pb-24 grid-layout items-center overflow-hidden" id="hero">
+      {/* Background Graphic on Mobile & Tablet (< xl) - Holographic Blueprint */}
+      <Reveal
+        delay={0.1}
+        className="hero-bg-graphic absolute inset-0 w-full h-full flex items-center justify-center opacity-60 dark:opacity-40 blur-[1.5px] pointer-events-none xl:hidden z-0 overflow-hidden"
+      >
+        <div className="w-[140%] max-w-[620px] h-full flex items-center justify-center scale-95 sm:scale-105">
+          <ChipGraphic />
+        </div>
+      </Reveal>
 
+      {/* Main Foreground Text Content */}
+      <Reveal className="col-span-4 md:col-span-8 xl:col-span-7 flex flex-col gap-stack-lg relative z-10">
         <h1 className="font-display-lg-mobile text-display-lg-mobile md:font-display-lg md:text-display-lg text-black dark:text-white tracking-tight">
           Membangun{" "}
           <span
@@ -175,7 +185,7 @@ export default function Hero() {
           untuk Bisnis Anda.
         </h1>
 
-        <p className="font-body-lg text-body-lg text-text-muted max-w-2xl leading-relaxed">
+        <p className="font-body-lg text-body-lg text-slate-700 dark:text-slate-200 max-w-2xl leading-relaxed font-medium">
           Kami membantu mengubah ide dan kebutuhan bisnis menjadi solusi digital yang fungsional, modern, dan memberikan dampak nyata.
         </p>
 
@@ -195,7 +205,8 @@ export default function Hero() {
         </div>
       </Reveal>
 
-      <Reveal delay={0.15} className="col-span-4 md:col-span-8 xl:col-span-5 h-[350px] sm:h-[450px] xl:h-[550px] relative mt-10 xl:mt-0">
+      {/* Desktop Column Graphic (xl+) */}
+      <Reveal delay={0.15} className="hidden xl:block xl:col-span-5 xl:h-[550px] relative z-10">
         <ChipGraphic />
       </Reveal>
     </section>

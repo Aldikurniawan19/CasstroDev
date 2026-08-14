@@ -86,7 +86,7 @@ export default function FAQ() {
                     {faq.question}
                   </h3>
                   <span
-                    className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-surface-container-low text-primary transition-transform duration-300 ${
+                    className={`flex shrink-0 items-center justify-center text-primary dark:text-accent-cyan transition-transform duration-300 ${
                       isOpen ? "rotate-180" : ""
                     }`}
                   >
