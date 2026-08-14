@@ -152,7 +152,7 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
   return (
     <motion.div
       ref={itemRef}
-      className={`relative mb-10 sm:mb-16 md:mb-24 ${
+      className={`relative mb-52 sm:mb-36 md:mb-32 ${
         isEven ? "md:ml-auto" : "md:mr-auto"
       } md:w-1/2 flex ${isEven ? "md:justify-start" : "md:justify-end"} px-1 sm:px-3 md:px-5`}
       initial="hidden"
