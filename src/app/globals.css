@@ -228,7 +228,7 @@
   display: flex;
   align-items: center;
   width: max-content;
-  animation: marquee-slide 18s linear infinite;
+  animation: marquee-slide 42s linear infinite;
 }
 
 .marquee-track:hover {

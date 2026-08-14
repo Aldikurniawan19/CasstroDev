@@ -1,4 +1,12 @@
-import { SiFigma, SiLaravel, SiNextdotjs, SiReact, SiTailwindcss } from "react-icons/si";
+import {
+  SiFigma,
+  SiLaravel,
+  SiNextdotjs,
+  SiReact,
+  SiTailwindcss,
+  SiMysql,
+  SiPostgresql,
+} from "react-icons/si";
 import Reveal from "@/components/common/Reveal";
 
 const techStack = [
@@ -18,9 +26,19 @@ const techStack = [
     icon: <SiReact className="w-7 h-7" />,
   },
   {
-    name: "Tailwind",
+    name: "Tailwind CSS",
     color: "#38BDF8",
     icon: <SiTailwindcss className="w-7 h-7" />,
+  },
+  {
+    name: "MySQL",
+    color: "#4479A1",
+    icon: <SiMysql className="w-7 h-7" />,
+  },
+  {
+    name: "PostgreSQL",
+    color: "#336791",
+    icon: <SiPostgresql className="w-7 h-7" />,
   },
   {
     name: "Figma",
@@ -29,8 +47,15 @@ const techStack = [
   },
 ];
 
-// Duplicate 6x for seamless infinite marquee
-const marqueeList = [...techStack, ...techStack, ...techStack, ...techStack, ...techStack, ...techStack];
+// Duplicate for seamless infinite marquee
+const marqueeList = [
+  ...techStack,
+  ...techStack,
+  ...techStack,
+  ...techStack,
+  ...techStack,
+  ...techStack,
+];
 
 export default function LogoWall() {
   return (

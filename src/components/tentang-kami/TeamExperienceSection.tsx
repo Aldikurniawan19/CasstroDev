@@ -44,16 +44,11 @@ const teamDetails: TeamMemberDetail[] = [
     },
     experiences: [
       {
-        role: "Project Manager & IT Consultant",
-        company: "CasstroDev",
-        period: "2023 – Sekarang",
-        highlight: "Mengelola 15+ proyek aplikasi enterprise dengan metodologi Agile/Scrum tepat waktu.",
-      },
-      {
-        role: "IT Business Analyst",
-        company: "Software Solutions",
-        period: "2021 – 2023",
-        highlight: "Menyusun SRS dan menerjemahkan kebutuhan bisnis klien menjadi blueprint arsitektur sistem.",
+        role: "HRD – Training Center",
+        company: "PT Saga Hikari Teknindo Sejati",
+        period: "",
+        highlight:
+          "Mendukung digitalisasi Training Center melalui pengembangan konten E-Learning interaktif dan transformasi media pembelajaran untuk meningkatkan efektivitas proses pelatihan karyawan.",
       },
     ],
   },
@@ -90,22 +85,22 @@ const teamDetails: TeamMemberDetail[] = [
     title: "FrontEnd Developer",
     imageUrl: "/images/aldi.png",
     education: {
-      degree: "S1 Teknik Informatika",
-      institution: "Universitas Teknologi",
-      period: "2019 – 2023",
+      degree: "S1 Sistem Informasi",
+      institution: "Universitas Teknologi Yogyakarta",
+      period: "2021 – 2025",
     },
     experiences: [
       {
-        role: "Senior FrontEnd Engineer",
-        company: "CasstroDev",
-        period: "2023 – Sekarang",
-        highlight: "Mengembangkan antarmuka React/Next.js responsif dengan optimasi Core Web Vitals <1.2s.",
+        role: "Freelance Web Developer",
+        company: "Freelance",
+        period: "2025 – Sekarang",
+        highlight: "Mengembangkan website modern, responsif, dan interaktif sesuai kebutuhan klien serta optimasi performa antarmuka.",
       },
       {
-        role: "Web Interface Developer",
-        company: "Tech Agency",
-        period: "2021 – 2023",
-        highlight: "Membangun pustaka komponen UI reusable bertipe data ketat (TypeScript).",
+        role: "Magang Divisi IT",
+        company: "PT Saga Hikari Teknindo Sejati",
+        period: "1 Tahun",
+        highlight: "Mendukung operasional dan pemeliharaan sistem teknologi informasi serta pengembangan solusi digital internal perusahaan.",
       },
     ],
   },
@@ -286,9 +281,11 @@ export default function TeamExperienceSection() {
                             <h4 className="text-xs sm:text-sm font-bold text-primary dark:text-white leading-tight">
                               {exp.role}
                             </h4>
-                            <span className="text-[10px] sm:text-[11px] font-mono text-amber-500 font-semibold shrink-0">
-                              {exp.period}
-                            </span>
+                            {exp.period && (
+                              <span className="text-[10px] sm:text-[11px] font-mono text-amber-500 font-semibold shrink-0">
+                                {exp.period}
+                              </span>
+                            )}
                           </div>
                           <span className="text-[11px] sm:text-xs text-secondary font-semibold block">
                             {exp.company}
