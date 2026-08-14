@@ -14,8 +14,6 @@ import {
   Sparkles,
   Layers,
   TrendingUp,
-  ExternalLink,
-  Globe,
 } from "lucide-react";
 
 interface PageProps {
@@ -135,7 +133,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
           </div>
         </Reveal>
 
-        {/* Featured Image Banner with Live Visit Option */}
+        {/* Featured Image Banner */}
         <Reveal y={30}>
           <div className="relative w-full rounded-2xl md:rounded-3xl overflow-hidden bg-slate-900 border border-slate-200/90 dark:border-white/10 shadow-2xl mb-12 md:mb-16 group">
             <img
@@ -143,26 +141,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
               alt={project.title}
               className="w-full max-h-[550px] object-cover object-top transition-transform duration-700 group-hover:scale-102"
             />
-            {/* Ambient Gradient Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/20 to-transparent pointer-events-none" />
-
-            {/* Live Website Status Badge (Top-Left) */}
-            <div className="absolute top-4 left-4 sm:top-6 sm:left-6 flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-950/80 backdrop-blur-md border border-white/20 text-white text-xs font-mono font-semibold shadow-lg">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span>Live Website</span>
-            </div>
-
-            {/* Visit Website CTA Button (Bottom-Right) */}
-            <a
-              href={project.liveUrl || "#"}
-              target={project.liveUrl ? "_blank" : undefined}
-              rel={project.liveUrl ? "noopener noreferrer" : undefined}
-              className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 inline-flex items-center gap-2 px-4 py-2.5 sm:px-6 sm:py-3.5 rounded-xl sm:rounded-2xl bg-blue-600 hover:bg-blue-500 text-white text-xs sm:text-sm font-bold backdrop-blur-md shadow-xl shadow-blue-600/30 border border-blue-400/30 hover:scale-105 active:scale-95 transition-all duration-300 group/btn cursor-pointer"
-            >
-              <Globe className="w-4 h-4 text-white" />
-              <span>Kunjungi Website</span>
-              <ExternalLink className="w-4 h-4 text-blue-200 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
-            </a>
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-transparent pointer-events-none" />
           </div>
         </Reveal>
 
