@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { motion, useAnimation, useInView } from "framer-motion";
+import { motion, useAnimation, useInView, useScroll } from "framer-motion";
 import { GraduationCap, ArrowLeft } from "lucide-react";
 
 export interface TimelineEvent {
@@ -104,13 +104,35 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
   index,
   showImages,
 }) => {
-  const [isFlipped, setIsFlipped] = useState(false);
+  const [manualFlipped, setManualFlipped] = useState(false);
+  const [scrollFlipped, setScrollFlipped] = useState(false);
   const itemRef = useRef<HTMLDivElement>(null);
+
+  // Intersection for entrance animation
   const isInView = useInView(itemRef, {
     once: false,
-    amount: 0.2,
+    amount: 0.15,
   });
   const controls = useAnimation();
+
+  // Track scroll through the item for automatic flip on mobile
+  const { scrollYProgress } = useScroll({
+    target: itemRef,
+    offset: ["start 80%", "end 20%"],
+  });
+
+  useEffect(() => {
+    return scrollYProgress.on("change", (progress) => {
+      if (typeof window !== "undefined" && window.innerWidth < 768) {
+        // When card is in central reading zone of mobile viewport
+        if (progress > 0.38 && progress < 0.88) {
+          setScrollFlipped(true);
+        } else {
+          setScrollFlipped(false);
+        }
+      }
+    });
+  }, [scrollYProgress]);
 
   useEffect(() => {
     if (isInView) {
@@ -124,10 +146,13 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
   const baseRotation = isEven ? 1.4 : -1.4;
   const deckleClipPath = fineDeckleClips[index % fineDeckleClips.length];
 
+  // Combined flip state (interactive tap/hover or scroll-triggered on mobile)
+  const isFlipped = manualFlipped || scrollFlipped;
+
   return (
     <motion.div
       ref={itemRef}
-      className={`relative mb-14 sm:mb-18 md:mb-24 ${
+      className={`relative mb-10 sm:mb-16 md:mb-24 ${
         isEven ? "md:ml-auto" : "md:mr-auto"
       } md:w-1/2 flex ${isEven ? "md:justify-start" : "md:justify-end"} px-1 sm:px-3 md:px-5`}
       initial="hidden"
@@ -151,12 +176,12 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
         },
       }}
     >
-      {/* 3D Container without rasterizing CSS filter on parent to keep text 100% razor sharp */}
+      {/* 3D Container with responsive perspective */}
       <div
         className="relative z-10 w-full md:w-[94%] cursor-pointer select-none group"
-        onClick={() => setIsFlipped(!isFlipped)}
-        onMouseEnter={() => setIsFlipped(true)}
-        onMouseLeave={() => setIsFlipped(false)}
+        onClick={() => setManualFlipped(!manualFlipped)}
+        onMouseEnter={() => setManualFlipped(true)}
+        onMouseLeave={() => setManualFlipped(false)}
         style={{ perspective: "1200px" }}
       >
         {/* Photorealistic Golden-Bronze Pushpin */}
@@ -164,7 +189,7 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
 
         {/* 3D Flippable Paper Card Envelope */}
         <motion.div
-          className="relative w-full h-[490px] sm:h-[530px] md:h-[560px] transition-all duration-300"
+          className="relative w-full h-[450px] sm:h-[500px] md:h-[540px] transition-all duration-300"
           style={{
             transformStyle: "preserve-3d",
           }}
@@ -173,12 +198,12 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
             y: isFlipped ? -6 : 0,
           }}
           transition={{
-            duration: 0.6,
+            duration: 0.65,
             ease: [0.23, 1, 0.32, 1],
           }}
         >
           {/* ======================================================== */}
-          {/* SISI DEPAN: Foto Penuh dengan Tepi Kertas Robek Halus      */}
+          {/* SISI DEPAN: Foto Penuh dengan Tipografi Responsif         */}
           {/* ======================================================== */}
           <div
             className="absolute inset-0 w-full h-full bg-slate-950 overflow-hidden shadow-md"
@@ -201,27 +226,27 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
             {/* Gradient Overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent pointer-events-none" />
 
-            {/* Top Badges */}
-            <div className="absolute top-5 inset-x-5 flex items-center justify-between z-20 pointer-events-none">
-              <span className="bg-slate-950/80 text-cyan-400 border border-cyan-400/40 backdrop-blur-md px-3 py-1 rounded-full text-xs font-mono font-bold tracking-wider uppercase shadow-md flex items-center gap-1.5">
-                <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+            {/* Top Badges (Responsive Mobile Size) */}
+            <div className="absolute top-4 sm:top-5 inset-x-4 sm:inset-x-5 flex items-center justify-between z-20 pointer-events-none">
+              <span className="bg-slate-950/80 text-cyan-400 border border-cyan-400/40 backdrop-blur-md px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-mono font-bold tracking-wider uppercase shadow-md flex items-center gap-1">
+                <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-cyan-400 animate-pulse" />
                 {event.date}
               </span>
 
               {event.category && (
-                <span className="bg-blue-600/85 text-white border border-blue-400/30 backdrop-blur-md px-3 py-1 rounded-full text-xs font-mono font-bold tracking-wider uppercase shadow-md">
+                <span className="bg-blue-600/85 text-white border border-blue-400/30 backdrop-blur-md px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-mono font-bold tracking-wider uppercase shadow-md">
                   {event.category}
                 </span>
               )}
             </div>
 
-            {/* Bottom Front: Clean Name & Role Overlay */}
-            <div className="absolute inset-x-0 bottom-0 p-5 sm:p-7 z-20">
-              <h3 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-white tracking-tight drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
+            {/* Bottom Front: Responsive Name & Role Overlay */}
+            <div className="absolute inset-x-0 bottom-0 p-4 sm:p-6 md:p-7 z-20">
+              <h3 className="text-lg sm:text-2xl md:text-3xl font-extrabold text-white tracking-tight drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
                 {event.title}
               </h3>
               {event.subtitle && (
-                <p className="text-xs sm:text-sm text-cyan-300 font-semibold tracking-wide drop-shadow-md mt-0.5">
+                <p className="text-[11px] sm:text-sm text-cyan-300 font-semibold tracking-wide drop-shadow-md mt-0.5">
                   {event.subtitle}
                 </p>
               )}
@@ -229,10 +254,10 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
           </div>
 
           {/* ======================================================== */}
-          {/* SISI BELAKANG: Razor-Sharp Vector Text & Memo Layout      */}
+          {/* SISI BELAKANG: Kertas Memo dengan Tipografi Tajam & Rapi  */}
           {/* ======================================================== */}
           <div
-            className="absolute inset-0 w-full h-full bg-[#fdfcf9] dark:bg-[#0c1f38] text-[#2c2217] dark:text-slate-100 p-6 sm:p-7 md:p-8 flex flex-col justify-between overflow-hidden shadow-md"
+            className="absolute inset-0 w-full h-full bg-[#fdfcf9] dark:bg-[#0c1f38] text-[#2c2217] dark:text-slate-100 p-4 sm:p-6 md:p-8 flex flex-col justify-between overflow-hidden shadow-md"
             style={{
               clipPath: deckleClipPath,
               transform: "rotateY(180deg) translateZ(1px)",
@@ -244,50 +269,50 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
             }}
           >
             {/* Header: Circle Icon Badge + Underlined Heading */}
-            <div className="pt-2">
-              <div className="flex items-start gap-3.5 sm:gap-4 mb-3.5">
+            <div className="pt-1 sm:pt-2">
+              <div className="flex items-start gap-2.5 sm:gap-4 mb-2.5 sm:mb-3.5">
                 {/* Soft Cream/Pastel Circle Icon Badge */}
-                <div className="w-13 h-13 sm:w-14 sm:h-14 rounded-full bg-[#f6ebd8] dark:bg-amber-950/50 border border-[#e8d7be] dark:border-amber-500/20 text-[#543b22] dark:text-amber-300 flex items-center justify-center font-mono font-bold text-xl sm:text-2xl shadow-sm flex-shrink-0">
+                <div className="w-10 h-10 sm:w-13 sm:h-13 md:w-14 md:h-14 rounded-full bg-[#f6ebd8] dark:bg-amber-950/50 border border-[#e8d7be] dark:border-amber-500/20 text-[#543b22] dark:text-amber-300 flex items-center justify-center font-mono font-bold text-base sm:text-xl md:text-2xl shadow-sm flex-shrink-0">
                   {event.iconCode || "</>"}
                 </div>
 
                 {/* Heading & Underline */}
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between gap-1 mb-0.5">
-                    <span className="text-[10px] font-mono text-[#8c6742] dark:text-amber-400 uppercase tracking-widest font-bold">
+                    <span className="text-[9px] sm:text-[10px] font-mono text-[#8c6742] dark:text-amber-400 uppercase tracking-widest font-bold">
                       {event.category || "KUALIFIKASI"}
                     </span>
-                    <span className="text-[10px] font-mono text-[#8c6742] dark:text-amber-400/80 font-bold bg-[#f1e4d0] dark:bg-amber-950/40 px-2 py-0.5 rounded-full">
+                    <span className="text-[9px] sm:text-[10px] font-mono text-[#8c6742] dark:text-amber-400/80 font-bold bg-[#f1e4d0] dark:bg-amber-950/40 px-2 py-0.5 rounded-full">
                       {event.date}
                     </span>
                   </div>
 
                   {/* Main Role Heading */}
-                  <h3 className="text-xl sm:text-2xl font-extrabold text-[#281c10] dark:text-white tracking-tight leading-tight pb-1 border-b-2 border-[#5c3e23] dark:border-amber-400/60 inline-block">
+                  <h3 className="text-base sm:text-xl md:text-2xl font-extrabold text-[#281c10] dark:text-white tracking-tight leading-tight pb-0.5 sm:pb-1 border-b-2 border-[#5c3e23] dark:border-amber-400/60 inline-block">
                     {event.roleName || event.title}
                   </h3>
 
                   {/* Subtitle / Member Name */}
-                  <p className="text-xs sm:text-sm font-semibold text-[#664d34] dark:text-cyan-300 mt-1">
+                  <p className="text-[11px] sm:text-xs md:text-sm font-semibold text-[#664d34] dark:text-cyan-300 mt-0.5">
                     {event.title}
                   </p>
                 </div>
               </div>
 
-              {/* Description Paragraph (High contrast, crisp vector text) */}
-              <p className="text-[#2b2014] dark:text-slate-100 text-xs sm:text-sm leading-relaxed font-semibold mb-3">
+              {/* Description Paragraph */}
+              <p className="text-[#2b2014] dark:text-slate-100 text-[11px] sm:text-xs md:text-sm leading-relaxed font-semibold mb-2 sm:mb-3">
                 {event.description}
               </p>
 
               {/* Bullet Points with Solid Dots */}
               {event.bulletPoints && event.bulletPoints.length > 0 && (
-                <ul className="space-y-1.5 mb-3">
+                <ul className="space-y-1 sm:space-y-1.5 mb-2 sm:mb-3">
                   {event.bulletPoints.map((point, idx) => (
                     <li
                       key={idx}
-                      className="flex items-start gap-2.5 text-xs sm:text-[13px] text-[#241a10] dark:text-slate-100 font-semibold"
+                      className="flex items-start gap-2 text-[11px] sm:text-xs md:text-[13px] text-[#241a10] dark:text-slate-100 font-semibold"
                     >
-                      <span className="text-[#684627] dark:text-amber-400 font-bold text-base leading-none mt-0.5 flex-shrink-0">
+                      <span className="text-[#684627] dark:text-amber-400 font-bold text-sm sm:text-base leading-none mt-0.5 flex-shrink-0">
                         •
                       </span>
                       <span>{point}</span>
@@ -297,25 +322,25 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
               )}
             </div>
 
-            {/* Footer: Education & Flip Back Hint */}
-            <div className="pt-2.5 border-t border-[#e2d5c3] dark:border-white/15 space-y-1.5">
+            {/* Footer: Education & Navigation Note */}
+            <div className="pt-2 border-t border-[#e2d5c3] dark:border-white/10 space-y-1">
               {event.education && (
-                <div className="flex items-center justify-between text-[11px] sm:text-xs text-[#5e442c] dark:text-slate-300">
+                <div className="flex items-center justify-between text-[10px] sm:text-[11px] md:text-xs text-[#5e442c] dark:text-slate-300">
                   <span className="flex items-center gap-1.5 font-semibold truncate">
                     <GraduationCap className="w-3.5 h-3.5 text-[#8c5a2b] dark:text-amber-400 flex-shrink-0" />
                     <strong className="text-[#2e1d0c] dark:text-cyan-300">{event.education.degree}</strong> – {event.education.institution}
                   </span>
-                  <span className="font-mono text-[10px] text-[#785433] dark:text-slate-400 flex-shrink-0 ml-1">
+                  <span className="font-mono text-[9px] sm:text-[10px] text-[#785433] dark:text-slate-400 flex-shrink-0 ml-1">
                     {event.education.period}
                   </span>
                 </div>
               )}
 
-              <div className="flex items-center justify-between text-[10px] text-[#7d5d3c] dark:text-slate-400 pt-1">
+              <div className="flex items-center justify-between text-[9px] sm:text-[10px] text-[#7d5d3c] dark:text-slate-400 pt-0.5">
                 <span className="flex items-center gap-1 text-[#5e442c] dark:text-cyan-400 font-mono font-medium">
-                  <ArrowLeft className="w-3 h-3" /> Klik untuk kembali ke foto
+                  <ArrowLeft className="w-2.5 h-2.5 sm:w-3 sm:h-3" /> Tap untuk balik ke foto
                 </span>
-                <span className="font-mono font-semibold">CasstroDev Team</span>
+                <span className="font-mono font-semibold">CasstroDev</span>
               </div>
             </div>
           </div>
@@ -340,7 +365,7 @@ export const Timeline3D: React.FC<Timeline3DProps> = ({
       ref={containerRef}
     >
       <div className="max-w-5xl mx-auto relative">
-        {/* Pinned Paper Cards - Zigzag Layout with 3D Flip & Fine Deckle Edge */}
+        {/* Pinned Paper Cards - Zigzag Layout with Scroll Flip on Mobile & Deckle Edge */}
         <div className="relative z-10 pt-2">
           {events.map((event, index) => (
             <TimelineItem
