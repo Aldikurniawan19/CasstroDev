@@ -234,8 +234,7 @@ export default function PortfolioGrid() {
                       className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
                       loading="lazy"
                     />
-                    <div className="absolute inset-0 bg-slate-950/20 group-hover:bg-slate-950/0 transition-colors" />
-                    <span className="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-slate-900/80 backdrop-blur-md text-white text-[11px] font-mono font-semibold border border-white/20">
+                    <span className="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-slate-900/90 text-white text-[11px] font-mono font-semibold border border-white/20 shadow-sm">
                       {project.category}
                     </span>
                   </div>

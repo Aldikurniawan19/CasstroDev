@@ -1,4 +1,5 @@
 import Reveal from "@/components/common/Reveal";
+import { ArrowRight } from "lucide-react";
 
 interface CTASectionProps {
   title?: string;
@@ -26,9 +27,10 @@ export default function CTASection({
         <div className="mt-4">
           <a
             href={buttonHref}
-            className="btn-animated bg-primary-container text-on-primary px-10 py-4 rounded-xl font-label-md text-label-md hover:bg-primary inline-block text-center text-lg shadow-md hover:shadow-lg font-semibold"
+            className="btn-animated bg-primary-container text-on-primary px-10 py-4 rounded-xl font-label-md text-label-md hover:bg-primary inline-flex items-center justify-center gap-2.5 text-center text-lg shadow-md hover:shadow-lg font-semibold group cursor-pointer"
           >
-            {buttonText}
+            <span>{buttonText}</span>
+            <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
           </a>
         </div>
       </Reveal>

@@ -6,6 +6,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import ChipGraphic from "./ChipGraphic";
 import Reveal from "@/components/common/Reveal";
+import { ArrowRight } from "lucide-react";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(useGSAP, ScrollTrigger);
@@ -192,9 +193,10 @@ export default function Hero() {
         <div className="flex flex-col sm:flex-row gap-stack-md pt-stack-sm">
           <a
             href="/kontak"
-            className="btn-animated bg-primary-container text-on-primary px-8 py-3.5 rounded-xl font-label-md text-label-md hover:bg-primary text-center shadow-md hover:shadow-lg font-semibold"
+            className="btn-animated bg-primary-container text-on-primary px-8 py-3.5 rounded-xl font-label-md text-label-md hover:bg-primary inline-flex items-center justify-center gap-2 text-center shadow-md hover:shadow-lg font-semibold group cursor-pointer"
           >
-            Hubungi Kami
+            <span>Hubungi Kami</span>
+            <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
           </a>
           <a
             href="/portofolio"
