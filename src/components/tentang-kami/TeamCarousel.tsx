@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence, type PanInfo } from "framer-motion";
-import { ArrowLeft, ArrowRight, Sparkles } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 
 interface TeamMember {
   name: string;
@@ -22,7 +22,7 @@ const teamMembers: TeamMember[] = [
   },
   {
     name: "Shasy kirana syaharani",
-    title: "UI/UX",
+    title: "UI/UX Designer",
     description:
       "Menerjemahkan kebutuhan pengguna menjadi rancangan antarmuka dan pengalaman yang intuitif. Berkolaborasi dengan tim untuk memastikan setiap desain dapat diwujudkan menjadi produk digital yang fungsional.",
     imageUrl: "/images/shasy.png",
@@ -87,10 +87,10 @@ export default function TeamCarousel() {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="relative grid grid-cols-1 gap-y-12 md:grid-cols-2 md:gap-x-20 items-center">
-        {/* Card Stack Image Container with Drag Gestures */}
-        <div className="flex flex-col items-center justify-center">
-          <div className="relative h-84 sm:h-92 w-full max-w-xs sm:max-w-sm">
+      <div className="relative grid grid-cols-1 gap-y-10 md:grid-cols-2 md:gap-x-16 lg:gap-x-20 items-center min-h-[440px] md:min-h-[460px]">
+        {/* Card Stack Image Container with Drag Gestures (Fixed Height) */}
+        <div className="flex flex-col items-center justify-center h-full">
+          <div className="relative h-80 sm:h-88 md:h-96 w-full max-w-xs sm:max-w-sm">
             {teamMembers.map((member, index) => {
               const offset = (index - active + teamMembers.length) % teamMembers.length;
               const isActive = offset === 0;
@@ -155,33 +155,34 @@ export default function TeamCarousel() {
           </div>
         </div>
 
-        {/* Content Info Container */}
-        <div className="flex flex-col justify-center py-4">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={active}
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -15 }}
-              transition={{ duration: 0.25, ease: "easeInOut" }}
-              className="flex flex-col justify-between"
-            >
-              <div>
+        {/* Content Info Container with Fixed Stable Dimensions (No Layout Shifting) */}
+        <div className="flex flex-col justify-between py-2 min-h-[290px] sm:min-h-[270px] md:min-h-[320px]">
+          {/* Text Area with reserved height */}
+          <div className="min-h-[190px] sm:min-h-[170px] md:min-h-[210px] flex flex-col justify-start">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={active}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.2, ease: "easeInOut" }}
+                className="w-full"
+              >
                 <h3 className="font-headline-lg text-headline-lg text-primary dark:text-white font-bold">
                   {teamMembers[active].name}
                 </h3>
                 <p className="font-label-md text-label-md text-secondary dark:text-accent-cyan uppercase tracking-widest font-bold mt-1">
                   {teamMembers[active].title}
                 </p>
-                <motion.p className="font-body-lg text-body-lg text-slate-700 dark:text-slate-200 leading-relaxed mt-6">
+                <p className="font-body-lg text-body-lg text-slate-700 dark:text-slate-200 leading-relaxed mt-4 sm:mt-5">
                   &ldquo;{teamMembers[active].description}&rdquo;
-                </motion.p>
-              </div>
-            </motion.div>
-          </AnimatePresence>
+                </p>
+              </motion.div>
+            </AnimatePresence>
+          </div>
 
-          {/* Navigation Controls & Indicators */}
-          <div className="flex items-center justify-between pt-10">
+          {/* Navigation Controls & Indicators (Anchored at fixed bottom) */}
+          <div className="flex items-center justify-between pt-6 border-t border-slate-200/60 dark:border-white/10 mt-2">
             <div className="flex gap-4">
               <button
                 onClick={handlePrev}
