@@ -2,7 +2,6 @@
 
 import React from "react";
 import Timeline3D, { TimelineEvent } from "@/components/ui/3d-interactive-timeline";
-import { Briefcase, Award, Code, Globe } from "lucide-react";
 import Reveal from "@/components/common/Reveal";
 
 const teamTimelineEvents: TimelineEvent[] = [
@@ -11,10 +10,16 @@ const teamTimelineEvents: TimelineEvent[] = [
     date: "2023 – Sekarang",
     title: "Nanda Indra Saputra",
     subtitle: "Project Manager • HRD – Training Center",
-    description:
-      "Mendukung digitalisasi Training Center di PT Saga Hikari Teknindo Sejati melalui pengembangan konten E-Learning interaktif dan transformasi media pembelajaran untuk meningkatkan efektivitas proses pelatihan karyawan.",
-    icon: <Briefcase className="w-4 h-4 text-white" />,
+    roleName: "Pengembangan & Manajemen Proyek",
+    iconCode: "</>",
     image: "/images/indra.png",
+    description:
+      "Mendukung digitalisasi Training Center di PT Saga Hikari Teknindo Sejati melalui pengembangan konten E-Learning interaktif dan transformasi media pembelajaran untuk meningkatkan efektivitas pelatihan karyawan.",
+    bulletPoints: [
+      "Pengembangan konten E-Learning interaktif & kurikulum digital",
+      "Transformasi media pembelajaran & standarisasi materi",
+      "Peningkatan efektivitas & monitoring proses pelatihan karyawan",
+    ],
     category: "Project Management",
     education: {
       degree: "S1 Sistem Informasi",
@@ -27,10 +32,16 @@ const teamTimelineEvents: TimelineEvent[] = [
     date: "2021 – Sekarang",
     title: "Shasy Kirana Syaharani",
     subtitle: "Lead UI/UX Designer",
-    description:
-      "Membangun Master Design System dan merancang antarmuka produk digital berskala enterprise, mengoptimalkan alur interaksi pengguna (user flow), serta menghasilkan prototipe interaktif modern.",
-    icon: <Award className="w-4 h-4 text-white" />,
+    roleName: "Perancangan UI/UX & Design Systems",
+    iconCode: "✦",
     image: "/images/shasy.png",
+    description:
+      "Membangun sistem desain terpadu dan antarmuka produk digital berskala enterprise dengan pengalaman pengguna yang intuitif, rapi, dan berbasis riset.",
+    bulletPoints: [
+      "Perancangan Master Design System & Styleguide modern",
+      "Riset pengalaman pengguna, Wireframing & Interactive Prototyping",
+      "Optimasi user flow, responsivitas antarmuka, dan estetika visual",
+    ],
     category: "UI/UX Design",
     education: {
       degree: "S1 Desain Komunikasi Visual",
@@ -43,10 +54,16 @@ const teamTimelineEvents: TimelineEvent[] = [
     date: "2025 – Sekarang",
     title: "Aldi Kurniawan",
     subtitle: "FrontEnd Developer • Freelancer",
-    description:
-      "FreeLancer web sejak 2025 mengembangkan antarmuka website modern, responsif, dan interaktif, serta memiliki rekam jejak magang di Divisi IT PT Saga Hikari Teknindo Sejati selama satu tahun.",
-    icon: <Code className="w-4 h-4 text-white" />,
+    roleName: "Rekayasa FrontEnd & Interaksi",
+    iconCode: "</>",
     image: "/images/aldi.png",
+    description:
+      "Mengembangkan aplikasi website modern dengan teknologi terkini, performa optimal, dan kode terstruktur, dengan rekam jejak industri di bidang teknologi informasi.",
+    bulletPoints: [
+      "Freelance Web Developer (2025 – Sekarang)",
+      "Magang Divisi IT PT Saga Hikari Teknindo Sejati (1 Tahun)",
+      "Pengembangan antarmuka responsif, modern, dan integrasi API",
+    ],
     category: "FrontEnd Engineering",
     education: {
       degree: "S1 Sistem Informasi",
@@ -59,10 +76,16 @@ const teamTimelineEvents: TimelineEvent[] = [
     date: "2021 – Sekarang",
     title: "Bayu Dwi Aditya Saputra",
     subtitle: "BackEnd Developer",
-    description:
-      "Merancang arsitektur API berskala tinggi, integrasi database terdistribusi, optimasi performa query, serta sistem autentikasi dan keamanan server terpercaya.",
-    icon: <Globe className="w-4 h-4 text-white" />,
+    roleName: "Arsitektur Backend & Database",
+    iconCode: "{ }",
     image: "/images/bayu.png",
+    description:
+      "Merancang fondasi sistem backend yang tangguh, aman, dan berlatensi rendah untuk mendukung ekosistem digital enterprise dengan ketersediaan tinggi.",
+    bulletPoints: [
+      "Perancangan arsitektur RESTful API & mikroservis performa tinggi",
+      "Integrasi & optimasi database relasional dan noSQL terdistribusi",
+      "Keamanan server, autentikasi terenkripsi, dan stabilitas query",
+    ],
     category: "BackEnd Engineering",
     education: {
       degree: "S1 Teknik Informatika",
@@ -91,13 +114,10 @@ export default function TeamExperienceSection() {
         </div>
       </Reveal>
 
-      {/* 3D Interactive Timeline Component */}
+      {/* Pinned Paper Timeline Component */}
       <Timeline3D
         events={teamTimelineEvents}
         backgroundColor="bg-transparent"
-        primaryColor="bg-blue-600"
-        secondaryColor="bg-cyan-500"
-        accentColor="bg-cyan-400"
         className="pt-4"
       />
     </section>

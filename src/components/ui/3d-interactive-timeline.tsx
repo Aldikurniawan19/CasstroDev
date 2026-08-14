@@ -2,14 +2,17 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { motion, useAnimation, useInView } from "framer-motion";
-import { GraduationCap, Briefcase, Sparkles, ArrowLeft } from "lucide-react";
+import { GraduationCap, ArrowLeft } from "lucide-react";
 
 export interface TimelineEvent {
   id: string;
   date: string;
   title: string;
   subtitle?: string;
+  roleName?: string;
+  iconCode?: string;
   description: string;
+  bulletPoints?: string[];
   icon?: React.ReactNode;
   image?: string;
   category?: string;
@@ -28,96 +31,65 @@ export interface TimelineEvent {
 interface Timeline3DProps {
   events: TimelineEvent[];
   backgroundColor?: string;
+  primaryColor?: string;
+  secondaryColor?: string;
+  accentColor?: string;
   textColor?: string;
   showImages?: boolean;
   className?: string;
 }
 
-const pinThemes = [
-  { head: "#dc2626", highlight: "#f87171", rim: "#991b1b", dark: "#450a0a" }, // Red
-  { head: "#0284c7", highlight: "#38bdf8", rim: "#0369a1", dark: "#082f49" }, // Sky Blue
-  { head: "#d97706", highlight: "#fbbf24", rim: "#b45309", dark: "#451a03" }, // Amber
-  { head: "#059669", highlight: "#34d399", rim: "#047857", dark: "#022c22" }, // Emerald
-];
-
-// Photorealistic 3D Pushpin Component with Steel Needle & Specular Highlights
-const RealisticPushpin: React.FC<{ colorIndex: number }> = ({ colorIndex }) => {
-  const theme = pinThemes[colorIndex % pinThemes.length];
-
+// Photorealistic Round Domed Golden/Brown Pushpin with Cast Shadow (Matching Reference Image)
+const RealisticPushpin: React.FC = () => {
   return (
-    <div className="absolute -top-5 left-1/2 -translate-x-1/2 z-40 flex flex-col items-center pointer-events-none filter drop-shadow-[1px_4px_5px_rgba(0,0,0,0.35)]">
-      <svg width="34" height="44" viewBox="0 0 34 44" fill="none" className="overflow-visible">
-        {/* Cast shadow of needle onto paper */}
-        <ellipse cx="22" cy="40" rx="5" ry="2" fill="black" opacity="0.35" />
+    <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-40 flex flex-col items-center pointer-events-none">
+      <svg width="32" height="38" viewBox="0 0 32 38" fill="none" className="overflow-visible">
+        {/* Soft shadow cast by the pin */}
+        <ellipse cx="20" cy="34" rx="5" ry="2" fill="black" opacity="0.35" />
 
-        {/* Steel Needle / Shaft entering paper */}
-        <polygon points="17,24 15.5,39 18.5,39" fill="#e2e8f0" />
-        <line x1="17" y1="24" x2="17" y2="39" stroke="#94a3b8" strokeWidth="1" />
-        <polygon points="16.5,37 17,40 17.5,37" fill="#64748b" />
+        {/* Steel Needle entering paper */}
+        <polygon points="16,20 14.8,33 17.2,33" fill="#cbd5e1" />
+        <line x1="16" y1="20" x2="16" y2="33" stroke="#94a3b8" strokeWidth="0.8" />
 
-        {/* Pin Lower Flange Base */}
-        <path d="M11 21 C11 18, 23 18, 23 21 L21 24 C21 25.5, 13 25.5, 13 24 Z" fill={theme.rim} />
+        {/* Golden-Bronze Domed Pushpin Head */}
+        <ellipse cx="16" cy="13" rx="9" ry="8.5" fill="#451a03" />
+        <ellipse cx="16" cy="12" rx="8.5" ry="8" fill="url(#gold-dome-grad)" />
 
-        {/* Pin Cylindrical Waist */}
-        <path d="M12 13 L22 13 L21 20.5 L13 20.5 Z" fill={theme.head} />
-        {/* Specular highlight strip on waist */}
-        <path d="M13.5 13 L16 13 L15.2 20.5 L13.8 20.5 Z" fill={theme.highlight} opacity="0.7" />
-        <path d="M20 13 L21.5 13 L20.7 20.5 L19.5 20.5 Z" fill={theme.dark} opacity="0.5" />
-
-        {/* Pin Upper Beveled Rim */}
-        <ellipse cx="17" cy="12.5" rx="9.5" ry="3.5" fill={theme.rim} />
-        <ellipse cx="17" cy="10.5" rx="9.5" ry="3.5" fill={theme.head} />
-
-        {/* Top Glossy Cap with Radial Specular Shine */}
-        <ellipse cx="17" cy="8.5" rx="8.5" ry="3" fill={`url(#pin-grad-${colorIndex})`} />
-        {/* Shiny specular white reflection */}
-        <ellipse cx="14.5" cy="7.5" rx="3.8" ry="1.3" fill="white" opacity="0.85" />
-        <ellipse cx="13" cy="7" rx="1.4" ry="0.5" fill="white" opacity="0.95" />
+        {/* Specular White Highlight Reflection */}
+        <ellipse cx="13.5" cy="8.5" rx="3.2" ry="2" fill="white" opacity="0.8" />
+        <ellipse cx="12" cy="7.8" rx="1.2" ry="0.8" fill="white" opacity="0.95" />
 
         <defs>
-          <radialGradient id={`pin-grad-${colorIndex}`} cx="35%" cy="30%" r="65%">
-            <stop offset="0%" stopColor={theme.highlight} />
-            <stop offset="55%" stopColor={theme.head} />
-            <stop offset="100%" stopColor={theme.dark} />
+          <radialGradient id="gold-dome-grad" cx="35%" cy="30%" r="70%">
+            <stop offset="0%" stopColor="#f59e0b" />
+            <stop offset="35%" stopColor="#d97706" />
+            <stop offset="70%" stopColor="#92400e" />
+            <stop offset="100%" stopColor="#451a03" />
           </radialGradient>
         </defs>
       </svg>
 
-      {/* Realistic Pierced Pinhole in Paper */}
-      <div className="w-2.5 h-1 rounded-full bg-black/70 -mt-1 blur-[0.5px]" />
+      {/* Realistic Pinhole */}
+      <div className="w-2 h-0.8 rounded-full bg-black/75 -mt-0.5 blur-[0.4px]" />
     </div>
   );
 };
 
-// 4 Unique, highly irregular hand-torn paper polygons with deep asymmetrical rips, notches, and rugged serrations
-const tornPaperClips = [
-  // 1. Nanda Indra
+// Fine, authentic micro-serrated deckle torn paper edge polygons (Matching Reference Image)
+const fineDeckleClips = [
+  // 1. Deckle Pattern A
   `polygon(
-    0% 2.8%, 3% 0.5%, 7% 2.2%, 12% 0.8%, 18% 3.0%, 25% 1.2%, 32% 2.8%, 40% 0.6%, 48% 2.5%, 55% 1.0%, 63% 3.2%, 70% 1.5%, 78% 2.9%, 85% 0.8%, 91% 3.5%, 95% 1.5%, 98% 4.8%, 100% 7.5%,
-    98.5% 12%, 100% 17%, 96.8% 22%, 99.2% 28%, 97.0% 35%, 100% 41%, 96.5% 48%, 99.0% 55%, 96.8% 62%, 100% 70%, 97.2% 77%, 99.5% 84%, 96.0% 90%, 98.2% 94%, 95.5% 97%,
-    91% 98.8%, 86% 96.2%, 80% 99.4%, 73% 97.0%, 67% 99.8%, 60% 96.5%, 53% 99.2%, 46% 96.0%, 39% 99.5%, 32% 96.8%, 25% 99.0%, 18% 96.5%, 12% 99.5%, 6% 97.2%, 1% 99.0%,
-    2.5% 93%, 0.5% 86%, 3.2% 79%, 0.8% 72%, 2.8% 65%, 0.5% 58%, 3.0% 51%, 0.8% 44%, 2.6% 37%, 0.5% 30%, 3.2% 23%, 0.8% 16%, 2.5% 9%, 0.5% 4%
+    0% 0.4%, 6% 0.2%, 14% 0.5%, 22% 0.2%, 30% 0.6%, 40% 0.2%, 50% 0.5%, 60% 0.3%, 70% 0.6%, 80% 0.2%, 90% 0.5%, 96% 0.2%, 100% 0.4%,
+    99.2% 3%, 99.9% 6%, 99.0% 9%, 99.8% 12%, 99.1% 15%, 100% 18%, 99.2% 21%, 99.9% 25%, 99.0% 29%, 99.8% 33%, 99.1% 37%, 100% 41%, 99.2% 45%, 99.9% 49%, 99.1% 53%, 99.8% 57%, 99.0% 61%, 100% 65%, 99.2% 69%, 99.8% 73%, 99.0% 77%, 100% 81%, 99.2% 85%, 99.9% 89%, 99.1% 93%, 99.8% 97%, 99.4% 100%,
+    94% 99.5%, 88% 99.0%, 82% 99.8%, 76% 99.2%, 70% 99.7%, 64% 99.1%, 58% 99.8%, 52% 99.2%, 46% 99.7%, 40% 99.0%, 34% 99.8%, 28% 99.2%, 22% 99.7%, 16% 99.1%, 10% 99.8%, 4% 99.2%, 0% 99.6%,
+    0.8% 97%, 0.1% 93%, 0.9% 89%, 0.2% 85%, 1.0% 81%, 0.0% 77%, 0.8% 73%, 0.2% 69%, 0.9% 65%, 0.0% 61%, 0.8% 57%, 0.2% 53%, 1.0% 49%, 0.1% 45%, 0.9% 41%, 0.0% 37%, 0.8% 33%, 0.2% 29%, 0.9% 25%, 0.1% 21%, 0.8% 17%, 0.2% 13%, 1.0% 9%, 0.1% 6%, 0.8% 3%
   )`,
-  // 2. Shasy Kirana
+  // 2. Deckle Pattern B
   `polygon(
-    2% 1.0%, 6% 3.2%, 12% 1.5%, 19% 3.8%, 26% 1.2%, 34% 3.0%, 42% 1.0%, 50% 3.5%, 58% 1.4%, 66% 3.2%, 74% 1.0%, 82% 3.6%, 89% 1.5%, 95% 3.0%, 99% 1.2%,
-    97.5% 6%, 100% 13%, 97.0% 20%, 99.5% 27%, 96.5% 34%, 99.0% 42%, 96.8% 50%, 100% 58%, 97.0% 66%, 99.2% 74%, 96.5% 82%, 100% 89%, 97.5% 95%, 95.0% 99%,
-    89% 97.0%, 83% 99.5%, 76% 96.8%, 69% 99.2%, 62% 96.5%, 55% 99.8%, 48% 97.0%, 41% 99.5%, 34% 96.2%, 27% 99.0%, 20% 96.5%, 13% 99.2%, 7% 96.8%, 1% 99.5%,
-    4.0% 93%, 1.2% 86%, 4.5% 78%, 1.0% 70%, 5.0% 62%, 1.5% 54%, 4.2% 46%, 1.0% 38%, 4.8% 30%, 1.2% 22%, 4.0% 14%, 1.5% 7%
-  )`,
-  // 3. Aldi Kurniawan
-  `polygon(
-    5% 6.5%, 9% 3.0%, 15% 1.2%, 22% 3.5%, 30% 1.0%, 38% 3.2%, 46% 1.4%, 54% 3.6%, 62% 1.2%, 70% 3.4%, 78% 1.0%, 86% 3.2%, 93% 1.5%, 98% 3.8%,
-    96.5% 8%, 99.5% 15%, 96.8% 23%, 100% 31%, 97.2% 39%, 99.8% 47%, 96.5% 55%, 100% 63%, 97.0% 71%, 99.5% 79%, 96.2% 87%, 98.8% 93%, 96.0% 98.5%,
-    91% 96.5%, 84% 99.8%, 77% 96.2%, 70% 99.5%, 63% 96.8%, 56% 99.2%, 49% 96.0%, 42% 99.8%, 35% 96.5%, 28% 99.2%, 21% 96.8%, 14% 99.5%, 8% 96.0%, 2% 98.8%,
-    0.8% 92%, 3.5% 84%, 0.5% 76%, 3.8% 68%, 0.8% 60%, 3.2% 52%, 0.5% 44%, 3.6% 36%, 0.8% 28%, 3.0% 20%, 1.2% 13%, 3.5% 8%
-  )`,
-  // 4. Bayu Dwi Aditya
-  `polygon(
-    1% 3.5%, 6% 1.2%, 13% 3.8%, 20% 1.5%, 28% 3.2%, 36% 1.0%, 44% 3.5%, 52% 1.2%, 60% 3.4%, 68% 1.0%, 76% 3.6%, 84% 1.4%, 91% 3.2%, 97% 1.0%, 100% 3.5%,
-    97.0% 9%, 99.8% 17%, 96.5% 25%, 100% 33%, 97.2% 41%, 99.5% 49%, 96.8% 57%, 100% 65%, 97.0% 73%, 99.2% 81%, 96.5% 89%, 99.0% 95%, 96.2% 99.2%,
-    90% 96.8%, 83% 99.5%, 76% 96.0%, 69% 99.8%, 62% 96.5%, 55% 99.0%, 48% 96.2%, 41% 99.6%, 34% 96.8%, 27% 99.2%, 20% 96.0%, 13% 99.5%, 7% 96.5%, 0% 98.0%,
-    3.2% 91%, 0.8% 83%, 3.8% 75%, 1.0% 67%, 3.5% 59%, 0.6% 51%, 3.2% 43%, 1.0% 35%, 3.6% 27%, 0.8% 19%, 3.0% 11%, 1.2% 5%
+    0% 0.3%, 8% 0.5%, 16% 0.2%, 25% 0.6%, 35% 0.2%, 45% 0.5%, 55% 0.3%, 65% 0.6%, 75% 0.2%, 85% 0.5%, 94% 0.2%, 100% 0.3%,
+    99.1% 3%, 99.8% 6%, 99.0% 10%, 100% 14%, 99.2% 18%, 99.9% 22%, 99.1% 26%, 99.8% 30%, 99.0% 34%, 100% 38%, 99.2% 42%, 99.9% 46%, 99.1% 50%, 99.8% 54%, 99.0% 58%, 100% 62%, 99.2% 66%, 99.8% 70%, 99.0% 74%, 100% 78%, 99.2% 82%, 99.9% 86%, 99.1% 90%, 99.8% 94%, 99.0% 98%, 99.5% 100%,
+    95% 99.6%, 89% 99.1%, 83% 99.7%, 77% 99.0%, 71% 99.8%, 65% 99.2%, 59% 99.7%, 53% 99.1%, 47% 99.8%, 41% 99.2%, 35% 99.7%, 29% 99.0%, 23% 99.8%, 17% 99.2%, 11% 99.7%, 5% 99.1%, 0% 99.5%,
+    0.9% 97%, 0.2% 93%, 1.0% 89%, 0.1% 85%, 0.9% 81%, 0.0% 77%, 0.8% 73%, 0.2% 69%, 1.0% 65%, 0.1% 61%, 0.9% 57%, 0.0% 53%, 0.8% 49%, 0.2% 45%, 1.0% 41%, 0.1% 37%, 0.9% 33%, 0.0% 29%, 0.8% 25%, 0.2% 21%, 1.0% 17%, 0.1% 13%, 0.9% 9%, 0.0% 5%, 0.7% 2%
   )`,
 ];
 
@@ -149,13 +121,13 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
   }, [controls, isInView]);
 
   const isEven = index % 2 === 0;
-  const baseRotation = isEven ? 1.5 : -1.5;
-  const tornClipPath = tornPaperClips[index % tornPaperClips.length];
+  const baseRotation = isEven ? 1.4 : -1.4;
+  const deckleClipPath = fineDeckleClips[index % fineDeckleClips.length];
 
   return (
     <motion.div
       ref={itemRef}
-      className={`relative mb-12 sm:mb-16 md:mb-24 ${
+      className={`relative mb-14 sm:mb-18 md:mb-24 ${
         isEven ? "md:ml-auto" : "md:mr-auto"
       } md:w-1/2 flex ${isEven ? "md:justify-start" : "md:justify-end"} px-1 sm:px-3 md:px-5`}
       initial="hidden"
@@ -179,46 +151,45 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
         },
       }}
     >
-      {/* 3D Container with Soft, Clean Contour Drop-Shadow */}
+      {/* 3D Container without rasterizing CSS filter on parent to keep text 100% razor sharp */}
       <div
-        className="relative z-10 w-full md:w-[94%] cursor-pointer select-none filter drop-shadow-[0_10px_20px_rgba(0,0,0,0.18)] dark:drop-shadow-[0_16px_32px_rgba(0,0,0,0.65)] group"
+        className="relative z-10 w-full md:w-[94%] cursor-pointer select-none group"
         onClick={() => setIsFlipped(!isFlipped)}
         onMouseEnter={() => setIsFlipped(true)}
         onMouseLeave={() => setIsFlipped(false)}
         style={{ perspective: "1200px" }}
       >
-        {/* Photorealistic 3D Pushpin Pierced at Top Center */}
-        <RealisticPushpin colorIndex={index} />
+        {/* Photorealistic Golden-Bronze Pushpin */}
+        <RealisticPushpin />
 
-        {/* 3D Flipping Card */}
+        {/* 3D Flippable Paper Card Envelope */}
         <motion.div
-          className="relative w-full h-[470px] sm:h-[520px] md:h-[560px] transition-all duration-300"
+          className="relative w-full h-[490px] sm:h-[530px] md:h-[560px] transition-all duration-300"
           style={{
             transformStyle: "preserve-3d",
           }}
           animate={{
             rotateY: isFlipped ? 180 : 0,
             y: isFlipped ? -6 : 0,
-            scale: isFlipped ? 1.015 : 1,
           }}
           transition={{
-            duration: 0.65,
+            duration: 0.6,
             ease: [0.23, 1, 0.32, 1],
           }}
         >
           {/* ======================================================== */}
-          {/* SISI DEPAN: Foto Penuh + Nama Simpel                      */}
+          {/* SISI DEPAN: Foto Penuh dengan Tepi Kertas Robek Halus      */}
           {/* ======================================================== */}
           <div
-            className="absolute inset-0 w-full h-full bg-slate-950 overflow-hidden shadow-xl"
+            className="absolute inset-0 w-full h-full bg-slate-950 overflow-hidden shadow-md"
             style={{
-              clipPath: tornClipPath,
-              transform: "rotateY(0deg)",
+              clipPath: deckleClipPath,
+              transform: "rotateY(0deg) translateZ(1px)",
               backfaceVisibility: "hidden",
               WebkitBackfaceVisibility: "hidden",
             }}
           >
-            {/* Foto Penuh Anggota Tim */}
+            {/* Foto Anggota Tim */}
             {showImages && event.image && (
               <img
                 src={event.image}
@@ -230,7 +201,7 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
             {/* Gradient Overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent pointer-events-none" />
 
-            {/* Top Badges: Category & Date */}
+            {/* Top Badges */}
             <div className="absolute top-5 inset-x-5 flex items-center justify-between z-20 pointer-events-none">
               <span className="bg-slate-950/80 text-cyan-400 border border-cyan-400/40 backdrop-blur-md px-3 py-1 rounded-full text-xs font-mono font-bold tracking-wider uppercase shadow-md flex items-center gap-1.5">
                 <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
@@ -244,7 +215,7 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
               )}
             </div>
 
-            {/* Bottom Front: Simple Clean Name & Role Overlay */}
+            {/* Bottom Front: Clean Name & Role Overlay */}
             <div className="absolute inset-x-0 bottom-0 p-5 sm:p-7 z-20">
               <h3 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-white tracking-tight drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
                 {event.title}
@@ -258,74 +229,94 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
           </div>
 
           {/* ======================================================== */}
-          {/* SISI BELAKANG: Background Polos Bersih + Rincian Lengkap  */}
+          {/* SISI BELAKANG: Razor-Sharp Vector Text & Memo Layout      */}
           {/* ======================================================== */}
           <div
-            className="absolute inset-0 w-full h-full bg-[#08182e] text-white p-5 sm:p-7 md:p-8 flex flex-col justify-between overflow-hidden shadow-xl"
+            className="absolute inset-0 w-full h-full bg-[#fdfcf9] dark:bg-[#0c1f38] text-[#2c2217] dark:text-slate-100 p-6 sm:p-7 md:p-8 flex flex-col justify-between overflow-hidden shadow-md"
             style={{
-              clipPath: tornClipPath,
-              transform: "rotateY(180deg)",
+              clipPath: deckleClipPath,
+              transform: "rotateY(180deg) translateZ(1px)",
               backfaceVisibility: "hidden",
               WebkitBackfaceVisibility: "hidden",
+              WebkitFontSmoothing: "antialiased",
+              MozOsxFontSmoothing: "grayscale",
+              textRendering: "optimizeLegibility",
             }}
           >
-            {/* Header Sisi Belakang */}
-            <div className="pt-2 border-b border-white/15 pb-2.5">
-              <div className="flex items-center justify-between gap-2 mb-1.5">
-                <span className="text-[11px] font-mono text-cyan-400 uppercase tracking-widest font-bold flex items-center gap-1.5">
-                  <Sparkles className="w-3.5 h-3.5 text-cyan-400" /> REKAM JEJAK KUALIFIKASI
-                </span>
-                <span className="px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-400/40 text-[10px] font-mono font-bold">
-                  {event.date}
-                </span>
-              </div>
+            {/* Header: Circle Icon Badge + Underlined Heading */}
+            <div className="pt-2">
+              <div className="flex items-start gap-3.5 sm:gap-4 mb-3.5">
+                {/* Soft Cream/Pastel Circle Icon Badge */}
+                <div className="w-13 h-13 sm:w-14 sm:h-14 rounded-full bg-[#f6ebd8] dark:bg-amber-950/50 border border-[#e8d7be] dark:border-amber-500/20 text-[#543b22] dark:text-amber-300 flex items-center justify-center font-mono font-bold text-xl sm:text-2xl shadow-sm flex-shrink-0">
+                  {event.iconCode || "</>"}
+                </div>
 
-              <h3 className="text-lg sm:text-xl md:text-2xl font-extrabold text-white leading-tight">
-                {event.title}
-              </h3>
-              <p className="text-xs sm:text-sm font-semibold text-cyan-300 mt-0.5">
-                {event.subtitle}
-              </p>
-            </div>
+                {/* Heading & Underline */}
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center justify-between gap-1 mb-0.5">
+                    <span className="text-[10px] font-mono text-[#8c6742] dark:text-amber-400 uppercase tracking-widest font-bold">
+                      {event.category || "KUALIFIKASI"}
+                    </span>
+                    <span className="text-[10px] font-mono text-[#8c6742] dark:text-amber-400/80 font-bold bg-[#f1e4d0] dark:bg-amber-950/40 px-2 py-0.5 rounded-full">
+                      {event.date}
+                    </span>
+                  </div>
 
-            {/* Body Sisi Belakang: Rincian Pengalaman & Pendidikan */}
-            <div className="space-y-3 my-auto py-1">
-              {/* Rincian Pengalaman */}
-              <div className="space-y-1">
-                <span className="text-[11px] font-mono text-cyan-400 uppercase tracking-wider font-bold flex items-center gap-1.5">
-                  <Briefcase className="w-3.5 h-3.5 text-blue-400" /> Rincian Pengalaman
-                </span>
-                <div className="bg-[#0f2442] p-3 sm:p-3.5 rounded-xl border border-white/10 shadow-md">
-                  <p className="text-white text-xs sm:text-sm leading-relaxed font-normal">
-                    {event.description}
+                  {/* Main Role Heading */}
+                  <h3 className="text-xl sm:text-2xl font-extrabold text-[#281c10] dark:text-white tracking-tight leading-tight pb-1 border-b-2 border-[#5c3e23] dark:border-amber-400/60 inline-block">
+                    {event.roleName || event.title}
+                  </h3>
+
+                  {/* Subtitle / Member Name */}
+                  <p className="text-xs sm:text-sm font-semibold text-[#664d34] dark:text-cyan-300 mt-1">
+                    {event.title}
                   </p>
                 </div>
               </div>
 
-              {/* Latar Belakang Pendidikan */}
-              {event.education && (
-                <div className="space-y-1">
-                  <span className="text-[11px] font-mono text-amber-400 uppercase tracking-wider font-bold flex items-center gap-1.5">
-                    <GraduationCap className="w-3.5 h-3.5 text-amber-400" /> Pendidikan
-                  </span>
-                  <div className="p-2.5 sm:p-3 rounded-xl bg-[#0f2442] border border-white/10 shadow-md flex flex-col sm:flex-row sm:items-center sm:justify-between gap-0.5 sm:gap-1 text-xs">
-                    <span className="font-bold text-cyan-300">
-                      {event.education.degree}
-                    </span>
-                    <span className="text-slate-200 font-mono text-[11px]">
-                      {event.education.institution} ({event.education.period})
-                    </span>
-                  </div>
-                </div>
+              {/* Description Paragraph (High contrast, crisp vector text) */}
+              <p className="text-[#2b2014] dark:text-slate-100 text-xs sm:text-sm leading-relaxed font-semibold mb-3">
+                {event.description}
+              </p>
+
+              {/* Bullet Points with Solid Dots */}
+              {event.bulletPoints && event.bulletPoints.length > 0 && (
+                <ul className="space-y-1.5 mb-3">
+                  {event.bulletPoints.map((point, idx) => (
+                    <li
+                      key={idx}
+                      className="flex items-start gap-2.5 text-xs sm:text-[13px] text-[#241a10] dark:text-slate-100 font-semibold"
+                    >
+                      <span className="text-[#684627] dark:text-amber-400 font-bold text-base leading-none mt-0.5 flex-shrink-0">
+                        •
+                      </span>
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
               )}
             </div>
 
-            {/* Footer Sisi Belakang: Tombol / Hint Balik */}
-            <div className="pt-2 border-t border-white/15 flex items-center justify-between text-xs text-slate-300">
-              <span className="text-[11px] text-cyan-400 font-mono font-semibold flex items-center gap-1.5">
-                <ArrowLeft className="w-3.5 h-3.5" /> Klik untuk kembali ke foto
-              </span>
-              <span className="text-[11px] text-slate-400 font-mono">CasstroDev</span>
+            {/* Footer: Education & Flip Back Hint */}
+            <div className="pt-2.5 border-t border-[#e2d5c3] dark:border-white/15 space-y-1.5">
+              {event.education && (
+                <div className="flex items-center justify-between text-[11px] sm:text-xs text-[#5e442c] dark:text-slate-300">
+                  <span className="flex items-center gap-1.5 font-semibold truncate">
+                    <GraduationCap className="w-3.5 h-3.5 text-[#8c5a2b] dark:text-amber-400 flex-shrink-0" />
+                    <strong className="text-[#2e1d0c] dark:text-cyan-300">{event.education.degree}</strong> – {event.education.institution}
+                  </span>
+                  <span className="font-mono text-[10px] text-[#785433] dark:text-slate-400 flex-shrink-0 ml-1">
+                    {event.education.period}
+                  </span>
+                </div>
+              )}
+
+              <div className="flex items-center justify-between text-[10px] text-[#7d5d3c] dark:text-slate-400 pt-1">
+                <span className="flex items-center gap-1 text-[#5e442c] dark:text-cyan-400 font-mono font-medium">
+                  <ArrowLeft className="w-3 h-3" /> Klik untuk kembali ke foto
+                </span>
+                <span className="font-mono font-semibold">CasstroDev Team</span>
+              </div>
             </div>
           </div>
         </motion.div>
@@ -337,42 +328,19 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
 export const Timeline3D: React.FC<Timeline3DProps> = ({
   events,
   backgroundColor = "bg-transparent",
-  textColor = "text-white",
+  textColor = "",
   showImages = true,
   className = "",
 }) => {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!containerRef.current) return;
-      const rect = containerRef.current.getBoundingClientRect();
-      setMousePosition({
-        x: ((e.clientX - rect.left) / rect.width) * 2 - 1,
-        y: ((e.clientY - rect.top) / rect.height) * 2 - 1,
-      });
-    };
-
-    const container = containerRef.current;
-    if (container) {
-      container.addEventListener("mousemove", handleMouseMove);
-    }
-
-    return () => {
-      if (container) {
-        container.removeEventListener("mousemove", handleMouseMove);
-      }
-    };
-  }, []);
 
   return (
     <div
       className={`w-full ${backgroundColor} py-6 sm:py-10 md:py-14 px-0 sm:px-2 lg:px-6 overflow-hidden ${textColor} ${className} relative`}
       ref={containerRef}
     >
-      <div className="max-w-6xl mx-auto relative">
-        {/* Pinned Paper Cards - Zigzag Layout with 3D Flip & Realistic Pin */}
+      <div className="max-w-5xl mx-auto relative">
+        {/* Pinned Paper Cards - Zigzag Layout with 3D Flip & Fine Deckle Edge */}
         <div className="relative z-10 pt-2">
           {events.map((event, index) => (
             <TimelineItem
