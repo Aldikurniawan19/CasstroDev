@@ -146,106 +146,76 @@ export default async function ProjectDetailPage({ params }: PageProps) {
         </Reveal>
 
         {/* Content Section: Tech Stack, Use Cases & Benefits */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 mb-16">
-          {/* Main Content (Use Cases & Benefits) */}
-          <div className="lg:col-span-8 space-y-10">
-            {/* Tech Stack Pills */}
-            <Reveal y={25}>
-              <div className="space-y-3">
-                <h3 className="font-headline-md text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                  <Sparkles className="w-5 h-5 text-accent-cyan" />
-                  <span>Teknologi & Tools Utama</span>
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {project.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="px-3.5 py-1.5 rounded-xl bg-white dark:bg-[#07162c] text-secondary dark:text-cyan-400 text-xs font-mono font-bold border border-slate-200/90 dark:border-white/10 shadow-sm"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </Reveal>
-
-            {/* Implementasi & Fitur Utama */}
-            <Reveal y={30}>
-              <div className="bg-white dark:bg-[#07162c] border border-slate-200/90 dark:border-white/10 rounded-2xl p-6 md:p-8 shadow-sm space-y-5">
-                <h3 className="font-headline-md text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                  <CheckCircle2 className="w-5 h-5 text-emerald-500" />
-                  <span>Implementasi & Fitur Utama</span>
-                </h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                  {project.useCases.map((useCase, idx) => (
-                    <div
-                      key={idx}
-                      className="p-4 rounded-xl bg-slate-50 dark:bg-[#040d1a] border border-slate-200/80 dark:border-white/10 flex items-start gap-3"
-                    >
-                      <span className="w-6 h-6 rounded-lg bg-emerald-500/10 text-emerald-500 flex items-center justify-center shrink-0 border border-emerald-500/20 text-xs font-bold mt-0.5">
-                        {idx + 1}
-                      </span>
-                      <p className="text-sm font-medium text-slate-700 dark:text-slate-300 leading-relaxed">
-                        {useCase}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </Reveal>
-
-            {/* Manfaat & Hasil Bisnis */}
-            <Reveal y={35}>
-              <div className="bg-white dark:bg-[#07162c] border border-slate-200/90 dark:border-white/10 rounded-2xl p-6 md:p-8 shadow-sm space-y-5">
-                <h3 className="font-headline-md text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                  <TrendingUp className="w-5 h-5 text-blue-500" />
-                  <span>Dampak & Manfaat Bisnis</span>
-                </h3>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                  {project.benefits.map((benefit, idx) => (
-                    <div
-                      key={idx}
-                      className="p-4 sm:p-5 rounded-xl bg-slate-50 dark:bg-[#040d1a] border border-slate-200/80 dark:border-white/10 space-y-2"
-                    >
-                      <h4 className="font-bold text-slate-900 dark:text-white text-sm">
-                        {benefit.title}
-                      </h4>
-                      <p className="text-xs text-text-muted dark:text-slate-400 leading-relaxed">
-                        {benefit.description}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </Reveal>
-          </div>
-
-          {/* Sidebar CTA Card */}
-          <div className="lg:col-span-4">
-            <Reveal y={30}>
-              <div className="sticky top-28 bg-gradient-to-b from-primary-container to-[#002b5b] text-white rounded-2xl p-6 md:p-8 shadow-xl space-y-6">
-                <div className="space-y-3">
-                  <span className="text-xs font-mono font-bold uppercase tracking-wider text-accent-cyan bg-accent-cyan/10 border border-accent-cyan/30 px-3 py-1 rounded-full inline-block">
-                    Siap Memulai?
+        <div className="w-full space-y-10 mb-16">
+          {/* Tech Stack Pills */}
+          <Reveal y={25}>
+            <div className="space-y-3">
+              <h3 className="font-headline-md text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                <Sparkles className="w-5 h-5 text-accent-cyan" />
+                <span>Teknologi & Tools Utama</span>
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {project.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="px-3.5 py-1.5 rounded-xl bg-white dark:bg-[#07162c] text-secondary dark:text-cyan-400 text-xs font-mono font-bold border border-slate-200/90 dark:border-white/10 shadow-sm"
+                  >
+                    {tag}
                   </span>
-                  <h3 className="font-headline-md text-xl font-bold leading-snug">
-                    Ingin Solusi Perangkat Lunak Seperti Ini?
-                  </h3>
-                  <p className="text-sm text-white/80 leading-relaxed">
-                    Konsultasikan kebutuhan aplikasi atau sistem perusahaan Anda secara langsung bersama tim insinyur senior kami.
-                  </p>
-                </div>
-
-                <Link
-                  href="/kontak"
-                  className="btn-animated w-full py-3.5 px-6 rounded-xl bg-accent-cyan hover:bg-cyan-400 text-slate-950 font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/20 transition-all cursor-pointer"
-                >
-                  <span>Mulai Konsultasi Gratis</span>
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
+                ))}
               </div>
-            </Reveal>
-          </div>
+            </div>
+          </Reveal>
+
+          {/* Implementasi & Fitur Utama */}
+          <Reveal y={30}>
+            <div className="bg-white dark:bg-[#07162c] border border-slate-200/90 dark:border-white/10 rounded-2xl p-6 md:p-8 shadow-sm space-y-5">
+              <h3 className="font-headline-md text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                <CheckCircle2 className="w-5 h-5 text-emerald-500" />
+                <span>Implementasi & Fitur Utama</span>
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {project.useCases.map((useCase, idx) => (
+                  <div
+                    key={idx}
+                    className="p-4 sm:p-5 rounded-xl bg-slate-50 dark:bg-[#040d1a] border border-slate-200/80 dark:border-white/10 flex items-start gap-3.5 hover:border-emerald-500/30 transition-colors"
+                  >
+                    <span className="w-7 h-7 rounded-lg bg-emerald-500/10 text-emerald-500 flex items-center justify-center shrink-0 border border-emerald-500/20 text-xs font-bold mt-0.5">
+                      {idx + 1}
+                    </span>
+                    <p className="text-sm md:text-base font-medium text-slate-700 dark:text-slate-300 leading-relaxed">
+                      {useCase}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Reveal>
+
+          {/* Manfaat & Hasil Bisnis */}
+          <Reveal y={35}>
+            <div className="bg-white dark:bg-[#07162c] border border-slate-200/90 dark:border-white/10 rounded-2xl p-6 md:p-8 shadow-sm space-y-5">
+              <h3 className="font-headline-md text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                <TrendingUp className="w-5 h-5 text-blue-500" />
+                <span>Dampak & Manfaat Bisnis</span>
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {project.benefits.map((benefit, idx) => (
+                  <div
+                    key={idx}
+                    className="p-4 sm:p-5 rounded-xl bg-slate-50 dark:bg-[#040d1a] border border-slate-200/80 dark:border-white/10 space-y-2"
+                  >
+                    <h4 className="font-bold text-slate-900 dark:text-white text-sm md:text-base">
+                      {benefit.title}
+                    </h4>
+                    <p className="text-xs sm:text-sm text-text-muted dark:text-slate-400 leading-relaxed">
+                      {benefit.description}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Reveal>
         </div>
 
         {/* Prev / Next Project Navigation Bar */}

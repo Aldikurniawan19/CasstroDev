@@ -101,12 +101,34 @@ const FAQ_KNOWLEDGE_BASE: Record<
     ctaUrl: "/kontak",
     ctaText: "Tanyakan Layanan Maintenance",
   },
+  konsultasi: {
+    answer:
+      "Kami menyediakan sesi konsultasi teknis gratis untuk mendiskusikan arsitektur sistem, pemilihan stack teknologi, hingga roadmap estimasi budget proyek Anda.",
+    ctaUrl: "/kontak",
+    ctaText: "Jadwalkan Konsultasi Gratis",
+  },
 };
 
 const INITIAL_CHIPS = [
   { label: "💰 Estimasi Biaya Proyek", actionId: "biaya" },
   { label: "⏱️ Durasi Pengerjaan", actionId: "durasi" },
-  { label: "🔄 Batas Jumlah Revisi", actionId: "revisi" },
+  { label: "🔄 Garansi Revisi", actionId: "revisi" },
+  { label: "✨ Pertanyaan Lainnya", actionId: "show_all_topics" },
+];
+
+const ALL_QUESTION_CHIPS = [
+  { label: "💰 Estimasi Biaya Proyek", actionId: "biaya" },
+  { label: "⏱️ Durasi Pengerjaan", actionId: "durasi" },
+  { label: "🔄 Garansi Revisi", actionId: "revisi" },
+  { label: "💳 Termin Pembayaran & DP", actionId: "pembayaran" },
+  { label: "💻 Hak Milik Source Code", actionId: "sourcecode" },
+  { label: "🌐 Domain & Hosting Cloud", actionId: "hosting" },
+  { label: "📱 Aplikasi Mobile (Android/iOS)", actionId: "mobile" },
+  { label: "🔒 Keamanan Data & NDA", actionId: "keamanan" },
+  { label: "⚡ Pilihan Tech Stack", actionId: "techstack" },
+  { label: "📋 Alur & Proses Kerja", actionId: "alur" },
+  { label: "🛡️ Garansi Bug & Support", actionId: "garansi" },
+  { label: "🚀 Konsultasi Proyek Baru", actionId: "konsultasi" },
 ];
 
 export default function WhatsAppFloatingButton() {
@@ -126,7 +148,7 @@ export default function WhatsAppFloatingButton() {
     {
       id: "welcome-1",
       sender: "bot",
-      text: "Halo! 👋 Saya AstroChat. Silakan ketik pertanyaan Anda atau pilih topik di bawah ini:",
+      text: "Halo! 👋 Saya AstroChat. Silakan klik pertanyaan yang sering ditanyakan di bawah ini atau ketik langsung pertanyaan Anda:",
       options: INITIAL_CHIPS,
     },
   ]);
@@ -196,7 +218,8 @@ export default function WhatsAppFloatingButton() {
       q.includes("lunas") ||
       q.includes("cicil") ||
       q.includes("transfer") ||
-      q.includes("kontrak")
+      q.includes("kontrak") ||
+      q.includes("invoice")
     ) {
       return "pembayaran";
     }
@@ -221,7 +244,9 @@ export default function WhatsAppFloatingButton() {
       q.includes("hp") ||
       q.includes("playstore") ||
       q.includes("appstore") ||
-      q.includes("apk")
+      q.includes("apk") ||
+      q.includes("flutter") ||
+      q.includes("react native")
     ) {
       return "mobile";
     }
@@ -234,7 +259,8 @@ export default function WhatsAppFloatingButton() {
       q.includes("price") ||
       q.includes("rate") ||
       q.includes("murah") ||
-      q.includes("budget")
+      q.includes("budget") ||
+      q.includes("tarif")
     ) {
       return "biaya";
     }
@@ -247,7 +273,8 @@ export default function WhatsAppFloatingButton() {
       q.includes("hari") ||
       q.includes("bulan") ||
       q.includes("minggu") ||
-      q.includes("cepat")
+      q.includes("cepat") ||
+      q.includes("timeline")
     ) {
       return "durasi";
     }
@@ -261,7 +288,8 @@ export default function WhatsAppFloatingButton() {
       q.includes("next") ||
       q.includes("laravel") ||
       q.includes("node") ||
-      q.includes("postgres")
+      q.includes("postgres") ||
+      q.includes("teknologi")
     ) {
       return "techstack";
     }
@@ -273,7 +301,8 @@ export default function WhatsAppFloatingButton() {
       q.includes("langkah") ||
       q.includes("cara") ||
       q.includes("kerja") ||
-      q.includes("mulai")
+      q.includes("mulai") ||
+      q.includes("workflow")
     ) {
       return "alur";
     }
@@ -293,6 +322,20 @@ export default function WhatsAppFloatingButton() {
       return q.includes("nda") || q.includes("privasi") || q.includes("rahasia")
         ? "keamanan"
         : "garansi";
+    }
+
+    if (
+      q.includes("konsultasi") ||
+      q.includes("diskusi") ||
+      q.includes("tanya") ||
+      q.includes("kontak") ||
+      q.includes("hubungi") ||
+      q.includes("meeting") ||
+      q.includes("zoom") ||
+      q.includes("custom") ||
+      q.includes("kustom")
+    ) {
+      return "konsultasi";
     }
 
     return null;
@@ -315,14 +358,22 @@ export default function WhatsAppFloatingButton() {
       const kbItem = FAQ_KNOWLEDGE_BASE[matchedKey];
 
       if (kbItem) {
-        // Matched Known Answer
+        // Matched Known Answer - provide 2 other questions + "Pertanyaan Lainnya" option
+        const remainingOptions = ALL_QUESTION_CHIPS.filter(
+          (c) => c.actionId !== matchedKey
+        );
+        const suggestedOptions = [
+          ...remainingOptions.slice(0, 2),
+          { label: "✨ Pertanyaan Lainnya", actionId: "show_all_topics" },
+        ];
+
         const botMsg: ChatMessage = {
           id: `bot-${Date.now()}`,
           sender: "bot",
           text: kbItem.answer,
           ctaUrl: kbItem.ctaUrl,
           ctaText: kbItem.ctaText,
-          options: INITIAL_CHIPS.filter((c) => c.actionId !== matchedKey).slice(0, 2),
+          options: suggestedOptions,
         };
         setMessages((prev) => [...prev, botMsg]);
       } else {
@@ -336,7 +387,8 @@ export default function WhatsAppFloatingButton() {
           ctaText: "💬 Chat Langsung via WhatsApp",
           options: [
             { label: "📧 Kirim Form Konsultasi (/kontak)", actionId: "go_kontak" },
-            { label: "🔄 Tanya Pertanyaan Lain", actionId: "reset_chat" },
+            { label: "✨ Lihat Semua Topik", actionId: "show_all_topics" },
+            { label: "🔄 Reset Obrolan", actionId: "reset_chat" },
           ],
         };
         setMessages((prev) => [...prev, fallbackMsg]);
@@ -352,6 +404,21 @@ export default function WhatsAppFloatingButton() {
     }
     if (actionId === "reset_chat") {
       handleResetChat();
+      return;
+    }
+    if (actionId === "show_all_topics") {
+      const userMsg: ChatMessage = {
+        id: `user-${Date.now()}`,
+        sender: "user",
+        text: label || "Pertanyaan Lainnya",
+      };
+      const botMsg: ChatMessage = {
+        id: `bot-${Date.now() + 1}`,
+        sender: "bot",
+        text: "Berikut seluruh topik dan pertanyaan yang dapat Anda pilih:",
+        options: ALL_QUESTION_CHIPS,
+      };
+      setMessages((prev) => [...prev, userMsg, botMsg]);
       return;
     }
     processBotResponse(actionId, label);
@@ -371,7 +438,7 @@ export default function WhatsAppFloatingButton() {
       {
         id: `welcome-${Date.now()}`,
         sender: "bot",
-        text: "Chatbot telah direset. Silakan ketik pertanyaan Anda atau pilih topik yang tersedia:",
+        text: "Chatbot telah direset. Silakan ketik pertanyaan Anda atau pilih topik di bawah ini:",
         options: INITIAL_CHIPS,
       },
     ]);
@@ -431,11 +498,10 @@ export default function WhatsAppFloatingButton() {
                 <button
                   type="button"
                   onClick={() => setActiveTab("bot")}
-                  className={`py-1.5 px-3 rounded-lg font-mono text-label-sm font-semibold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
-                    activeTab === "bot"
+                  className={`py-1.5 px-3 rounded-lg font-mono text-label-sm font-semibold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${activeTab === "bot"
                       ? "bg-blue-600 text-white shadow-sm"
                       : "text-slate-400 hover:text-white"
-                  }`}
+                    }`}
                 >
                   <Bot className="w-3.5 h-3.5" />
                   <span>AstroChat</span>
@@ -443,11 +509,10 @@ export default function WhatsAppFloatingButton() {
                 <button
                   type="button"
                   onClick={() => setActiveTab("wa")}
-                  className={`py-1.5 px-3 rounded-lg font-mono text-label-sm font-semibold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
-                    activeTab === "wa"
+                  className={`py-1.5 px-3 rounded-lg font-mono text-label-sm font-semibold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${activeTab === "wa"
                       ? "bg-emerald-600 text-white shadow-sm"
                       : "text-slate-400 hover:text-white"
-                  }`}
+                    }`}
                 >
                   <MessageCircle className="w-3.5 h-3.5" />
                   <span>Hubungi WA</span>
@@ -463,17 +528,15 @@ export default function WhatsAppFloatingButton() {
                   {messages.map((msg) => (
                     <div
                       key={msg.id}
-                      className={`flex flex-col ${
-                        msg.sender === "user" ? "items-end" : "items-start"
-                      }`}
+                      className={`flex flex-col ${msg.sender === "user" ? "items-end" : "items-start"
+                        }`}
                     >
                       {/* Message Bubble */}
                       <div
-                        className={`max-w-[85%] p-3.5 rounded-2xl text-xs sm:text-sm leading-relaxed shadow-sm ${
-                          msg.sender === "user"
+                        className={`max-w-[85%] p-3.5 rounded-2xl text-xs sm:text-sm leading-relaxed shadow-sm ${msg.sender === "user"
                             ? "bg-blue-600 text-white rounded-br-none"
                             : "bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 border border-slate-200/80 dark:border-slate-700/80 rounded-bl-none"
-                        }`}
+                          }`}
                       >
                         {msg.text}
 
@@ -506,17 +569,26 @@ export default function WhatsAppFloatingButton() {
 
                       {/* Quick Option Chips */}
                       {msg.options && msg.options.length > 0 && (
-                        <div className="mt-3 flex flex-wrap gap-1.5">
-                          {msg.options.map((opt) => (
-                            <button
-                              key={opt.actionId}
-                              type="button"
-                              onClick={() => handleSelectOption(opt.actionId, opt.label)}
-                              className="btn-animated px-3 py-1.5 rounded-xl bg-white dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-blue-950/60 text-slate-700 dark:text-blue-300 hover:text-blue-600 dark:hover:text-blue-200 border border-slate-200 dark:border-slate-700 text-xs font-medium shadow-sm cursor-pointer"
-                            >
-                              {opt.label}
-                            </button>
-                          ))}
+                        <div className="mt-3 flex flex-wrap gap-1.5 max-w-full">
+                          {msg.options.map((opt) => {
+                            const isSpecial =
+                              opt.actionId === "show_all_topics" ||
+                              opt.actionId === "reset_chat" ||
+                              opt.actionId === "go_kontak";
+                            return (
+                              <button
+                                key={opt.actionId}
+                                type="button"
+                                onClick={() => handleSelectOption(opt.actionId, opt.label)}
+                                className={`btn-animated px-3 py-1.5 rounded-xl text-xs font-medium shadow-sm transition-all duration-150 cursor-pointer text-left flex items-center gap-1.5 ${isSpecial
+                                    ? "bg-blue-50 dark:bg-blue-950/70 hover:bg-blue-100 dark:hover:bg-blue-900 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800 font-semibold"
+                                    : "bg-white dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-blue-950/60 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-300 border border-slate-200 dark:border-slate-700"
+                                  }`}
+                              >
+                                <span>{opt.label}</span>
+                              </button>
+                            );
+                          })}
                         </div>
                       )}
                     </div>

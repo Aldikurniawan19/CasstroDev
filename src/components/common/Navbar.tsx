@@ -53,11 +53,10 @@ export default function Navbar() {
               <Link
                 key={item.id}
                 href={item.href}
-                className={`font-headline-md text-[16px] leading-[1.3] transition-colors relative py-1 ${
-                  isActive
+                className={`font-headline-md text-[16px] leading-[1.3] transition-colors relative py-1 ${isActive
                     ? "text-primary dark:text-primary-container font-semibold border-b-2 border-accent-cyan"
                     : "text-text-muted dark:text-on-surface-variant hover:text-primary"
-                }`}
+                  }`}
               >
                 {item.name}
               </Link>
@@ -100,11 +99,10 @@ export default function Navbar() {
                 key={item.id}
                 href={item.href}
                 onClick={() => setOpen(false)}
-                className={`font-headline-md text-lg py-2 border-b border-border-subtle/50 transition-colors ${
-                  isActive
+                className={`font-headline-md text-lg py-2 border-b border-border-subtle/50 transition-colors ${isActive
                     ? "text-primary dark:text-primary-container font-bold pl-2 border-l-4 border-l-accent-cyan"
                     : "text-text-muted dark:text-on-surface-variant hover:text-primary"
-                }`}
+                  }`}
               >
                 {item.name}
               </Link>

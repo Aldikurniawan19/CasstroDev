@@ -140,8 +140,8 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="relative pt-10 sm:pt-14 md:pt-16 pb-16 md:pb-24 grid-layout items-center overflow-hidden" id="hero">
-      {/* Background Graphic on Mobile & Tablet (< xl) - Holographic Blueprint */}
+<section className="relative pt-4 sm:pt-6 md:pt-8 pb-16 md:pb-24 grid-layout items-center overflow-hidden" id="hero">    
+  {/* Background Graphic on Mobile & Tablet (< xl) - Holographic Blueprint */}
       <Reveal
         delay={0.1}
         className="hero-bg-graphic absolute inset-0 w-full h-full flex items-center justify-center opacity-60 dark:opacity-40 blur-[1.5px] pointer-events-none xl:hidden z-0 overflow-hidden"
